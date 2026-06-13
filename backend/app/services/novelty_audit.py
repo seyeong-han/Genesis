@@ -16,6 +16,7 @@ No external deps beyond the stdlib urllib — same as the ingest pipeline.
 from __future__ import annotations
 
 import json
+import re
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass, field
@@ -75,6 +76,50 @@ def _search_openalex(query: str, n: int = 5) -> list[dict]:
     return results
 
 
+def _tokens(text: str) -> set[str]:
+    """Tokenise for lightweight relevance filtering."""
+    stop = {
+        "the", "and", "for", "with", "that", "this", "from", "into", "does",
+        "need", "single", "others", "general", "approach", "architecture",
+        "hybrid", "unified", "model", "models", "paper", "study",
+    }
+    return {
+        t for t in re.findall(r"[a-zA-Z][a-zA-Z0-9_-]{2,}", text.lower())
+        if t not in stop
+    }
+
+
+def _rank_relevant_candidates(
+    candidates: list[dict],
+    hypothesis: str,
+    queries: list[str],
+) -> list[dict]:
+    """Rank/filter candidates so generic collisions like "hybrid detector
+    architecture" don't appear as nearest work for ML architecture questions."""
+    query_text = " ".join([hypothesis] + queries)
+    key_tokens = _tokens(query_text)
+    # Domain anchors that indicate neural/ML architecture relevance.
+    anchors = {
+        "neural", "learning", "machine", "transformer", "attention",
+        "diffusion", "convolution", "cnn", "language", "generative",
+        "autoregressive", "architecture", "architectures",
+    }
+
+    ranked = []
+    for c in candidates:
+        haystack = f"{c.get('title', '')} {c.get('abstract', '')}"
+        toks = _tokens(haystack)
+        overlap = len(key_tokens & toks)
+        anchor_hit = len(anchors & toks)
+        score = overlap + 3 * anchor_hit
+        if score >= 3:
+            c = dict(c)
+            c["_relevance_score"] = score
+            ranked.append(c)
+    ranked.sort(key=lambda c: (c.get("_relevance_score", 0), c.get("cited_by_count", 0)), reverse=True)
+    return ranked
+
+
 @dataclass
 class NearestPaper:
     title: str
@@ -118,7 +163,10 @@ def _extract_hypothesis_and_queries(llm: LLMClient, report_text: str) -> dict:
         "extract the single most specific cross-disciplinary hypothesis and suggest "
         "2-3 OpenAlex search queries to look for prior work that already makes this "
         "same cross-field bridge. Be specific — query the bridge itself, not just "
-        "the individual concepts. Return JSON only."
+        "the individual concepts. Include the domain anchors from the hypothesis "
+        "(for ML questions: machine learning, neural network, transformer, diffusion, "
+        "convolution/CNN, generative model). Avoid generic phrases like just "
+        "'hybrid architecture'. Return JSON only."
     )
     user = (
         f"Brief excerpt (first 3000 chars):\n{report_text[:3000]}\n\n"
@@ -197,6 +245,10 @@ def run_novelty_audit(report_text: str) -> NoveltyResult:
         if key and key not in seen_dois:
             seen_dois.add(key)
             unique_candidates.append(c)
+
+    relevant_candidates = _rank_relevant_candidates(unique_candidates, hypothesis, queries)
+    if relevant_candidates:
+        unique_candidates = relevant_candidates
 
     # Step 3: judge novelty
     judgement = _judge_novelty(llm, hypothesis, unique_candidates[:10])
