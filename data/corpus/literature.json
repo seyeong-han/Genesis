@@ -1,0 +1,22 @@
+{
+  "domain": "Arts",
+  "discipline": "Literature",
+  "concept": "distant reading quantitative literature",
+  "concept_id": "A5025268241",
+  "author": "Franco Moretti",
+  "author_openalex_id": "A5025268241",
+  "institution": "Institute for Advanced Study",
+  "papers": [
+    {
+      "openalex_id": "W4393315409",
+      "title": "Teorie sítí a analýza syžetu",
+      "year": 2019,
+      "cited_by_count": 1,
+      "doi": "https://doi.org/10.62804/aa.2019.003",
+      "oa_pdf_url": "http://arteacta.cz/doi/10.62804/aa.2019.003.pdf",
+      "abstract": "V nkolika mlo poslednch letech zaila literrn vda nco, co bychom mohli nazvat nrstem kvantitativnch dkaz. K tomu u kdysi dolo, ani by to vyvolalo dlouhodobj efekt, ale tentokrt tomu pravdpodobn bude jinak, protoe te u mme k dispozici digitln databze a automatick vyhledvae dat. Jak jasn ukzal nedvn lnek o kulturomice (culturomics) v asopise Science, pedila ka korpusu a rychlost vyhledvn vechna oekvn. Dnes meme v nkolika mlo minutch zopakovat vzkum, kter veliknovi, jakm byl Leo Spitzer, zabral msce a roky prce. V oblasti jazyka a stylu meme dlat vci, o kterch se pedelm generacm mohlo jen zdt."
+    }
+  ],
+  "origin_lens": "the large-scale shape of literature",
+  "author_total_citations": 3095
+}

@@ -1,0 +1,5 @@
+# Genesis Engine — runtime deps
+# Mock mode (default) needs NONE of these; it runs on the Python stdlib alone.
+# Live mode (Claude brain) needs these:
+anthropic>=0.39.0
+python-dotenv>=1.0.0

@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+.env
+examples/last_run.md

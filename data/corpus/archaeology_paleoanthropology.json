@@ -1,0 +1,22 @@
+{
+  "domain": "Social Sciences",
+  "discipline": "Archaeology & Paleoanthropology",
+  "concept": "symbolic archaeology origins",
+  "concept_id": "A5015911878",
+  "author": "Ian Hodder",
+  "author_openalex_id": "A5015911878",
+  "institution": "Koç University",
+  "papers": [
+    {
+      "openalex_id": "W3154743602",
+      "title": "Variable kinship patterns in Neolithic Anatolia revealed by ancient genomes",
+      "year": 2021,
+      "cited_by_count": 114,
+      "doi": "https://doi.org/10.1016/j.cub.2021.03.050",
+      "oa_pdf_url": "http://www.cell.com/article/S0960982221004231/pdf",
+      "abstract": "and possibly in some other Neolithic communities, domestic structures may have served as burial location for social units incorporating biologically unrelated individuals. Our results underscore the diversity of kin structures in Neolithic communities during this important phase of sociocultural development."
+    }
+  ],
+  "origin_lens": "the birth of symbolic culture",
+  "author_total_citations": 19497
+}

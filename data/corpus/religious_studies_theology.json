@@ -1,0 +1,22 @@
+{
+  "domain": "Humanities",
+  "discipline": "Religious Studies & Theology",
+  "concept": "cognitive science of religion big gods",
+  "concept_id": "A5026147791",
+  "author": "Ara Norenzayan",
+  "author_openalex_id": "A5026147791",
+  "institution": "University of British Columbia Hospital",
+  "papers": [
+    {
+      "openalex_id": "W2270769484",
+      "title": "Moralistic gods, supernatural punishment and the expansion of human sociality",
+      "year": 2016,
+      "cited_by_count": 504,
+      "doi": "https://doi.org/10.1038/nature16980",
+      "oa_pdf_url": null,
+      "abstract": "Using economic games, the authors examine the role of religion in the persistence of human cooperation; individuals who claim that their gods are moralizing, punitive and knowledgeable about human affairs are more likely to play fairly towards geographically distant co-religionists. How has cooperation persisted in human societies that are increasingly large and complex, where simple relatedness is not necessarily sufficient? These authors examine the role of religion and gods that are moralizing, punitive, and take a specific interest in human affairs. Using economic games and ethnographic interviews, the authors tested more than 500 individuals following Christianity, Hinduism, Buddhism, and local traditions including animism and ancestor worship. They find that those who believe in gods they perceive as moralistic, punitive and knowing are most likely to be generous to geographically distant co-religionists. Since the origins of agriculture, the scale of human cooperation and societal complexity has dramatically expanded1,2. This fact challenges standard evolutionary explanations of prosociality because well-studied mechanisms of cooperation based on genetic relatedness, reciprocity and partner choice falter as people increasingly engage in fleeting transactions with genetically unrelated strangers in large anonymous groups. To explain this rapid expansion of prosociality, researchers have proposed several mechanisms3,4. Here we focus on one key hypothesis: cognitive representations of gods as increasingly knowledgeable and punitive, and who sanction violators of interpersonal social norms, foster and sustain the expansion of cooperation, trust and fairness towards co-religionist strangers5,6,7,8. We tested this hypothesis using extensive ethnographic interviews and two behavioural games designed to measure impartial rule-following among people (n = 591, observations = 35,400) from eight diverse communities from around the world: (1) inland Tanna, Vanuatu; (2) coastal Tanna, Vanuatu; (3) Yasawa, Fiji; (4) Lovu, Fiji; (5) Pesqueiro, Brazil; (6) Pointe aux Piments, Mauritius; (7) the Tyva Republic (Siberia), Russia; and (8) Hadzaland, Tanzania. Participants reported adherence to a wide array of world religious traditions including Christianity, Hinduism and Buddhism, as well as notably diverse local traditions, including animism and ancestor worship. Holding a range of relevant variables constant, the higher participants rated their moralistic gods as punitive and knowledgeable about human thoughts and actions, the more coins they allocated to geographically distant co-religionist strangers relative to both themselves and local co-religionists. Our results support the hypothesis that beliefs in moralistic, punitive and knowing gods increase impartial behaviour towards distant co-religionists, and therefore can contribute to the expansion of prosociality."
+    }
+  ],
+  "origin_lens": "the cognitive origin of the sacred",
+  "author_total_citations": 38480
+}

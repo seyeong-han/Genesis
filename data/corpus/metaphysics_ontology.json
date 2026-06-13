@@ -1,0 +1,22 @@
+{
+  "domain": "Humanities",
+  "discipline": "Metaphysics & Ontology",
+  "concept": "metaphysics of physics time",
+  "concept_id": "A5010243610",
+  "author": "Tim Maudlin",
+  "author_openalex_id": "A5010243610",
+  "institution": null,
+  "papers": [
+    {
+      "openalex_id": "W1522516632",
+      "title": "The Metaphysics Within Physics",
+      "year": 2007,
+      "cited_by_count": 1280,
+      "doi": "https://doi.org/10.1093/acprof:oso/9780199218219.001.0001",
+      "oa_pdf_url": null,
+      "abstract": "What does physics tell us about metaphysics? Tim Maudlin's philosophical examination of the fundamental structure of the world as presented by physics challenges the most widely accepted philosophical accounts of laws of nature, universals the direction of time and causation."
+    }
+  ],
+  "origin_lens": "what physics implies about what exists",
+  "author_total_citations": 5087
+}

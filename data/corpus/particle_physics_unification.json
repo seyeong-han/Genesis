@@ -1,0 +1,22 @@
+{
+  "domain": "Physical Sciences",
+  "discipline": "Particle Physics & Unification",
+  "concept": "unified theory symmetry",
+  "concept_id": "A5043632498",
+  "author": "Steven Weinberg",
+  "author_openalex_id": "A5043632498",
+  "institution": "University of North Carolina at Chapel Hill",
+  "papers": [
+    {
+      "openalex_id": "W2070151728",
+      "title": "A Model of Leptons",
+      "year": 1967,
+      "cited_by_count": 7277,
+      "doi": "https://doi.org/10.1103/physrevlett.19.1264",
+      "oa_pdf_url": "http://link.aps.org/pdf/10.1103/PhysRevLett.19.1264",
+      "abstract": "Received 17 October 1967DOI:https://doi.org/10.1103/PhysRevLett.19.1264©1967 American Physical Society"
+    }
+  ],
+  "origin_lens": "the search for a single underlying law",
+  "author_total_citations": 103252
+}

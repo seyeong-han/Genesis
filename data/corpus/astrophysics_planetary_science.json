@@ -1,0 +1,22 @@
+{
+  "domain": "Physical Sciences",
+  "discipline": "Astrophysics & Planetary Science",
+  "concept": "exoplanet atmosphere biosignature",
+  "concept_id": "A5041366168",
+  "author": "Sara Seager",
+  "author_openalex_id": "A5041366168",
+  "institution": "American Institute of Aeronautics and Astronautics",
+  "papers": [
+    {
+      "openalex_id": "W3037016578",
+      "title": "Exoplanet Atmospheres",
+      "year": 2010,
+      "cited_by_count": 432,
+      "doi": "https://doi.org/10.1146/annurev-astro-081309-130837",
+      "oa_pdf_url": "https://arxiv.org/pdf/1005.4037",
+      "abstract": "At the dawn of the first discovery of exoplanets orbiting Sun-like stars in the mid-1990s, few believed that observations of exoplanet atmospheres would ever be possible. After the 2002 Hubble Space Telescope detection of a transiting exoplanet atmosphere, many skeptics discounted it as a one-object, one-method success. Nevertheless, the field is now firmly established, with over two dozen exoplanet atmospheres observed today. Hot Jupiters are the type of exoplanet currently most amenable to study. Highlights include: detection of molecular spectral features, observation of day-night temperature gradients, and constraints on vertical atmospheric structure. Atmospheres of giant planets far from their host stars are also being studied with direct imaging. The ultimate exoplanet goal is to answer the enigmatic and ancient question, “Are we alone?” via detection of atmospheric biosignatures. Two exciting prospects are the immediate focus on transiting super Earths orbiting in the habitable zone of M-dwarfs, and ultimately the spaceborne direct imaging of true Earth analogs."
+    }
+  ],
+  "origin_lens": "detecting life across cosmic distance",
+  "author_total_citations": 47081
+}

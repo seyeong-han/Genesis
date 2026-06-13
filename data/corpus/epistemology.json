@@ -1,0 +1,22 @@
+{
+  "domain": "Humanities",
+  "discipline": "Epistemology",
+  "concept": "epistemology knowledge justification",
+  "concept_id": "A5101806542",
+  "author": "Alvin I. Goldman",
+  "author_openalex_id": "A5101806542",
+  "institution": null,
+  "papers": [
+    {
+      "openalex_id": "W2152321927",
+      "title": "Epistemology and Cognition.",
+      "year": 1989,
+      "cited_by_count": 1280,
+      "doi": "https://doi.org/10.2307/2185025",
+      "oa_pdf_url": null,
+      "abstract": "Introduction Part I: Theoretical Foundations 1. The Elements of Epistemology 2. Skepticism 3. Knowledge 4. Justification: A Rule Framework 5. Justification and Reliability 6. Problem Solving, Power, and Speed 7. Truth and Realism 8. The Problem of Content Part II: Assessing Our Cognitive Resources 9. Perception 10. Memory 11. Constraints on Representation 12. Internal Codes 13. Deductive Reasoning 14. Probability judgments 15. Acceptance and Uncertainty 16. Belief Updating 17. Production Systems and Second-Order Processes Conclusion: Primary Epistemics and Cognitive Science Notes Illustration Credits Author Index Subject Index"
+    }
+  ],
+  "origin_lens": "what it is to know",
+  "author_total_citations": 24529
+}

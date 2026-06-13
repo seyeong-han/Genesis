@@ -1,0 +1,22 @@
+{
+  "domain": "Social Sciences",
+  "discipline": "Depth Psychology & Psychoanalysis",
+  "concept": "consciousness affect unconscious",
+  "concept_id": "A5056005467",
+  "author": "Mark Solms",
+  "author_openalex_id": "A5056005467",
+  "institution": "University of Cape Town",
+  "papers": [
+    {
+      "openalex_id": "W2012176474",
+      "title": "The Conscious Id",
+      "year": 2013,
+      "cited_by_count": 271,
+      "doi": "https://doi.org/10.1080/15294145.2013.10773711",
+      "oa_pdf_url": null,
+      "abstract": "AbstractTwo aspects of the body are represented in the brain, and they are represented differently. The most important difference is that the brain regions for the two aspects of the body are associated with different aspects of consciousness. Very broadly speaking, the brainstem mechanisms derived from the autonomic body are associated with affective consciousness, and the cortical mechanisms derived from the sensorimotor body are associated with cognitive consciousness. Moreover, the upper brainstem is intrinsically conscious whereas the cortex is not; it derives its consciousness from the brainstem. These facts have substantial implications for psychoanalytic metapsychology because the upper brainstem (and associated limbic structures) performs the functions that Freud attributed to the id, while the cortex (and associated forebrain structures) performs the functions he attributed to the ego. This means that the id is the fount of consciousness and the ego is unconscious in itself. The basis for these conclusions, and some of their implications, are discussed here in a preliminary fashion.Keywords: affectcognitionconsciousegoidunconscious"
+    }
+  ],
+  "origin_lens": "the hidden, affective roots of the self",
+  "author_total_citations": 8159
+}

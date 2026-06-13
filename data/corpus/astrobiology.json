@@ -1,0 +1,22 @@
+{
+  "domain": "Life Sciences",
+  "discipline": "Astrobiology",
+  "concept": "synthetic biology weird life",
+  "concept_id": "A5005259044",
+  "author": "Steven A. Benner",
+  "author_openalex_id": "A5005259044",
+  "institution": "Firebird Biomolecular Sciences (United States)",
+  "papers": [
+    {
+      "openalex_id": "W2117819197",
+      "title": "Setting the Stage: The History, Chemistry, and Geobiology behind RNA",
+      "year": 2010,
+      "cited_by_count": 66,
+      "doi": "https://doi.org/10.1101/cshperspect.a003541",
+      "oa_pdf_url": "http://cshperspectives.cshlp.org/content/4/1/a003541.full.pdf",
+      "abstract": "No community-accepted scientific methods are available today to guide studies on what role RNA played in the origin and early evolution of life on Earth. Further, a definition-theory for life is needed to develop hypotheses relating to the \"RNA First\" model for the origin of life. Four approaches are currently at various stages of development of such a definition-theory to guide these studies. These are (a) paleogenetics, in which inferences about the structure of past life are drawn from the structure of present life; (b) prebiotic chemistry, in which hypotheses with experimental support are sought that get RNA from organic and inorganic species possibly present on early Earth; (c) exploration, hoping to encounter life independent of terran life, which might contain RNA; and (d) synthetic biology, in which laboratories attempt to reproduce biological behavior with unnatural chemical systems."
+    }
+  ],
+  "origin_lens": "life not as we know it",
+  "author_total_citations": 25620
+}

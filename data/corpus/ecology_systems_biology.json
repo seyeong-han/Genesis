@@ -1,0 +1,22 @@
+{
+  "domain": "Life Sciences",
+  "discipline": "Ecology & Systems Biology",
+  "concept": "complexity ecosystems self-organization",
+  "concept_id": "A5077712228",
+  "author": "Simon A. Levin",
+  "author_openalex_id": "A5077712228",
+  "institution": "Princeton University",
+  "papers": [
+    {
+      "openalex_id": "W1976128508",
+      "title": "Are We Consuming Too Much?",
+      "year": 2004,
+      "cited_by_count": 831,
+      "doi": "https://doi.org/10.1257/0895330042162377",
+      "oa_pdf_url": "https://www.aeaweb.org/articles/pdf/doi/10.1257/0895330042162377",
+      "abstract": "This paper articulates and applies frameworks for examining whether consumption is excessive. We consider two criteria for the possible excessiveness (or insufficiency) of current consumption. One is an intertemporal utility-maximization criterion: actual current consumption is deemed excessive if it is higher than the level of current consumption on the consumption path that maximizes the present discounted value of utility. The other is a sustainability criterion, which requires that current consumption be consistent with non-declining living standards over time. We extend previous theoretical approaches by offering a formula for the sustainability criterion that accounts for population growth and technological change. In applying this formula, we find that some poor regions of the world are failing to meet the sustainability criterion: in these regions, genuine wealth per capita is falling as investments in human and manufactured capital are not sufficient to offset the depletion of natural capital."
+    }
+  ],
+  "origin_lens": "emergent order across biological scales",
+  "author_total_citations": 105610
+}

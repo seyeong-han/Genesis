@@ -1,0 +1,22 @@
+{
+  "domain": "Humanities",
+  "discipline": "Philosophy of Science",
+  "concept": "laws of nature scientific explanation",
+  "concept_id": "A5026171189",
+  "author": "Nancy Cartwright",
+  "author_openalex_id": "A5026171189",
+  "institution": "Durham University",
+  "papers": [
+    {
+      "openalex_id": "W4245353148",
+      "title": "How the Laws of Physics Lie",
+      "year": 1983,
+      "cited_by_count": 3011,
+      "doi": "https://doi.org/10.1093/0198247044.001.0001",
+      "oa_pdf_url": null,
+      "abstract": "Nancy Cartwright argues for a novel conception of the role of fundamental scientific laws in modern natural science. If we attend closely to the manner in which theoretical laws figure in the practice of science, we see that despite their great explanatory power these laws do not describe reality. Instead, fundamental laws describe highly idealized objects in models. Thus, the correct account of explanation in science is not the traditional covering law view, but the ‘simulacrum’ account. On this view, explanation is a matter of constructing a model that may employ, but need not be consistent with, a theoretical framework, in which phenomenological laws that are true of the empirical case in question can be derived. Anti‐realism about theoretical laws does not, however, commit one to anti‐realism about theoretical entities. Belief in theoretical entities can be grounded in well‐tested localized causal claims about concrete physical processes, sometimes now called ‘entity realism’. Such causal claims provide the basis for partial realism and they are ineliminable from the practice of explanation and intervention in nature."
+    }
+  ],
+  "origin_lens": "whether the laws we write are really true",
+  "author_total_citations": 19679
+}

@@ -1,0 +1,22 @@
+{
+  "domain": "Cognitive & Interdisciplinary",
+  "discipline": "Semiotics",
+  "concept": "semiotics interpretation sign",
+  "concept_id": "A5026078859",
+  "author": "Umberto Eco",
+  "author_openalex_id": "A5026078859",
+  "institution": null,
+  "papers": [
+    {
+      "openalex_id": "W2434533695",
+      "title": "On the ontology of fictional characters: A semiotic approach",
+      "year": 2009,
+      "cited_by_count": 38,
+      "doi": "https://doi.org/10.12697/sss.2009.37.1-2.04",
+      "oa_pdf_url": "http://ojs.utlib.ee/index.php/sss/article/download/SSS.2009.37.1-2.04/10641",
+      "abstract": "Why are we deeply moved by the misfortune of Anna Karenina if we are fully aware that she is simply a fictional character who does not exist in our world? But what does it mean that fictional characters do not exist? The present article is concerned with the ontology of fictional characters. The author concludes that successful fictional characters become paramount examples of the ‘real’ human condition because they live in an incomplete world what we have cognitive access to but cannot influence in any way and where no deeds can be undone. Unlike all the other semiotic objects, which are culturally subject to revisions, and perhaps only similar to mathematical entities, the fictual characters will never change and will remain the actors of what they did once and forever."
+    }
+  ],
+  "origin_lens": "how anything comes to mean",
+  "author_total_citations": 21839
+}

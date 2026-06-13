@@ -1,0 +1,22 @@
+{
+  "domain": "Humanities",
+  "discipline": "History",
+  "concept": "societies collapse civilization",
+  "concept_id": "A5113911784",
+  "author": "Jared M. Diamond",
+  "author_openalex_id": "A5113911784",
+  "institution": "University of California, Los Angeles",
+  "papers": [
+    {
+      "openalex_id": "W78426310",
+      "title": "Ecological collapses of past civilizations.",
+      "year": 1994,
+      "cited_by_count": 33,
+      "doi": null,
+      "oa_pdf_url": null,
+      "abstract": "A justification frequently offered for studying history is that it gives us the opportunity to learn from human errors in the past. Until recently, though, it appeared that we had nothing to learn from the past about how to avoid the environmental predicament in which all human societies now find themselves. The greatest risk to humanity in coming decades is that we may continue to damage our environment to a degree where our current standard of living or even our existence becomes impossible. That dilemma has seemed a unique one in human history, a consequence of our uniquely high modern numbers coupled with our uniquely destructive modern technology. However, it is now being realized that many past societies did through destroying their environmental underpinnings, and that we thus do have environmental lessons to learn from our past. This is a burgeoning area of paleontology and archaeology, with most of the compelling evidence having been gathered only within the last 12 years. I accept the following definition of a collapse of society: a local drastic decrease in human population numbers and/or in political, economic, or social complexity. Collapse can even reach the point that human population completely disappears over a considerable area. By this definition, it is evident that many societies have collapsed. Among the most recent examples, even though their collapses are mild by historical standards, are the collapses of Zaire, the former Soviet Union, and the former Yugoslavia. Among the many earlier collapses, perhaps the best known are those of the Roman Empire, Classic Lowland Maya civilization, Easter Island civilization, and Angkor Wat. Societies can for many reasons besides ecological ones (Yoffee and Cowgill 1988). Those other potential reasons include economic causes, pestilence, political causes, social tension leading to civil war,"
+    }
+  ],
+  "origin_lens": "the deep drivers of human history",
+  "author_total_citations": 58644
+}
