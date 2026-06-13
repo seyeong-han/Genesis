@@ -2476,7 +2476,9 @@ class ReportManager:
             markdown_content=markdown_content,
             created_at=data.get('created_at', ''),
             completed_at=data.get('completed_at', ''),
-            error=data.get('error')
+            error=data.get('error'),
+            novelty_audit=data.get('novelty_audit'),
+            contributors=data.get('contributors'),
         )
     
     @classmethod

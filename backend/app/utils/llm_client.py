@@ -1,13 +1,15 @@
 """
 LLM client wrapper.
-Uses OpenAI-compatible format so it works with the Anthropic API,
-any OpenAI-compatible gateway, or plain OpenAI.
+
+Primary path: Anthropic SDK (when LLM_BASE_URL is blank / ANTHROPIC_API_KEY is set).
+Fallback path: any OpenAI-compatible gateway (when LLM_BASE_URL is set).
+
+This keeps a single `chat` / `chat_json` interface regardless of the underlying SDK.
 """
 
 import json
 import re
 from typing import Optional, Dict, Any, List
-from openai import OpenAI
 
 from ..config import Config
 
@@ -26,7 +28,6 @@ class LLMClient:
         self.api_key = api_key or Config.LLM_API_KEY
 
         raw_base_url = base_url or Config.LLM_BASE_URL
-        # Blank base_url → let openai SDK use its own default (works with Anthropic proxy too)
         self.base_url = raw_base_url if raw_base_url else None
 
         if model:
@@ -39,77 +40,86 @@ class LLMClient:
         if not self.api_key:
             raise ValueError("LLM_API_KEY (or ANTHROPIC_API_KEY) is not configured")
 
-        client_kwargs: Dict[str, Any] = {"api_key": self.api_key}
+        # Route to the right SDK:
+        #   - OpenAI-compatible gateway (base_url set) → use openai SDK
+        #   - No gateway → use anthropic SDK directly
         if self.base_url:
-            client_kwargs["base_url"] = self.base_url
-        self.client = OpenAI(**client_kwargs)
-    
+            from openai import OpenAI
+            self._sdk = "openai"
+            self._client = OpenAI(api_key=self.api_key, base_url=self.base_url)
+        else:
+            import anthropic as _anthropic
+            self._sdk = "anthropic"
+            self._client = _anthropic.Anthropic(api_key=self.api_key)
+
     def chat(
         self,
         messages: List[Dict[str, str]],
         temperature: float = 0.7,
         max_tokens: int = 4096,
-        response_format: Optional[Dict] = None
+        response_format: Optional[Dict] = None,
     ) -> str:
-        """
-        发送聊天请求
-        
-        Args:
-            messages: 消息列表
-            temperature: 温度参数
-            max_tokens: 最大token数
-            response_format: 响应格式（如JSON模式）
-            
-        Returns:
-            模型响应文本
-        """
-        kwargs = {
+        """Send a chat request and return the response text."""
+        if self._sdk == "openai":
+            return self._chat_openai(messages, temperature, max_tokens, response_format)
+        else:
+            return self._chat_anthropic(messages, temperature, max_tokens)
+
+    def _chat_openai(self, messages, temperature, max_tokens, response_format):
+        kwargs: Dict[str, Any] = {
             "model": self.model,
             "messages": messages,
             "temperature": temperature,
             "max_tokens": max_tokens,
         }
-        
         if response_format:
             kwargs["response_format"] = response_format
-        
-        response = self.client.chat.completions.create(**kwargs)
+        response = self._client.chat.completions.create(**kwargs)
         content = response.choices[0].message.content
-        # 部分模型（如MiniMax M2.5）会在content中包含<think>思考内容，需要移除
         content = re.sub(r'<think>[\s\S]*?</think>', '', content).strip()
         return content
-    
+
+    def _chat_anthropic(self, messages, temperature, max_tokens):
+        # Separate system message from conversation messages (Anthropic API requirement)
+        system = ""
+        filtered = []
+        for m in messages:
+            if m.get("role") == "system":
+                system = m.get("content", "")
+            else:
+                filtered.append(m)
+
+        kwargs: Dict[str, Any] = {
+            "model": self.model,
+            "max_tokens": max_tokens,
+            "temperature": temperature,
+            "messages": filtered if filtered else [{"role": "user", "content": "Hello"}],
+        }
+        if system:
+            kwargs["system"] = system
+
+        response = self._client.messages.create(**kwargs)
+        content = "".join(
+            block.text for block in response.content if hasattr(block, "text")
+        )
+        content = re.sub(r'<think>[\s\S]*?</think>', '', content).strip()
+        return content
+
     def chat_json(
         self,
         messages: List[Dict[str, str]],
         temperature: float = 0.3,
-        max_tokens: int = 4096
+        max_tokens: int = 4096,
     ) -> Dict[str, Any]:
-        """
-        发送聊天请求并返回JSON
-        
-        Args:
-            messages: 消息列表
-            temperature: 温度参数
-            max_tokens: 最大token数
-            
-        Returns:
-            解析后的JSON对象
-        """
-        response = self.chat(
-            messages=messages,
-            temperature=temperature,
-            max_tokens=max_tokens,
-            response_format={"type": "json_object"}
-        )
-        # 清理markdown代码块标记
-        cleaned_response = response.strip()
-        cleaned_response = re.sub(r'^```(?:json)?\s*\n?', '', cleaned_response, flags=re.IGNORECASE)
-        cleaned_response = re.sub(r'\n?```\s*$', '', cleaned_response)
-        cleaned_response = cleaned_response.strip()
-
+        """Send a chat request and return parsed JSON."""
+        # Note: Anthropic does not support response_format={"type":"json_object"};
+        # we rely on prompts that enforce JSON output and strip markdown fences.
+        response = self.chat(messages=messages, temperature=temperature, max_tokens=max_tokens)
+        cleaned = response.strip()
+        cleaned = re.sub(r'^```(?:json)?\s*\n?', '', cleaned, flags=re.IGNORECASE)
+        cleaned = re.sub(r'\n?```\s*$', '', cleaned)
+        cleaned = cleaned.strip()
         try:
-            return json.loads(cleaned_response)
+            return json.loads(cleaned)
         except json.JSONDecodeError:
-            raise ValueError(f"LLM返回的JSON格式无效: {cleaned_response}")
-
+            raise ValueError(f"LLM returned invalid JSON: {cleaned[:200]}")

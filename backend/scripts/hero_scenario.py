@@ -70,10 +70,25 @@ def _get(path: str) -> dict:
 
 
 def _poll(path: str, interval: int = 5, timeout: int = 600) -> dict:
-    """Poll a status endpoint until it reports success or failure."""
+    """Poll a GET status endpoint until it reports success or failure."""
     deadline = time.time() + timeout
     while time.time() < deadline:
         result = _get(path)
+        status = (result.get("data") or result).get("status", "")
+        print(f"  status: {status}")
+        if status in ("completed", "COMPLETED", "success"):
+            return result
+        if status in ("failed", "FAILED", "error"):
+            raise RuntimeError(f"Step failed: {result}")
+        time.sleep(interval)
+    raise TimeoutError(f"Timed out polling {path}")
+
+
+def _poll_post(path: str, body: dict, interval: int = 5, timeout: int = 600) -> dict:
+    """Poll a POST-only status endpoint (task_id sent in JSON body)."""
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        result = _post(path, body)
         status = (result.get("data") or result).get("status", "")
         print(f"  status: {status}")
         if status in ("completed", "COMPLETED", "success"):
@@ -129,7 +144,8 @@ def step3_prepare_sim(project_id: str, graph_id: str) -> str:
         "use_llm_for_profiles": True,
     })
     task_id = prep["data"]["task_id"]
-    _poll(f"/api/simulation/prepare/status", interval=10, timeout=600)
+    # /api/simulation/prepare/status is POST-only; pass task_id in the body
+    _poll_post("/api/simulation/prepare/status", {"task_id": task_id}, interval=10, timeout=600)
     return sim_id
 
 
@@ -152,7 +168,8 @@ def step5_generate_report(sim_id: str) -> dict:
     report_id = resp["data"]["report_id"]
     task_id = resp["data"]["task_id"]
     print(f"  report_id: {report_id}, task_id: {task_id}")
-    _poll(f"/api/report/generate/status?task_id={task_id}", interval=10, timeout=900)
+    # /api/report/generate/status is POST-only; pass task_id in the body
+    _poll_post("/api/report/generate/status", {"task_id": task_id}, interval=10, timeout=900)
     report = _get(f"/api/report/{report_id}")
     return report["data"]
 

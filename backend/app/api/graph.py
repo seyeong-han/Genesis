@@ -23,13 +23,13 @@ logger = get_logger('genesis.api')
 
 
 def _get_contributors_for_graph(graph_id: str, report_manager) -> dict:
-    """Return contributor weight dict from the latest completed report for this graph,
-    or an empty dict if none found."""
+    """Return contributor weight dict from the latest completed report for this graph.
+    list_reports() returns Report dataclass instances, so use attribute access."""
     try:
         reports = report_manager.list_reports(limit=10)
         for r in reports:
-            if r.get("graph_id") == graph_id and r.get("contributors"):
-                return r["contributors"]
+            if r.graph_id == graph_id and r.contributors:
+                return r.contributors
     except Exception:
         pass
     return {}

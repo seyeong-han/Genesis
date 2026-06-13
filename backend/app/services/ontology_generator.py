@@ -214,11 +214,11 @@ class OntologyGenerator:
 请根据以上内容，设计适合社会舆论模拟的实体类型和关系类型。
 
 **必须遵守的规则**：
-1. 必须正好输出10个实体类型
-2. 最后2个必须是兜底类型：Person（个人兜底）和 Organization（组织兜底）
-3. 前8个是根据文本内容设计的具体类型
-4. 所有实体类型必须是现实中可以发声的主体，不能是抽象概念
-5. 属性名不能使用 name、uuid、group_id 等保留字，用 full_name、org_name 等替代
+1. Output exactly 10 entity types
+2. The last 2 must be fallback types: Researcher (fallback for individuals) and Organization (fallback for groups)
+3. The first 8 are specific types drawn from the text content (e.g. Concept, Method, Claim, Paper, Hypothesis)
+4. All entity types must be things that can "speak" (researchers) or be spoken about (concepts, methods)
+5. Attribute names must not use reserved words: name, uuid, group_id, created_at, summary — use full_name, discipline, doi, etc.
 """
         
         return message
@@ -290,36 +290,36 @@ class OntologyGenerator:
                 logger.warning(f"Duplicate entity type '{name}' removed during validation")
         result["entity_types"] = deduped
 
-        # 兜底类型定义
-        person_fallback = {
-            "name": "Person",
-            "description": "Any individual person not fitting other specific person types.",
+        # Science-domain fallback types (matches the ONTOLOGY_SYSTEM_PROMPT prompt)
+        researcher_fallback = {
+            "name": "Researcher",
+            "description": "Any individual scientist or scholar not fitting a more specific type.",
             "attributes": [
-                {"name": "full_name", "type": "text", "description": "Full name of the person"},
-                {"name": "role", "type": "text", "description": "Role or occupation"}
+                {"name": "full_name", "type": "text", "description": "Full name of the researcher"},
+                {"name": "discipline", "type": "text", "description": "Primary research discipline"}
             ],
-            "examples": ["ordinary citizen", "anonymous netizen"]
+            "examples": ["independent scholar", "postdoctoral researcher"]
         }
-        
+
         organization_fallback = {
             "name": "Organization",
-            "description": "Any organization not fitting other specific organization types.",
+            "description": "Any institution or research group not fitting other specific types.",
             "attributes": [
                 {"name": "org_name", "type": "text", "description": "Name of the organization"},
                 {"name": "org_type", "type": "text", "description": "Type of organization"}
             ],
-            "examples": ["small business", "community group"]
+            "examples": ["research institute", "university department"]
         }
-        
-        # 检查是否已有兜底类型
+
+        # Check for required fallback types
         entity_names = {e["name"] for e in result["entity_types"]}
-        has_person = "Person" in entity_names
+        has_researcher = "Researcher" in entity_names
         has_organization = "Organization" in entity_names
-        
-        # 需要添加的兜底类型
+
+        # Build list of missing fallbacks to add
         fallbacks_to_add = []
-        if not has_person:
-            fallbacks_to_add.append(person_fallback)
+        if not has_researcher:
+            fallbacks_to_add.append(researcher_fallback)
         if not has_organization:
             fallbacks_to_add.append(organization_fallback)
         

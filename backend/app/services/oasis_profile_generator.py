@@ -15,7 +15,8 @@ from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
 from datetime import datetime
 
-from openai import OpenAI
+# OpenAI import removed — persona generation now routes through LLMClient
+# which uses the anthropic SDK or an OpenAI-compatible gateway as appropriate.
 from zep_cloud.client import Zep
 
 from ..config import Config
@@ -186,19 +187,15 @@ class OasisProfileGenerator:
         zep_api_key: Optional[str] = None,
         graph_id: Optional[str] = None
     ):
-        self.api_key = api_key or Config.LLM_API_KEY
-        raw_base_url = base_url or Config.LLM_BASE_URL
-        self.base_url = raw_base_url if raw_base_url else None
-        # Persona generation uses the high-quality report model
+        # Persona generation uses the high-quality report model via LLMClient,
+        # which routes to anthropic SDK or OpenAI-compatible gateway automatically.
+        from ..utils.llm_client import LLMClient
         self.model_name = model_name or Config.LLM_REPORT_MODEL_NAME
-
-        if not self.api_key:
-            raise ValueError("LLM_API_KEY (or ANTHROPIC_API_KEY) is not configured")
-
-        client_kwargs: dict = {"api_key": self.api_key}
-        if self.base_url:
-            client_kwargs["base_url"] = self.base_url
-        self.client = OpenAI(**client_kwargs)
+        self._llm = LLMClient(
+            api_key=api_key,
+            base_url=base_url,
+            model=self.model_name,
+        )
         
         # Zep客户端用于检索丰富上下文
         self.zep_api_key = zep_api_key or Config.ZEP_API_KEY
@@ -529,24 +526,16 @@ class OasisProfileGenerator:
         
         for attempt in range(max_attempts):
             try:
-                response = self.client.chat.completions.create(
-                    model=self.model_name,
+                content = self._llm.chat(
                     messages=[
                         {"role": "system", "content": self._get_system_prompt(is_individual)},
                         {"role": "user", "content": prompt}
                     ],
-                    response_format={"type": "json_object"},
-                    temperature=0.7 - (attempt * 0.1)  # 每次重试降低温度
-                    # 不设置max_tokens，让LLM自由发挥
+                    temperature=0.7 - (attempt * 0.1),
+                    max_tokens=4096,
                 )
-                
-                content = response.choices[0].message.content
-                
-                # 检查是否被截断（finish_reason不是'stop'）
-                finish_reason = response.choices[0].finish_reason
-                if finish_reason == 'length':
-                    logger.warning(f"LLM输出被截断 (attempt {attempt+1}), 尝试修复...")
-                    content = self._fix_truncated_json(content)
+                # finish_reason not available without lower-level access — skip that check;
+                # JSON repair still runs if parsing fails below.
                 
                 # 尝试解析JSON
                 try:
