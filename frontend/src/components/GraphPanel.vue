@@ -650,14 +650,31 @@ const renderGraph = () => {
   // Nodes group
   const nodeGroup = g.append('g').attr('class', 'nodes')
   
+  // Glow filter for contributor influence (provenance visualization)
+  const defs = svg.append('defs')
+  const glowFilter = defs.append('filter').attr('id', 'glow')
+  glowFilter.append('feGaussianBlur').attr('stdDeviation', '4').attr('result', 'coloredBlur')
+  const feMerge = glowFilter.append('feMerge')
+  feMerge.append('feMergeNode').attr('in', 'coloredBlur')
+  feMerge.append('feMergeNode').attr('in', 'SourceGraphic')
+
   // Node circles
   const node = nodeGroup.selectAll('circle')
     .data(nodes)
     .enter().append('circle')
-    .attr('r', 10)
+    .attr('r', d => 10 + Math.round((d.rawData?.influence || 0) * 8))
     .attr('fill', d => getColor(d.type))
-    .attr('stroke', '#fff')
-    .attr('stroke-width', 2.5)
+    .attr('stroke', d => {
+      const inf = d.rawData?.influence || 0
+      if (inf > 0.7) return '#FFD700'
+      if (inf > 0.3) return '#FFA500'
+      return '#fff'
+    })
+    .attr('stroke-width', d => {
+      const inf = d.rawData?.influence || 0
+      return inf > 0.3 ? 3.5 : 2.5
+    })
+    .attr('filter', d => (d.rawData?.influence || 0) > 0.3 ? 'url(#glow)' : null)
     .style('cursor', 'pointer')
     .call(d3.drag()
       .on('start', (event, d) => {

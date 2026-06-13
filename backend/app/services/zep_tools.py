@@ -436,7 +436,7 @@ class ZepToolsService:
     def llm(self) -> LLMClient:
         """延迟初始化LLM客户端"""
         if self._llm_client is None:
-            self._llm_client = LLMClient()
+            self._llm_client = LLMClient(use_report_model=True)
         return self._llm_client
     
     def _call_with_retry(self, func, operation_name: str, max_retries: int = None):

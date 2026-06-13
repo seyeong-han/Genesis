@@ -1,6 +1,6 @@
 """
-模拟相关API路由
-Step2: Zep实体读取与过滤、OASIS模拟准备与运行（全程自动化）
+Simulation API routes.
+Step 2: entity reading, researcher-debate simulation prepare/run.
 """
 
 import os
@@ -20,24 +20,19 @@ from ..models.project import ProjectManager
 logger = get_logger('mirofish.api.simulation')
 
 
-# Interview prompt 优化前缀
-# 添加此前缀可以避免Agent调用工具，直接用文本回复
-INTERVIEW_PROMPT_PREFIX = "结合你的人设、所有的过往记忆与行动，不调用任何工具直接用文本回复我："
+# Interview prompt prefix for researcher cross-examination.
+# Forces the agent to answer as itself (citing its papers), not call tools.
+INTERVIEW_PROMPT_PREFIX = (
+    "Respond as yourself — a researcher grounded in your published papers. "
+    "Answer directly in plain text, citing specific claims or findings from your work. "
+    "Do not call any tools. Your question: "
+)
 
 
 def optimize_interview_prompt(prompt: str) -> str:
-    """
-    优化Interview提问，添加前缀避免Agent调用工具
-    
-    Args:
-        prompt: 原始提问
-        
-    Returns:
-        优化后的提问
-    """
+    """Prepend the researcher-interview prefix to force a grounded, text-only reply."""
     if not prompt:
         return prompt
-    # 避免重复添加前缀
     if prompt.startswith(INTERVIEW_PROMPT_PREFIX):
         return prompt
     return f"{INTERVIEW_PROMPT_PREFIX}{prompt}"

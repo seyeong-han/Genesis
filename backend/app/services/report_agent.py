@@ -440,7 +440,7 @@ class ReportOutline:
 
 @dataclass
 class Report:
-    """完整报告"""
+    """Complete hypothesis brief with provenance and novelty audit."""
     report_id: str
     simulation_id: str
     graph_id: str
@@ -451,7 +451,9 @@ class Report:
     created_at: str = ""
     completed_at: str = ""
     error: Optional[str] = None
-    
+    novelty_audit: Optional[Dict[str, Any]] = None   # NoveltyResult.to_dict()
+    contributors: Optional[Dict[str, float]] = None  # {researcher_name: weight}
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "report_id": self.report_id,
@@ -463,7 +465,9 @@ class Report:
             "markdown_content": self.markdown_content,
             "created_at": self.created_at,
             "completed_at": self.completed_at,
-            "error": self.error
+            "error": self.error,
+            "novelty_audit": self.novelty_audit,
+            "contributors": self.contributors,
         }
 
 
@@ -474,297 +478,208 @@ class Report:
 # ── 工具描述 ──
 
 TOOL_DESC_INSIGHT_FORGE = """\
-【深度洞察检索 - 强大的检索工具】
-这是我们强大的检索函数，专为深度分析设计。它会：
-1. 自动将你的问题分解为多个子问题
-2. 从多个维度检索模拟图谱中的信息
-3. 整合语义搜索、实体分析、关系链追踪的结果
-4. 返回最全面、最深度的检索内容
+[Deep Insight Retrieval — most powerful tool]
+Use this for in-depth analysis of the research debate graph. It will:
+1. Automatically decompose your question into sub-questions
+2. Retrieve from multiple dimensions: semantics, entities, relationship chains
+3. Return the richest, most grounded content from the debate
 
-【使用场景】
-- 需要深入分析某个话题
-- 需要了解事件的多个方面
-- 需要获取支撑报告章节的丰富素材
+Use when:
+- You need deep analysis of a cross-disciplinary connection
+- You need evidence for a specific hypothesis
+- You need rich, citable material for a report section
 
-【返回内容】
-- 相关事实原文（可直接引用）
-- 核心实体洞察
-- 关系链分析"""
+Returns:
+- Raw claim text (directly citable, with researcher attribution)
+- Entity insights (which researchers advanced what)
+- Relationship chains (how claims build on or contradict each other)"""
 
 TOOL_DESC_PANORAMA_SEARCH = """\
-【广度搜索 - 获取全貌视图】
-这个工具用于获取模拟结果的完整全貌，特别适合了解事件演变过程。它会：
-1. 获取所有相关节点和关系
-2. 区分当前有效的事实和历史/过期的事实
-3. 帮助你了解舆情是如何演变的
+[Panorama Search — full debate landscape]
+Retrieves the complete picture of the research debate, including how claims evolved.
+1. Gets all relevant nodes and relations
+2. Distinguishes currently-supported claims vs superseded/retracted ones
+3. Shows the evolution of the debate over rounds
 
-【使用场景】
-- 需要了解事件的完整发展脉络
-- 需要对比不同阶段的舆情变化
-- 需要获取全面的实体和关系信息
+Use when:
+- You need the full arc of the debate on a topic
+- You want to contrast early vs later positions
+- You need to show how a cross-disciplinary bridge emerged
 
-【返回内容】
-- 当前有效事实（模拟最新结果）
-- 历史/过期事实（演变记录）
-- 所有涉及的实体"""
+Returns:
+- Currently active claims (the debate's current state)
+- Historical/superseded claims (the evolution record)
+- All involved entities"""
 
 TOOL_DESC_QUICK_SEARCH = """\
-【简单搜索 - 快速检索】
-轻量级的快速检索工具，适合简单、直接的信息查询。
+[Quick Search — fast fact lookup]
+Lightweight retrieval for direct, specific queries.
 
-【使用场景】
-- 需要快速查找某个具体信息
-- 需要验证某个事实
-- 简单的信息检索
+Use when:
+- You need to verify a specific claim
+- You need a quick reference fact
+- Simple targeted retrieval
 
-【返回内容】
-- 与查询最相关的事实列表"""
+Returns:
+- Most relevant facts matching the query"""
 
 TOOL_DESC_INTERVIEW_AGENTS = """\
-【深度采访 - 真实Agent采访（双平台）】
-调用OASIS模拟环境的采访API，对正在运行的模拟Agent进行真实采访！
-这不是LLM模拟，而是调用真实的采访接口获取模拟Agent的原始回答。
-默认在Twitter和Reddit两个平台同时采访，获取更全面的观点。
+[Live Researcher Interview — cross-examine a real agent]
+Calls the live simulation environment to interview researcher agents directly.
+This is NOT an LLM simulation — it calls the real interview API to get the agent's
+own grounded response, citing their papers.
 
-功能流程：
-1. 自动读取人设文件，了解所有模拟Agent
-2. 智能选择与采访主题最相关的Agent（如学生、媒体、官方等）
-3. 自动生成采访问题
-4. 调用 /api/simulation/interview/batch 接口在双平台进行真实采访
-5. 整合所有采访结果，提供多视角分析
+Flow:
+1. Reads the researcher profiles
+2. Selects the most relevant researchers for the question
+3. Auto-generates interview questions
+4. Calls /api/simulation/interview/batch on both platforms
+5. Returns verbatim researcher responses with paper grounding
 
-【使用场景】
-- 需要从不同角色视角了解事件看法（学生怎么看？媒体怎么看？官方怎么说？）
-- 需要收集多方意见和立场
-- 需要获取模拟Agent的真实回答（来自OASIS模拟环境）
-- 想让报告更生动，包含"采访实录"
+Use when:
+- You want a researcher's first-person view on a cross-disciplinary bridge
+- You need a direct quote to include in the Provenance section
+- You want to show the "live expert" quality of the debate
 
-【返回内容】
-- 被采访Agent的身份信息
-- 各Agent在Twitter和Reddit两个平台的采访回答
-- 关键引言（可直接引用）
-- 采访摘要和观点对比
+Returns:
+- Researcher identity + discipline + institution
+- Their verbatim responses (grounded in their papers)
+- Key quotes for direct citation
+- Cross-researcher comparison
 
-【重要】需要OASIS模拟环境正在运行才能使用此功能！"""
+IMPORTANT: Requires the simulation environment to be running."""
 
 # ── 大纲规划 prompt ──
 
 PLAN_SYSTEM_PROMPT = """\
-你是一个「未来预测报告」的撰写专家，拥有对模拟世界的「上帝视角」——你可以洞察模拟中每一位Agent的行为、言论和互动。
+You are a cross-disciplinary hypothesis brief writer. You have full visibility of a
+researcher-debate knowledge graph: which researchers advanced which claims, who rebutted
+whom, and where claims from different fields converged.
 
-【核心理念】
-我们构建了一个模拟世界，并向其中注入了特定的「模拟需求」作为变量。模拟世界的演化结果，就是对未来可能发生情况的预测。你正在观察的不是"实验数据"，而是"未来的预演"。
+Your task: write a HYPOTHESIS BRIEF that answers the research question posed, drawn
+entirely from the debate evidence in the graph.
 
-【你的任务】
-撰写一份「未来预测报告」，回答：
-1. 在我们设定的条件下，未来发生了什么？
-2. 各类Agent（人群）是如何反应和行动？
-3. 这个模拟揭示了哪些值得关注的未来趋势和风险？
+The brief must have 2-5 sections covering:
+- Cross-disciplinary synthesis: the core insight produced by the debate
+- New hypotheses: 1-3 novel cross-field hypotheses grounded in the debate
+- Open tensions: where the researchers disagreed; claims that are still contested
+- Proposed experiments: falsifiable next steps
+- Provenance: which researchers contributed most (for glow visualisation)
 
-【报告定位】
-- ✅ 这是一份基于模拟的未来预测报告，揭示"如果这样，未来会怎样"
-- ✅ 聚焦于预测结果：事件走向、群体反应、涌现现象、潜在风险
-- ✅ 模拟世界中的Agent言行就是对未来人群行为的预测
-- ❌ 不是对现实世界现状的分析
-- ❌ 不是泛泛而谈的舆情综述
-
-【章节数量限制】
-- 最少2个章节，最多5个章节
-- 不需要子章节，每个章节直接撰写完整内容
-- 内容要精炼，聚焦于核心预测发现
-- 章节结构由你根据预测结果自主设计
-
-请输出JSON格式的报告大纲，格式如下：
+Return a JSON outline:
 {
-    "title": "报告标题",
-    "summary": "报告摘要（一句话概括核心预测发现）",
+    "title": "Brief title (one line, specific to the question)",
+    "summary": "The core hypothesis in one sentence",
     "sections": [
         {
-            "title": "章节标题",
-            "description": "章节内容描述"
+            "title": "Section title",
+            "description": "What this section covers"
         }
     ]
 }
 
-注意：sections数组最少2个，最多5个元素！"""
+sections: minimum 2, maximum 5."""
 
 PLAN_USER_PROMPT_TEMPLATE = """\
-【预测场景设定】
-我们向模拟世界注入的变量（模拟需求）：{simulation_requirement}
+Research question: {simulation_requirement}
 
-【模拟世界规模】
-- 参与模拟的实体数量: {total_nodes}
-- 实体间产生的关系数量: {total_edges}
-- 实体类型分布: {entity_types}
-- 活跃Agent数量: {total_entities}
+Debate graph scale:
+- Researcher agents: {total_entities}
+- Concept/claim nodes: {total_nodes}
+- Edges (claims, rebuttals, bridges): {total_edges}
+- Entity types present: {entity_types}
 
-【模拟预测到的部分未来事实样本】
+Sample claims from the debate:
 {related_facts_json}
 
-请以「上帝视角」审视这个未来预演：
-1. 在我们设定的条件下，未来呈现出了什么样的状态？
-2. 各类人群（Agent）是如何反应和行动的？
-3. 这个模拟揭示了哪些值得关注的未来趋势？
-
-根据预测结果，设计最合适的报告章节结构。
-
-【再次提醒】报告章节数量：最少2个，最多5个，内容要精炼聚焦于核心预测发现。"""
+Design the best section structure for a hypothesis brief answering this question.
+Minimum 2 sections, maximum 5. Focus on the cross-disciplinary synthesis."""
 
 # ── 章节生成 prompt ──
 
 SECTION_SYSTEM_PROMPT_TEMPLATE = """\
-你是一个「未来预测报告」的撰写专家，正在撰写报告的一个章节。
+You are a cross-disciplinary hypothesis brief writer, synthesising a researcher-debate
+knowledge graph into a concise, actionable section of the brief.
 
-报告标题: {report_title}
-报告摘要: {report_summary}
-预测场景（模拟需求）: {simulation_requirement}
+Brief title: {report_title}
+Brief summary: {report_summary}
+Research question: {simulation_requirement}
 
-当前要撰写的章节: {section_title}
-
-═══════════════════════════════════════════════════════════════
-【核心理念】
-═══════════════════════════════════════════════════════════════
-
-模拟世界是对未来的预演。我们向模拟世界注入了特定条件（模拟需求），
-模拟中Agent的行为和互动，就是对未来人群行为的预测。
-
-你的任务是：
-- 揭示在设定条件下，未来发生了什么
-- 预测各类人群（Agent）是如何反应和行动的
-- 发现值得关注的未来趋势、风险和机会
-
-❌ 不要写成对现实世界现状的分析
-✅ 要聚焦于"未来会怎样"——模拟结果就是预测的未来
+Current section to write: {section_title}
 
 ═══════════════════════════════════════════════════════════════
-【最重要的规则 - 必须遵守】
+CORE PRINCIPLE
 ═══════════════════════════════════════════════════════════════
 
-1. 【必须调用工具观察模拟世界】
-   - 你正在以「上帝视角」观察未来的预演
-   - 所有内容必须来自模拟世界中发生的事件和Agent言行
-   - 禁止使用你自己的知识来编写报告内容
-   - 每个章节至少调用3次工具（最多5次）来观察模拟的世界，它代表了未来
+The knowledge graph records what real researchers (grounded in their real papers)
+claimed, rebutted, and bridged across disciplines. Your job is to synthesize this
+into content that is:
+- Grounded: every claim cites a researcher and their paper
+- Novel: highlights cross-disciplinary bridges that are unpublished
+- Testable: ends with falsifiable next steps where appropriate
+- Honest: openly shows where researchers disagreed (open tensions)
 
-2. 【必须引用Agent的原始言行】
-   - Agent的发言和行为是对未来人群行为的预测
-   - 在报告中使用引用格式展示这些预测，例如：
-     > "某类人群会表示：原文内容..."
-   - 这些引用是模拟预测的核心证据
-
-3. 【语言一致性 - 引用内容必须翻译为报告语言】
-   - 工具返回的内容可能包含与报告语言不同的表述
-   - 报告必须全部使用与用户指定语言一致的语言撰写
-   - 当你引用工具返回的其他语言内容时，必须将其翻译为报告语言后再写入
-   - 翻译时保持原意不变，确保表述自然通顺
-   - 这一规则同时适用于正文和引用块（> 格式）中的内容
-
-4. 【忠实呈现预测结果】
-   - 报告内容必须反映模拟世界中的代表未来的模拟结果
-   - 不要添加模拟中不存在的信息
-   - 如果某方面信息不足，如实说明
+DO NOT write from your own general knowledge.
+DO NOT omit the open tensions and contradictions — they are as valuable as the agreements.
 
 ═══════════════════════════════════════════════════════════════
-【⚠️ 格式规范 - 极其重要！】
+CRITICAL RULES
 ═══════════════════════════════════════════════════════════════
 
-【一个章节 = 最小内容单位】
-- 每个章节是报告的最小分块单位
-- ❌ 禁止在章节内使用任何 Markdown 标题（#、##、###、#### 等）
-- ❌ 禁止在内容开头添加章节主标题
-- ✅ 章节标题由系统自动添加，你只需撰写纯正文内容
-- ✅ 使用**粗体**、段落分隔、引用、列表来组织内容，但不要用标题
+1. ALWAYS retrieve from the graph (3-5 tool calls per section minimum).
+   All content must come from the graph, not from prior knowledge.
 
-【正确示例】
-```
-本章节分析了事件的舆论传播态势。通过对模拟数据的深入分析，我们发现...
+2. ALWAYS cite the researcher and their paper when quoting a claim:
+   > "[Researcher name] ([discipline]): 'verbatim claim'" — Paper: [title]
 
-**首发引爆阶段**
+3. CONTRIBUTION TRACKING (important for glow):
+   After Final Answer, on a separate line, output a JSON tag listing the researchers
+   whose claims you actually cited in this section:
+   <!--CONTRIBUTORS:["Researcher A","Researcher B"]-->
+   This is used for provenance glow in the graph UI.
 
-微博作为舆情的第一现场，承担了信息首发的核心功能：
-
-> "微博贡献了68%的首发声量..."
-
-**情绪放大阶段**
-
-抖音平台进一步放大了事件影响力：
-
-- 视觉冲击力强
-- 情绪共鸣度高
-```
-
-【错误示例】
-```
-## 执行摘要          ← 错误！不要添加任何标题
-### 一、首发阶段     ← 错误！不要用###分小节
-#### 1.1 详细分析   ← 错误！不要用####细分
-
-本章节分析了...
-```
+4. FORMAT: No Markdown headings (#/##/###). Use **bold** for sub-points instead.
+   Quotes must be on their own paragraph, not inline.
 
 ═══════════════════════════════════════════════════════════════
-【可用检索工具】（每章节调用3-5次）
+AVAILABLE TOOLS (call 3-5 per section, mix them)
 ═══════════════════════════════════════════════════════════════
 
 {tools_description}
 
-【工具使用建议 - 请混合使用不同工具，不要只用一种】
-- insight_forge: 深度洞察分析，自动分解问题并多维度检索事实和关系
-- panorama_search: 广角全景搜索，了解事件全貌、时间线和演变过程
-- quick_search: 快速验证某个具体信息点
-- interview_agents: 采访模拟Agent，获取不同角色的第一人称观点和真实反应
+- insight_forge: deep multi-dimensional retrieval; use for finding cross-disciplinary bridges
+- panorama_search: full debate landscape; use to show how claims evolved / were superseded
+- quick_search: fast lookup; use to verify a specific claim
+- interview_agents: live researcher interview; use to get a direct grounded quote
 
 ═══════════════════════════════════════════════════════════════
-【工作流程】
+WORKFLOW
 ═══════════════════════════════════════════════════════════════
 
-每次回复你只能做以下两件事之一（不可同时做）：
+Each reply must do exactly ONE of these (never both):
 
-选项A - 调用工具：
-输出你的思考，然后用以下格式调用一个工具：
+Option A — Call a tool:
+Think briefly, then call ONE tool:
 <tool_call>
-{{"name": "工具名称", "parameters": {{"参数名": "参数值"}}}}
+{{"name": "tool_name", "parameters": {{"param": "value"}}}}
 </tool_call>
-系统会执行工具并把结果返回给你。你不需要也不能自己编写工具返回结果。
 
-选项B - 输出最终内容：
-当你已通过工具获取了足够信息，以 "Final Answer:" 开头输出章节内容。
+Option B — Final Answer:
+When you have enough grounded evidence, start with "Final Answer:" and write the section.
+End with the <!--CONTRIBUTORS:[...]-->> tag.
 
-⚠️ 严格禁止：
-- 禁止在一次回复中同时包含工具调用和 Final Answer
-- 禁止自己编造工具返回结果（Observation），所有工具结果由系统注入
-- 每次回复最多调用一个工具
+NEVER fabricate tool results. NEVER call a tool and write Final Answer in the same reply.
 
 ═══════════════════════════════════════════════════════════════
-【章节内容要求】
+SECTION CONTENT REQUIREMENTS
 ═══════════════════════════════════════════════════════════════
 
-1. 内容必须基于工具检索到的模拟数据
-2. 大量引用原文来展示模拟效果
-3. 使用Markdown格式（但禁止使用标题）：
-   - 使用 **粗体文字** 标记重点（代替子标题）
-   - 使用列表（-或1.2.3.）组织要点
-   - 使用空行分隔不同段落
-   - ❌ 禁止使用 #、##、###、#### 等任何标题语法
-4. 【引用格式规范 - 必须单独成段】
-   引用必须独立成段，前后各有一个空行，不能混在段落中：
-
-   ✅ 正确格式：
-   ```
-   校方的回应被认为缺乏实质内容。
-
-   > "校方的应对模式在瞬息万变的社交媒体环境中显得僵化和迟缓。"
-
-   这一评价反映了公众的普遍不满。
-   ```
-
-   ❌ 错误格式：
-   ```
-   校方的回应被认为缺乏实质内容。> "校方的应对模式..." 这一评价反映了...
-   ```
-5. 保持与其他章节的逻辑连贯性
-6. 【避免重复】仔细阅读下方已完成的章节内容，不要重复描述相同的信息
-7. 【再次强调】不要添加任何标题！用**粗体**代替小节标题"""
+1. Base all content on tool-retrieved graph data.
+2. Cite every claim with researcher + paper.
+3. Use **bold** for sub-points (not headings).
+4. Quotes must be standalone paragraphs, not inline.
+5. Stay coherent with already-completed sections (avoid repetition).
+6. NO section headings inside the content — the system adds them."""
 
 SECTION_USER_PROMPT_TEMPLATE = """\
 已完成的章节内容（请仔细阅读，避免重复）：
@@ -854,11 +769,54 @@ CHAT_SYSTEM_PROMPT_TEMPLATE = """\
 - 使用 > 格式引用关键内容
 - 优先给出结论，再解释原因"""
 
-CHAT_OBSERVATION_SUFFIX = "\n\n请简洁回答问题。"
+CHAT_OBSERVATION_SUFFIX = "\n\nPlease answer concisely."
+
+
+# ──────────────────────────────────────────────────────────────
+# Helpers: contributor tracking + novelty audit rendering
+# ──────────────────────────────────────────────────────────────
+
+import re as _re
+
+
+def _extract_contributors_from_section(section_text: str) -> list[str]:
+    """Extract researcher names from the <!--CONTRIBUTORS:[...]-->  tag the
+    section writer appends, or fall back to scanning quoted researcher names."""
+    tag_match = _re.search(r"<!--CONTRIBUTORS:\[(.*?)\]-->", section_text)
+    if tag_match:
+        try:
+            return json.loads("[" + tag_match.group(1) + "]")
+        except Exception:
+            pass
+    return []
+
+
+def _render_novelty_audit_md(result) -> str:
+    """Render a NoveltyResult as a Markdown section appended to the brief."""
+    verdict_emoji = {"NOVEL": "🟢", "PARTIAL": "🟡", "KNOWN": "🔴"}.get(result.verdict, "⚪")
+    lines = [
+        "---",
+        f"## Novelty Audit (OpenAlex) {verdict_emoji} {result.verdict}",
+        "",
+        f"**Hypothesis audited:** {result.hypothesis}",
+        "",
+        f"**Verdict:** {result.verdict} — {result.explanation}",
+        "",
+    ]
+    if result.queries_used:
+        lines.append(f"**Search queries:** {' · '.join(result.queries_used)}")
+        lines.append("")
+    if result.nearest_papers:
+        lines.append("**Nearest existing work:**")
+        for p in result.nearest_papers:
+            doi_link = f" · [DOI]({p.doi})" if p.doi else ""
+            lines.append(f"- *{p.title}* ({p.year}, {p.cited_by_count:,} cites){doi_link} — {p.relevance_note}")
+        lines.append("")
+    return "\n".join(lines)
 
 
 # ═══════════════════════════════════════════════════════════════
-# ReportAgent 主类
+# ReportAgent main class
 # ═══════════════════════════════════════════════════════════════
 
 
@@ -903,7 +861,7 @@ class ReportAgent:
         self.simulation_id = simulation_id
         self.simulation_requirement = simulation_requirement
         
-        self.llm = llm_client or LLMClient()
+        self.llm = llm_client or LLMClient(use_report_model=True)
         self.zep_tools = zep_tools or ZepToolsService()
         
         # 工具定义
@@ -1669,7 +1627,15 @@ class ReportAgent:
                 section.content = section_content
                 generated_sections.append(f"## {section.title}\n\n{section_content}")
 
-                # 保存章节
+                # Track contributor names from the <!--CONTRIBUTORS:[...]-->  tag
+                names = _extract_contributors_from_section(section_content)
+                if names:
+                    if report.contributors is None:
+                        report.contributors = {}
+                    for name in names:
+                        report.contributors[name] = report.contributors.get(name, 0) + 1
+
+                # Save section
                 ReportManager.save_section(report_id, section_num, section)
                 completed_section_titles.append(section.title)
 
@@ -1703,22 +1669,39 @@ class ReportAgent:
                 completed_sections=completed_section_titles
             )
             
-            # 使用ReportManager组装完整报告
+            # Assemble the full report
             report.markdown_content = ReportManager.assemble_full_report(report_id, outline)
+
+            # ── Novelty Audit (post-report OpenAlex check) ──────────────────
+            # Non-fatal: if the audit fails, the report still completes.
+            try:
+                if progress_callback:
+                    progress_callback("generating", 97, "Running Novelty Audit (OpenAlex)...")
+                from .novelty_audit import run_novelty_audit
+                novelty_result = run_novelty_audit(report.markdown_content or "")
+                report.novelty_audit = novelty_result.to_dict()
+                # Append audit section to the markdown report for readability
+                audit_md = _render_novelty_audit_md(novelty_result)
+                report.markdown_content = (report.markdown_content or "") + "\n\n" + audit_md
+                logger.info(f"Novelty Audit verdict: {novelty_result.verdict}")
+            except Exception as audit_err:
+                logger.warning(f"Novelty Audit failed (non-fatal): {audit_err}")
+                report.novelty_audit = {"verdict": "UNKNOWN", "error": str(audit_err)}
+            # ────────────────────────────────────────────────────────────────
+
             report.status = ReportStatus.COMPLETED
             report.completed_at = datetime.now().isoformat()
-            
-            # 计算总耗时
+
+            # Calculate total time
             total_time_seconds = (datetime.now() - start_time).total_seconds()
-            
-            # 记录报告完成日志
+
             if self.report_logger:
                 self.report_logger.log_report_complete(
                     total_sections=total_sections,
                     total_time_seconds=total_time_seconds
                 )
-            
-            # 保存最终报告
+
+            # Save final report
             ReportManager.save_report(report)
             ReportManager.update_progress(
                 report_id, "completed", 100, t('progress.reportComplete'),

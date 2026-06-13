@@ -1015,26 +1015,35 @@ def create_model(config: Dict[str, Any], use_boost: bool = False):
         llm_model = os.environ.get("LLM_MODEL_NAME", "")
         config_label = "[通用LLM]"
     
-    # 如果 .env 中没有模型名，则使用 config 作为备用
+    # Fall back to config file model name, default to Claude sonnet
     if not llm_model:
-        llm_model = config.get("llm_model", "gpt-4o-mini")
-    
-    # 设置 camel-ai 所需的环境变量
-    if llm_api_key:
-        os.environ["OPENAI_API_KEY"] = llm_api_key
-    
-    if not os.environ.get("OPENAI_API_KEY"):
-        raise ValueError("缺少 API Key 配置，请在项目根目录 .env 文件中设置 LLM_API_KEY")
-    
+        llm_model = config.get("llm_model", "claude-sonnet-4-5")
+
+    # Also accept ANTHROPIC_API_KEY as fallback
+    if not llm_api_key:
+        llm_api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+
+    if not llm_api_key:
+        raise ValueError("Missing API key: set LLM_API_KEY or ANTHROPIC_API_KEY in .env")
+
+    print(f"{config_label} model={llm_model}, base_url={llm_base_url[:40] if llm_base_url else 'default'}...")
+
+    # Use Anthropic platform natively when no custom base_url is set,
+    # otherwise use OPENAI_COMPATIBLE_MODEL for any OpenAI-format gateway.
     if llm_base_url:
-        os.environ["OPENAI_API_BASE_URL"] = llm_base_url
-    
-    print(f"{config_label} model={llm_model}, base_url={llm_base_url[:40] if llm_base_url else '默认'}...")
-    
-    return ModelFactory.create(
-        model_platform=ModelPlatformType.OPENAI,
-        model_type=llm_model,
-    )
+        return ModelFactory.create(
+            model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
+            model_type=llm_model,
+            url=llm_base_url,
+            api_key=llm_api_key,
+        )
+    else:
+        os.environ.setdefault("ANTHROPIC_API_KEY", llm_api_key)
+        return ModelFactory.create(
+            model_platform=ModelPlatformType.ANTHROPIC,
+            model_type=llm_model,
+            api_key=llm_api_key,
+        )
 
 
 def get_active_agents_for_round(

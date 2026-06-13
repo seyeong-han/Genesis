@@ -19,8 +19,20 @@ from ..utils.locale import t, get_locale, set_locale
 from ..models.task import TaskManager, TaskStatus
 from ..models.project import ProjectManager, ProjectStatus
 
-# 获取日志器
-logger = get_logger('mirofish.api')
+logger = get_logger('genesis.api')
+
+
+def _get_contributors_for_graph(graph_id: str, report_manager) -> dict:
+    """Return contributor weight dict from the latest completed report for this graph,
+    or an empty dict if none found."""
+    try:
+        reports = report_manager.list_reports(limit=10)
+        for r in reports:
+            if r.get("graph_id") == graph_id and r.get("contributors"):
+                return r["contributors"]
+    except Exception:
+        pass
+    return {}
 
 
 def allowed_file(filename: str) -> bool:
@@ -569,7 +581,9 @@ def list_tasks():
 @graph_bp.route('/data/<graph_id>', methods=['GET'])
 def get_graph_data(graph_id: str):
     """
-    获取图谱数据（节点和边）
+    Get graph data (nodes + edges).
+    Merges contributor influence weights (for glow) from the latest report
+    for this graph, if one exists.
     """
     try:
         if not Config.ZEP_API_KEY:
@@ -577,10 +591,24 @@ def get_graph_data(graph_id: str):
                 "success": False,
                 "error": t('api.zepApiKeyMissing')
             }), 500
-        
+
         builder = GraphBuilderService(api_key=Config.ZEP_API_KEY)
         graph_data = builder.get_graph_data(graph_id)
-        
+
+        # Inject influence (glow) from the latest completed report for this graph
+        try:
+            from ..services.report_agent import ReportManager
+            contributors = _get_contributors_for_graph(graph_id, ReportManager)
+            if contributors and isinstance(graph_data, dict):
+                max_weight = max(contributors.values()) or 1
+                nodes = graph_data.get("nodes") or []
+                for node in nodes:
+                    name = node.get("name", "")
+                    raw = contributors.get(name, 0)
+                    node["influence"] = round(raw / max_weight, 3) if raw else 0.0
+        except Exception:
+            pass  # glow is optional; don't break graph display
+
         return jsonify({
             "success": True,
             "data": graph_data

@@ -1,6 +1,19 @@
 """
-Zep图谱记忆更新服务
-将模拟中的Agent活动动态更新到Zep图谱中
+Zep graph memory update service.
+Converts researcher-debate agent actions into natural-language episodes
+and streams them to the Zep temporal knowledge graph.
+
+Seam 4 (highest leverage): the episode describers below re-skin the
+original social-media verbs into research-debate semantics:
+  CREATE_POST  -> "advanced the claim: ..."
+  CREATE_COMMENT -> "rebutted / supported ..."
+  LIKE_POST    -> "endorsed the evidence ..."
+  REPOST       -> "amplified the finding ..."
+  QUOTE_POST   -> "built on, with a caveat ..."
+  FOLLOW       -> "aligned methodologically with ..."
+
+This single change makes the Zep graph a claims-and-rebuttals graph;
+the report agent inherits the new semantics for free via panorama_search.
 """
 
 import os
@@ -62,141 +75,128 @@ class AgentActivity:
         return f"{self.agent_name}: {description}"
     
     def _describe_create_post(self) -> str:
+        """Researcher advances a claim (the primary debate move)."""
         content = self.action_args.get("content", "")
         if content:
-            return f"发布了一条帖子：「{content}」"
-        return "发布了一条帖子"
-    
+            return f"advanced the claim: \"{content}\""
+        return "advanced a claim"
+
     def _describe_like_post(self) -> str:
-        """点赞帖子 - 包含帖子原文和作者信息"""
+        """Researcher endorses another's evidence/claim."""
         post_content = self.action_args.get("post_content", "")
         post_author = self.action_args.get("post_author_name", "")
-        
         if post_content and post_author:
-            return f"点赞了{post_author}的帖子：「{post_content}」"
+            return f"endorsed the evidence from {post_author}: \"{post_content}\""
         elif post_content:
-            return f"点赞了一条帖子：「{post_content}」"
+            return f"endorsed the claim: \"{post_content}\""
         elif post_author:
-            return f"点赞了{post_author}的一条帖子"
-        return "点赞了一条帖子"
-    
+            return f"endorsed a claim by {post_author}"
+        return "endorsed a claim"
+
     def _describe_dislike_post(self) -> str:
-        """踩帖子 - 包含帖子原文和作者信息"""
+        """Researcher disputes a claim."""
         post_content = self.action_args.get("post_content", "")
         post_author = self.action_args.get("post_author_name", "")
-        
         if post_content and post_author:
-            return f"踩了{post_author}的帖子：「{post_content}」"
+            return f"disputed {post_author}'s claim: \"{post_content}\""
         elif post_content:
-            return f"踩了一条帖子：「{post_content}」"
+            return f"disputed the claim: \"{post_content}\""
         elif post_author:
-            return f"踩了{post_author}的一条帖子"
-        return "踩了一条帖子"
-    
+            return f"disputed a claim by {post_author}"
+        return "disputed a claim"
+
     def _describe_repost(self) -> str:
-        """转发帖子 - 包含原帖内容和作者信息"""
+        """Researcher amplifies a finding from another field."""
         original_content = self.action_args.get("original_content", "")
         original_author = self.action_args.get("original_author_name", "")
-        
         if original_content and original_author:
-            return f"转发了{original_author}的帖子：「{original_content}」"
+            return f"amplified the finding from {original_author}: \"{original_content}\""
         elif original_content:
-            return f"转发了一条帖子：「{original_content}」"
+            return f"amplified the finding: \"{original_content}\""
         elif original_author:
-            return f"转发了{original_author}的一条帖子"
-        return "转发了一条帖子"
-    
+            return f"amplified a finding by {original_author}"
+        return "amplified a finding"
+
     def _describe_quote_post(self) -> str:
-        """引用帖子 - 包含原帖内容、作者信息和引用评论"""
+        """Researcher builds on another's claim with a caveat."""
         original_content = self.action_args.get("original_content", "")
         original_author = self.action_args.get("original_author_name", "")
         quote_content = self.action_args.get("quote_content", "") or self.action_args.get("content", "")
-        
-        base = ""
-        if original_content and original_author:
-            base = f"引用了{original_author}的帖子「{original_content}」"
+        if original_author and original_content:
+            base = f"built on {original_author}'s claim \"{original_content}\""
         elif original_content:
-            base = f"引用了一条帖子「{original_content}」"
+            base = f"built on the claim \"{original_content}\""
         elif original_author:
-            base = f"引用了{original_author}的一条帖子"
+            base = f"built on a claim by {original_author}"
         else:
-            base = "引用了一条帖子"
-        
+            base = "built on a prior claim"
         if quote_content:
-            base += f"，并评论道：「{quote_content}」"
+            base += f", adding: \"{quote_content}\""
         return base
-    
+
     def _describe_follow(self) -> str:
-        """关注用户 - 包含被关注用户的名称"""
+        """Researcher aligns methodologically with a peer."""
         target_user_name = self.action_args.get("target_user_name", "")
-        
         if target_user_name:
-            return f"关注了用户「{target_user_name}」"
-        return "关注了一个用户"
-    
+            return f"aligned methodologically with {target_user_name}"
+        return "aligned with a peer researcher"
+
     def _describe_create_comment(self) -> str:
-        """发表评论 - 包含评论内容和所评论的帖子信息"""
+        """Researcher rebuts or supports a specific claim."""
         content = self.action_args.get("content", "")
         post_content = self.action_args.get("post_content", "")
         post_author = self.action_args.get("post_author_name", "")
-        
         if content:
             if post_content and post_author:
-                return f"在{post_author}的帖子「{post_content}」下评论道：「{content}」"
-            elif post_content:
-                return f"在帖子「{post_content}」下评论道：「{content}」"
+                return f"responded to {post_author}'s claim \"{post_content}\": \"{content}\""
             elif post_author:
-                return f"在{post_author}的帖子下评论道：「{content}」"
-            return f"评论道：「{content}」"
-        return "发表了评论"
-    
+                return f"responded to {post_author}: \"{content}\""
+            return f"responded: \"{content}\""
+        return "responded to a claim"
+
     def _describe_like_comment(self) -> str:
-        """点赞评论 - 包含评论内容和作者信息"""
+        """Researcher endorses a rebuttal or supporting comment."""
         comment_content = self.action_args.get("comment_content", "")
         comment_author = self.action_args.get("comment_author_name", "")
-        
         if comment_content and comment_author:
-            return f"点赞了{comment_author}的评论：「{comment_content}」"
+            return f"endorsed {comment_author}'s response: \"{comment_content}\""
         elif comment_content:
-            return f"点赞了一条评论：「{comment_content}」"
+            return f"endorsed the response: \"{comment_content}\""
         elif comment_author:
-            return f"点赞了{comment_author}的一条评论"
-        return "点赞了一条评论"
-    
+            return f"endorsed a response by {comment_author}"
+        return "endorsed a response"
+
     def _describe_dislike_comment(self) -> str:
-        """踩评论 - 包含评论内容和作者信息"""
+        """Researcher rejects a comment as insufficient."""
         comment_content = self.action_args.get("comment_content", "")
         comment_author = self.action_args.get("comment_author_name", "")
-        
         if comment_content and comment_author:
-            return f"踩了{comment_author}的评论：「{comment_content}」"
+            return f"rejected {comment_author}'s response: \"{comment_content}\""
         elif comment_content:
-            return f"踩了一条评论：「{comment_content}」"
+            return f"rejected the response: \"{comment_content}\""
         elif comment_author:
-            return f"踩了{comment_author}的一条评论"
-        return "踩了一条评论"
-    
+            return f"rejected a response by {comment_author}"
+        return "rejected a response"
+
     def _describe_search(self) -> str:
-        """搜索帖子 - 包含搜索关键词"""
+        """Researcher searches for related evidence."""
         query = self.action_args.get("query", "") or self.action_args.get("keyword", "")
-        return f"搜索了「{query}」" if query else "进行了搜索"
-    
+        return f"searched for evidence on \"{query}\"" if query else "searched for related evidence"
+
     def _describe_search_user(self) -> str:
-        """搜索用户 - 包含搜索关键词"""
+        """Researcher searches for a peer."""
         query = self.action_args.get("query", "") or self.action_args.get("username", "")
-        return f"搜索了用户「{query}」" if query else "搜索了用户"
-    
+        return f"searched for researcher \"{query}\"" if query else "searched for a researcher"
+
     def _describe_mute(self) -> str:
-        """屏蔽用户 - 包含被屏蔽用户的名称"""
+        """Researcher de-prioritises a methodologically incompatible peer."""
         target_user_name = self.action_args.get("target_user_name", "")
-        
         if target_user_name:
-            return f"屏蔽了用户「{target_user_name}」"
-        return "屏蔽了一个用户"
-    
+            return f"de-prioritised {target_user_name} as methodologically incompatible"
+        return "de-prioritised a peer"
+
     def _describe_generic(self) -> str:
-        # 对于未知的动作类型，生成通用描述
-        return f"执行了{self.action_type}操作"
+        return f"performed action {self.action_type}"
 
 
 class ZepGraphMemoryUpdater:

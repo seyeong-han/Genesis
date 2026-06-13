@@ -1,6 +1,7 @@
 """
-LLM客户端封装
-统一使用OpenAI格式调用
+LLM client wrapper.
+Uses OpenAI-compatible format so it works with the Anthropic API,
+any OpenAI-compatible gateway, or plain OpenAI.
 """
 
 import json
@@ -12,25 +13,36 @@ from ..config import Config
 
 
 class LLMClient:
-    """LLM客户端"""
-    
+    """LLM client. Pass use_report_model=True to use the higher-quality
+    synthesis model (Opus) instead of the simulation agent model (sonnet)."""
+
     def __init__(
         self,
         api_key: Optional[str] = None,
         base_url: Optional[str] = None,
-        model: Optional[str] = None
+        model: Optional[str] = None,
+        use_report_model: bool = False,
     ):
         self.api_key = api_key or Config.LLM_API_KEY
-        self.base_url = base_url or Config.LLM_BASE_URL
-        self.model = model or Config.LLM_MODEL_NAME
-        
+
+        raw_base_url = base_url or Config.LLM_BASE_URL
+        # Blank base_url → let openai SDK use its own default (works with Anthropic proxy too)
+        self.base_url = raw_base_url if raw_base_url else None
+
+        if model:
+            self.model = model
+        elif use_report_model:
+            self.model = Config.LLM_REPORT_MODEL_NAME
+        else:
+            self.model = Config.LLM_MODEL_NAME
+
         if not self.api_key:
-            raise ValueError("LLM_API_KEY 未配置")
-        
-        self.client = OpenAI(
-            api_key=self.api_key,
-            base_url=self.base_url
-        )
+            raise ValueError("LLM_API_KEY (or ANTHROPIC_API_KEY) is not configured")
+
+        client_kwargs: Dict[str, Any] = {"api_key": self.api_key}
+        if self.base_url:
+            client_kwargs["base_url"] = self.base_url
+        self.client = OpenAI(**client_kwargs)
     
     def chat(
         self,

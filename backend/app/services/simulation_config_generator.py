@@ -73,8 +73,8 @@ class AgentActivityConfig:
     # 情感倾向 (-1.0到1.0，负面到正面)
     sentiment_bias: float = 0.0
     
-    # 立场（对特定话题的态度）
-    stance: str = "neutral"  # supportive, opposing, neutral, observer
+    # Epistemic stance in the researcher debate
+    stance: str = "neutral"  # proponent, skeptic, neutral, replicator
     
     # 影响力权重（决定其发言被其他Agent看到的概率）
     influence_weight: float = 1.0
@@ -859,7 +859,7 @@ class SimulationConfigGenerator:
             "response_delay_min": <最小响应延迟分钟>,
             "response_delay_max": <最大响应延迟分钟>,
             "sentiment_bias": <-1.0到1.0>,
-            "stance": "<supportive/opposing/neutral/observer>",
+            "stance": "<proponent/skeptic/neutral/replicator>",
             "influence_weight": <影响力权重>
         }},
         ...
@@ -867,7 +867,7 @@ class SimulationConfigGenerator:
 }}"""
 
         system_prompt = "你是社交媒体行为分析专家。返回纯JSON，配置需符合模拟场景中目标用户群体的作息习惯。"
-        system_prompt = f"{system_prompt}\n\n{get_language_instruction()}\nIMPORTANT: The 'stance' field value MUST be one of the English strings: 'supportive', 'opposing', 'neutral', 'observer'. All JSON field names and numeric values must remain unchanged. Only natural language text fields should use the specified language."
+        system_prompt = f"{system_prompt}\n\n{get_language_instruction()}\nIMPORTANT: The 'stance' field value MUST be one of the English strings: 'proponent', 'skeptic', 'neutral', 'replicator'. All JSON field names and numeric values must remain unchanged. Only natural language text fields should use the specified language."
 
         try:
             result = self._call_llm_with_retry(prompt, system_prompt)
@@ -932,7 +932,7 @@ class SimulationConfigGenerator:
                 "response_delay_min": 5,
                 "response_delay_max": 30,
                 "sentiment_bias": 0.0,
-                "stance": "observer",
+                "stance": "replicator",
                 "influence_weight": 2.5
             }
         elif entity_type in ["professor", "expert", "official"]:
