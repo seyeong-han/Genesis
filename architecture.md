@@ -1,181 +1,375 @@
 # Genesis Engine — Architecture & Build Plan
 
-> 인류 지식 전체를 융합해, 우주·생명·마음·의미의 기원에 대해 **더 높은 지능이라면 던졌을 *질문*** 을 발굴하는 엔진.
-> 답을 주장하지 않는다. 어느 단일 분야도 혼자서는 답할 수 없는 **구조적 긴장**을 찾아 근본 질문으로 벼려낸다.
+> **A cross-disciplinary collision engine.** It takes a user's research question and lets
+> real researchers' *actual papers* (OpenAlex RAG) collide on a graph to produce
+> **leads, hypotheses, and follow-up questions** as a single report — and shows **which
+> researcher's paper sparked which idea** via auditable provenance (glow).
+> It does not assert answers — it produces *creative leads worth verifying*.
 
-상태: 코어 파이프라인(7개 분야) 동작 검증 완료. 본 문서는 **전 학문 확장 + Root Scan** 빌드의 단일 설계 기준이다.
+Status: core co-discovery pipeline + OpenAlex ingestion (43 disciplines, real data) verified. This document is the single design source of truth for the **Ask Mode (user-question) pivot** build.
+
+## Two modes
+- **Ask Mode (primary, new)**: user question → activate relevant agents → collision → grounded report + glow provenance. ← the main hackathon demo.
+- **Genesis / Explore Mode (secondary)**: the engine discovers its own fundamental questions (Tension/Root Scan). Kept as a "wow" secondary demo (§6).
 
 ---
 
-## 0. 결정 기록 (왜 이 모양인가)
+## 0. Decision log (why it looks this way)
 
-| 결정 | 선택 | 이유 |
+| Decision | Choice | Reason |
 |---|---|---|
-| 답 vs 질문 | **질문 발굴 엔진** | "기원의 답"은 환각·검증불가. "가장 깊은 미해결 질문"은 그래프에서 구조적으로 찾을 수 있고 검증 가능. |
-| MiroFish fork vs 신규 | **신규(standalone)** | 해커톤은 "standing start"를 1순위로 허용. Zep/OASIS/Docker/Flask는 우리가 안 쓰는 무게·live 실패 표면. MiroFish의 **3대 개념만 계승**. |
-| 의존성 | **stdlib-only 코어 + 스왑형 두뇌** | mock 모드는 키·설치 0 → 무대에서 안 터짐. live 모드만 `anthropic`. |
-| 검증자(referee) | **단일 심판 없음 → 3분할** | MiroFish엔 중앙 결정자 없음(stigmergy). 검증을 그래프/루프/사후로 분산. |
-| MiroFish 시각 자산 | **격리 차용(레퍼런스)** | `GraphPanel.vue`는 MiroFish 백엔드 포맷에 강결합 → fork 대신 우리 이벤트 스트림 위에 얇은 viz를 새로. |
-| 모델 배정 | **하이브리드: 에이전트=sonnet-4.6, referee/합성/Root=Opus 4.8** | MiroFish는 전 에이전트 단일 공유 모델(`gpt-4o-mini`). 우리는 물량(37 에이전트×라운드)은 sonnet으로 싸게, 어려운 융합·채점·Root 합성만 Opus로 → 비용↓ + "Opus 4.8 Use(15%)"↑. 모델은 공유, "그 연구자다움"은 페르소나+논문컨텍스트가 만든다(개별 모델/대화 히스토리 불필요 — 그래프가 기억). |
-| 연구자 그라운딩 | **실제 논문 RAG (OpenAlex 초록 적재 + 검색 주입)** | "각 에이전트가 논문을 이해한 채 시작"의 충실한 구현. 모델은 범용 sonnet, 주입된 논문 코퍼스가 에이전트를 그 연구자로 만든다. 오프라인 안전을 위해 디스크 캐시 + 페르소나 폴백. |
+| Answers vs questions | **Question/lead engine** | "Answers about origins" hallucinate and can't be verified. The deepest unanswered questions can be found structurally on the graph and are verifiable. |
+| MiroFish fork vs new | **New (standalone)** | The hackathon explicitly allows a "standing start" as a first-class path. Zep/OASIS/Docker/Flask are weight we don't use and live-failure surface. Inherit only MiroFish's **3 core ideas**. |
+| Dependencies | **stdlib-only core + swappable brain** | Mock mode needs zero keys/installs → won't break on stage. Only live mode needs `anthropic`. |
+| Referee | **No single judge → 3-way split** | MiroFish has no central decider (stigmergy). Verification is distributed across graph / loop / post-hoc. |
+| MiroFish frontend | **Reuse the Vue frontend as-is via an API adapter** (revised) | Cut build time: keep the 5-step wizard + `GraphPanel.vue`, and make our Python core answer MiroFish's endpoints with the same JSON. Only add an `influence` field for glow. (See §1.6.) |
+| Model assignment | **Hybrid: agents = sonnet-4.6, referee/synth/Root = Opus 4.8** | MiroFish uses one shared model (`gpt-4o-mini`) for all agents. We run the volume (agents × rounds) cheaply on sonnet, and only the hard fusion/scoring/root synthesis on Opus → lower cost + higher "Opus 4.8 Use (15%)". Models are shared; "being that researcher" comes from persona + paper context (no per-agent model/history — the graph is the memory). |
+| Researcher grounding | **Real-paper RAG (OpenAlex abstracts ingested + injected)** | A faithful implementation of "each agent starts having read the papers." The model is generic sonnet; the injected corpus makes it that researcher. Disk cache + persona fallback for offline safety. |
+| **Primary flow** | **User-question Ask Mode** (auto-discovery → secondary) | "Engine discovers its own questions" is abstract and hard to verify. "My question is answered by real papers colliding + I see whose paper" lands instantly and is far more demoable. |
+| **Framing** | **leads/hypotheses/follow-ups, not "answers"** | "An engine that answers any question" dies to "isn't that just ChatGPT?". Position it as an ideation/serendipity tool → dodges hallucination critique + matches real researcher demand. |
+| **Attribution (glow)** | **citation-trace (auditable), not vibes** | LLM self-reported influence is fabricated. The synthesizer tags the claim ids it used per sentence → glow = actual cited contributions. Clicking a node reveals that claim + paper (DOI). The trust anchor. |
 
-## 1. 계승: MiroFish의 3대 뼈대만
+## 1. Inheritance: only MiroFish's 3 backbones
 
 ```mermaid
 flowchart LR
-    subgraph mf [MiroFish에서 계승]
-        A["공유 시간그래프 = 칠판"]
-        B["라운드 누적 = stigmergy"]
-        C["사후 합성 에이전트"]
+    subgraph mf [Inherited from MiroFish]
+        A["Shared temporal graph = blackboard"]
+        B["Round accumulation = stigmergy"]
+        C["Post-hoc synthesizer"]
     end
-    subgraph drop [버림]
-        D["OASIS 소셜 시뮬"]
-        E["Zep/Docker/Flask/Vue 결합"]
+    subgraph drop [Dropped]
+        D["OASIS social sim"]
+        E["Zep/Docker/Flask/Vue coupling"]
     end
     A --> G["Genesis Engine"]
     B --> G
     C --> G
 ```
 
-- **수집 = 공유 그래프 누적**: 에이전트는 서로 직접 대화하지 않는다. 그래프에 흔적을 남기고, 다음 라운드에 남이 읽는다.
-- **진실 갱신 = 시간적 무효화**: 사실(엣지)에 `valid/expired`. 모순 시 옛 믿음 폐기 → 지식 진화.
-- **결정 = 사후 합성**: 누적된 그래프를 referee가 사후 독해해 질문을 합성.
+- **Collection = shared-graph accumulation**: agents do not talk directly. They leave traces on the graph; others read them next round.
+- **Truth update = temporal invalidation**: edges (facts) carry `valid/expired`. On conflict, old beliefs are retired → knowledge evolves.
+- **Decision = post-hoc synthesis**: a referee reads the accumulated graph afterward and synthesizes the question/report.
 
-## 2. 그래프 모델 — 연구자 = 엣지, 발견 = 노드
-
-> 교차분야 발견은 **두 분야의 엣지가 공유하는 노드(합류점)** 에서 터진다. 그것이 곧 질문의 씨앗.
-
-- **노드 타입**: `Researcher`, `Concept`, `Claim`, `Question`
-- **엣지 타입**: `studies`, `builds_on`, `supports`, `bridges`(합류 후보), `contradicts`(긴장)
-- **온톨로지(공유 개념)** — 분야 간 합류를 만드는 핵심. 물리 코어 10개 + 인문·예술·심리 확장:
-  - 물리/형식 코어: `information_fundamental`, `observer_measurement`, `entropy_arrow`, `self_organization`, `emergence`, `fine_tuning`, `computation_universe`, `consciousness`, `time_origin`, `symmetry_breaking`
-  - 확장(마음·의미·문화): `meaning_intentionality`, `qualia`, `language_symbol`, `self_identity`, `the_sacred`, `mathematics_effectiveness`, `narrative`, `value_aesthetics`, `representation`, `free_will`, `time_perception`, `abstraction`, `explanation_limits`, `causation`, `distinction`, `self_reference`, `nothingness`
-
-## 3. 전 학문 로스터 (에이전트 객체)
-
-각 분야 = 하나의 `Researcher`(인식론 페르소나: 믿음/방법/증거관/사각지대 + 라운드별 `Move` + **OpenAlex 식별자/검색어**). 프리셋으로 켜고 끈다.
-
-| 프리셋 | 분야 |
-|---|---|
-| `cosmos` | 우주론, 양자기초론, 입자·통일이론, 열·통계역학, 천체물리, 생명기원화학, 지구시스템, 수학기초론, 정보이론, 계산이론, 통계·확률 |
-| `mind` | 신경과학, 인지과학, 의식이론, 인공지능, 심리학(인지·발달·진화), 심층심리, 심리철학, 네트워크과학, 복잡계 |
-| `meaning` | 형이상학, 인식론, 윤리·가치론, 종교·신학, 역사학, 신화학, 인류학, 고고학, 언어학, 사회학, 경제·게임이론, 미학, 시각예술, 음악, 건축, 문학, 기호학, 과학철학 |
-| `all` | 위 전체(중복 제거, ~37) — **기본값** |
-
-선택 원칙: 한 분야가 들어오려면 ① 기원 질문을 자기 렌즈로 건드리고 ② 다른 분야와 공유 개념 노드를 만들 수 있어야 한다(=bridge 가능).
-
-### 3.1 모델 배정 (역할별)
-모델은 MiroFish처럼 **공유**한다(에이전트별 개별 인스턴스/대화 히스토리 없음 — 그래프가 기억). 역할로만 분리:
-
-| 역할 | 모델 | 이유 |
-|---|---|---|
-| 연구자 에이전트 `propose_move` (×37×라운드) | **sonnet-4.6** | 물량. 빠르고 저렴 |
-| Skeptic `critique` (루프 내, 고빈도) | **sonnet-4.6** | 물량 |
-| Synthesizer / Referee 채점 / **Root 합성** | **Opus 4.8** | 어려운 융합·반증·근원 추론 = "Opus 4.8 Use(15%)" + surprise |
-
-정확한 모델 슬러그는 해커톤 콘솔 값 사용. 코드는 `agent_model`/`referee_model` 인자로 받아 무엇이든 주입 가능.
-
-### 3.2 연구자 그라운딩 = 논문 RAG (OpenAlex)
-"각 에이전트가 논문을 이해한 채 시작" = **그 연구자의 논문 코퍼스를 검색가능 컨텍스트로 주입**. 모델은 범용, 주입된 논문이 에이전트를 그 연구자로 만든다.
-
-- **적재(`ingest.py`)**: OpenAlex `works` API로 연구자별 논문 제목+초록 수집(`abstract_inverted_index` 복원). 키 불필요(polite pool, `mailto`). `data/corpus/<researcher>.json`에 캐시.
-- **검색(`retrieval.py`)**: 코퍼스가 작으므로 경량 토큰 중첩 점수로 현재 문제·최근 그래프 맥락에 맞는 초록 top-N 선택(stdlib, 임베딩 불요).
-- **주입**: `agents.act` → `Brain.propose_move` 컨텍스트에 발췌 삽입, "반드시 이 발췌에서만 논증" 강제.
-- **오프라인 안전**: 캐시 우선. 네트워크/캐시 없으면 저작 페르소나·`Move`로 폴백 → 무대 데모는 네트워크에 의존하지 않음. mock 모드는 항상 폴백 경로로 결정적 동작.
-
-## 4. Co-Discovery 루프 (N 라운드)
+## 1.5 Ask Mode — the user-question collision pipeline (primary flow)
 
 ```mermaid
 flowchart TD
-    S["시드: ~37 분야 페르소나 + 공유 그래프"] --> R1
-    subgraph loop [라운드 반복]
-        R1["① 에이전트: 자기 문제 근처 그래프 읽고 grounded 흔적 기록"] --> R2
-        R2["② Bridge Detector: 분야 교차 합류 노드 점등"] --> R3
-        R3["③ Skeptic R2: 비약·제약위반 실시간 반박 → contradicts"] --> R4
-        R4["④ 그래프 R1: 모순 시 옛 믿음 expire"] -->|누적| R1
+    Q["User question (web input)"] --> R["① Router: question → relevant top-K fields<br/>+ 2-3 wildcards (controlled serendipity)"]
+    PG["Pre-built graph<br/>(43→215 agents' paper-claim nodes)"] --> R
+    R --> L
+    subgraph L [② Collision loop (2-3 bounded rounds)]
+        L1["Active agents: write grounded claims<br/>from question + RAG excerpts (paper/DOI attached)"] --> L2
+        L2["Bridge Detector: light up cross-field confluence nodes"] --> L3
+        L3["Skeptic: rebut leaps/constraint violations → contradicts"] -->|accumulate| L1
     end
-    R4 --> T["Tension Scan → 원본 Genesis Questions"]
-    R4 --> RT["Root Scan → 3질문의 근원 5개"]
-    T --> O["Cards + Report (+ live viz 이벤트)"]
-    RT --> O
+    L --> S["③ Synthesizer (Opus): single report<br/>tags claim ids used per sentence (enforced)"]
+    S --> RPT["Report: synthesis / new ideas / follow-ups / provenance"]
+    S --> GLOW["④ glow = citation-trace<br/>influence(agent) = cited claims × position weight"]
+    GLOW --> VIZ["Graph viz: contributing nodes glow<br/>click → real researcher + paper (DOI)"]
+    RPT --> VIZ
 ```
 
-## 5. 분산 Referee (검증)
+### Stage specs
+- **① Router** (`router.py`, new): question tokens ↔ field/concept keyword overlap (stdlib, no embeddings). Relevant top-K (default 6-8) + 2-3 wildcards (distant fields, deliberate serendipity). Bounds live latency and noise.
+- **② Collision loop**: reuse co-discovery (agents = sonnet, Skeptic = sonnet). **The graph is pre-built** (not rebuilt per question); only the question node is added and only the active subset runs. Round cap + streaming.
+- **③ Synthesizer** (Opus 4.8): produce a single report from the accumulated graph. **Enforced output format** — each report sentence/claim tags the `claim_id[]` it used. Grounding is enforced (no claim without a citation) → suppresses hallucination.
+- **④ glow = citation-trace**: `influence(agent) = Σ(claims of that agent cited in the report) × position weight (headline insight > follow-up)`. Normalize → glow intensity. **Sparsity**: only top contributors shown. Click a node → the exact claim + paper (DOI). Fully auditable (not LLM self-report).
 
-| # | 위치 | 기능 | 구현 |
+### Report structure (single report)
+1. **Cross-disciplinary synthesis answer** (the core insight)
+2. **New ideas / hypotheses** ×2-3 (made falsifiable/actionable)
+3. **Follow-up questions**
+4. **Provenance**: contributing researchers + papers (DOI) + glow, clickable
+
+### Ask Mode red-team → mitigation (summary)
+| Threat | Mitigation |
+|---|---|
+| "Isn't this just an LLM prompt?" | Bridges on the pre-built graph + provenance *visualize* the work the multi-agent system did |
+| Glow is fake (self-report) | **citation-trace** makes it auditable, verifiable by click |
+| Live latency/failure | Pre-built graph + subset routing + round cap + streaming + hero pre-cache fallback |
+| Routing noise | Relevant top-K + a few wildcards |
+| Hallucination / fake citations | RAG grounding + enforced citation + Skeptic verifier |
+| Creative but useless | Rubric includes usefulness/testability + mandatory follow-ups |
+| Open questions unverifiable | Hero question (checkably clever) + provenance legibility + live judge question (with fallback) |
+
+## 1.6 Frontend reuse + 5-stage components (MiroFish wizard)
+
+Decision: **reuse the MiroFish Vue frontend as-is** to cut build time. The frontend's
+5-step wizard (`Step1GraphBuild → Step2EnvSetup → Step3Simulation → Step4Report →
+Step5Interaction`) stays untouched; the real work is a **MiroFish-compatible API
+adapter** so our Python core answers the same endpoints with the same JSON shapes.
+(This supersedes the earlier "thin custom viz" idea in §0 / §9.) Only one small
+frontend extension: GraphPanel reads an `influence` field to render glow.
+
+Agent exchange is visible on the graph because each claim is an **edge** (researcher →
+concept, label = claim text); bridges are concept↔concept edges; rebuttals are
+`contradicts` edges. Per-round graph refresh shows the exchange accumulate, while
+`SimulationRunView` streams the same exchange as a textual action log.
+
+### High-level pipeline
+
+```mermaid
+flowchart LR
+    GB["1. Graph Build<br/>OpenAlex papers to claim-node graph"]
+    ENV["2. Environment<br/>route question, load personas + RAG"]
+    SIM["3. Simulation<br/>collision loop: claims, bridges, skeptic"]
+    REP["4. Report<br/>Opus synthesis + citation-trace glow"]
+    INT["5. Interact<br/>click glowing node, interview real researcher"]
+    GB --> ENV --> SIM --> REP --> INT
+    INT -.->|"follow-up / new question"| ENV
+```
+
+### Low-level components (frontend / API / core / data)
+
+```mermaid
+flowchart TB
+    Data[("data/corpus/*.json (real papers + abstracts)")]
+    Brain["llm.py (sonnet = agents / Opus = synth)"]
+
+    subgraph S1 ["Stage 1: Graph Build"]
+        S1FE["Step1GraphBuild.vue"]
+        S1API["/api/graph/build, /api/graph/data, /api/graph/task"]
+        S1C1["ingest.py (OpenAlex authors + papers + abstracts)"]
+        S1C2["graphbuild.py (concepts/claims to nodes/edges)"]
+        S1FE --> S1API --> S1C2
+        S1C1 --> S1C2
+    end
+
+    subgraph S2 ["Stage 2: Environment"]
+        S2FE["Step2EnvSetup.vue"]
+        S2API["/api/simulation/create, /prepare, /prepare/status"]
+        S2C1["router.py (relevant top-K + wildcards)"]
+        S2C2["seeds/corpus personas + retrieval.py (RAG load)"]
+        S2FE --> S2API --> S2C1 --> S2C2
+    end
+
+    subgraph S3 ["Stage 3: Simulation"]
+        S3FE["Step3Simulation.vue + SimulationRunView"]
+        S3API["/api/simulation/start, /run-status/detail, /actions"]
+        S3C1["loop.py (collision rounds)"]
+        S3C2["agents.py (grounded claim edges)"]
+        S3C3["bridge.py (confluence + Skeptic)"]
+        S3C4["graph.py (temporal store: valid/expired)"]
+        S3FE --> S3API --> S3C1
+        S3C1 --> S3C2 --> S3C4
+        S3C1 --> S3C3 --> S3C4
+    end
+
+    subgraph S4 ["Stage 4: Report"]
+        S4FE["Step4Report.vue"]
+        S4API["/api/simulation/{id}/report (+ /actions)"]
+        S4C1["synth.py (Opus: report + claim_id tags)"]
+        S4C2["attribution.py (citation-trace to glow)"]
+        S4FE --> S4API --> S4C1 --> S4C2
+    end
+
+    subgraph S5 ["Stage 5: Interact"]
+        S5FE["Step5Interaction.vue + GraphPanel (glow/click)"]
+        S5API["/api/simulation/interview/batch"]
+        S5C1["agents.py interview (RAG-grounded answer)"]
+        S5FE --> S5API --> S5C1
+    end
+
+    S1 --> S2 --> S3 --> S4 --> S5
+    S1C1 --> Data
+    Data --> S2C2
+    S3C2 --> Brain
+    S4C1 --> Brain
+    S5C1 --> Brain
+    S3C4 --> S4C1
+    S4C2 --> S5FE
+```
+
+### Stage mapping (MiroFish → Genesis)
+
+| Stage | MiroFish original | Genesis meaning | Core modules |
 |---|---|---|---|
-| R1 | 상시(그래프) | 모순 사실 자동 무효화, 지식 진화 | `graph.invalidate_conflicts()` |
-| R2 | 루프 내 | Skeptic 실시간 반박(상관↔인과 비약, 제약 위반) | `bridge.skeptic_pass()` |
-| R3 | 사후 | 질문을 rubric(근본성/융합도/탐구가능/신규성)으로 채점 | `referee.adjudicate*()` |
+| 1. Graph Build | upload docs → ontology → Zep graph | ingest OpenAlex papers → pre-build claim-node graph | `ingest.py`, `graphbuild.py` |
+| 2. Environment | persona generation + sim config | route question → select relevant agents + load RAG | `router.py`, `retrieval.py` |
+| 3. Simulation | OASIS social sim | collision loop: claim edges + bridges + skeptic (exchange accumulates on graph) | `loop.py`, `agents.py`, `bridge.py`, `graph.py` |
+| 4. Report | ReportAgent (ReACT) | Opus synthesis report + citation-trace glow | `synth.py`, `attribution.py` |
+| 5. Interact | agent interview (IPC) | click glowing node → interview the real researcher | `agents.py` (interview), GraphPanel |
 
-## 6. Tension Scan vs Root Scan (이번 빌드의 핵심 신규)
+### Frontend ↔ backend sequence (reusing MiroFish endpoints)
 
-- **Tension Scan** (`tension.py`): 모든 Concept 노드를 `orphan_bridge`(분야는 만나는데 다리 부족) + `contradiction`(분야 간 모순) + `cross_centrality`(고차수·고다양성)로 채점 → **원본 Genesis Questions**(창발/it-from-bit/관찰·측정 등).
-- **Root Scan** (`roots.py`, 신규): 위 3개를 `ROOT_TARGETS`로 두고, **여러 target 노드로 동시에 흘러드는 상류(upstream) 개념**을 찾는다.
-  - 루트 점수 = (K홉 내 도달하는 target 수) × 분야 다양성 + 모순 압력, **단 target 자신은 제외**.
-  - 직관: "이 질문에 답하면 위 세 질문이 한꺼번에 풀리거나 사라지는" 더 깊은 질문. 인문·예술이 들어오며 생기는 `distinction`, `meaning_intentionality`, `self_reference`, `nothingness` 같은 노드가 후보로 떠오른다.
-  - 산출: **Root Question 5개** (각 질문 + 어느 target을 떠받치는지 + 근거/긴장 + 점수).
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant FE as MiroFish Frontend
+    participant BE as Genesis API (MiroFish-compatible)
+    participant EN as Genesis Engine
 
-## 7. 두뇌 (스왑형, MiroFish CloudBrain/LocalBrain 패턴)
+    U->>FE: enter research question
+    FE->>BE: POST /api/simulation/create {question}
+    FE->>BE: POST /api/simulation/prepare
+    BE->>EN: load pre-built graph + personas + RAG
+    FE->>BE: POST /api/simulation/start
+    BE->>EN: run collision loop (async)
+    loop every ~1s (live exchange)
+        FE->>BE: GET /api/simulation/{id}/run-status/detail
+        BE-->>FE: round + recent agent claims (the exchange)
+        FE->>BE: GET /api/graph/data/{id}
+        BE-->>FE: nodes + edges (+ glow after synth)
+        FE->>FE: GraphPanel renders exchange, lights up confluence
+    end
+    BE->>EN: synthesize report + citation-trace glow
+    FE->>BE: GET /api/simulation/{id}/actions + report
+    BE-->>FE: report + provenance + glow weights
+    U->>FE: click a glowing node
+    FE->>BE: POST /api/simulation/interview/batch {agent}
+    BE-->>FE: real researcher + paper (DOI) + answer
+```
 
-`Brain` 인터페이스 → `MockBrain`(결정적, 오프라인) / `ClaudeBrain`. 메커니즘 동일, 두뇌만 교체.
-- 메서드: `propose_move`, `critique`(→ sonnet), `synthesize_question`, `score_question`, **`synthesize_root_question`(신규)**(→ Opus).
-- `ClaudeBrain(agent_model=sonnet, referee_model=opus)` — 역할에 따라 내부에서 모델 라우팅(§3.1). 모델은 공유 클라이언트, 호출 시 슬러그만 분기.
-- live 실패 시 mock 폴백.
+### API contract (what the reused frontend calls)
 
-## 8. 데이터 흐름
+| Frontend call | Genesis meaning | Shape |
+|---|---|---|
+| `GET /api/graph/data/:id` | shared-graph snapshot | `{nodes:[{uuid,name,labels[]}], edges:[{source_node_uuid,target_node_uuid,name,fact}]}` |
+| `GET /api/simulation/:id/run-status/detail` | live round + recent exchange | `{round,status,recent_actions:[{agent,discipline,claim,etype}]}` |
+| `GET /api/simulation/:id/actions` | full exchange log | list of the above actions |
+| `POST /api/simulation/interview/batch` | glow node click → interview | `{agent_id,prompt}` → paper-grounded answer |
+| `POST /api/simulation/create / prepare / start` | accept question → load → run | MiroFish shapes unchanged |
+
+## 2. Graph model — researchers = edges, discoveries = nodes
+
+> Cross-disciplinary discovery ignites at the **node two fields' edges share (a confluence point)**. That is the seed of a question.
+
+- **Node types**: `Researcher`, `Concept`, `Claim`, `Question`
+- **Edge types**: `studies`, `builds_on`, `supports`, `bridges` (confluence candidate), `contradicts` (tension)
+- **Ontology (shared concepts)** — the key to cross-field confluence. Physics core (10) + humanities/arts/psychology extensions:
+  - Physical/formal core: `information_fundamental`, `observer_measurement`, `entropy_arrow`, `self_organization`, `emergence`, `fine_tuning`, `computation_universe`, `consciousness`, `time_origin`, `symmetry_breaking`
+  - Extensions (mind/meaning/culture): `meaning_intentionality`, `qualia`, `language_symbol`, `self_identity`, `the_sacred`, `mathematics_effectiveness`, `narrative`, `value_aesthetics`, `representation`, `free_will`, `time_perception`, `abstraction`, `explanation_limits`, `causation`, `distinction`, `self_reference`, `nothingness`
+
+## 3. Full-discipline roster (agent objects)
+
+Each field = one `Researcher` (epistemic persona: beliefs/method/evidence/blind-spot + per-round `Move` + **OpenAlex id/search terms**). Toggle via presets.
+
+| Preset | Fields |
+|---|---|
+| `cosmos` | cosmology, quantum foundations, particle/unification, thermo/stat-mech, astrophysics, origin-of-life chemistry, mathematical foundations, information theory, theory of computation, statistics/probability |
+| `mind` | neuroscience, cognitive science, consciousness studies, AI, psychology (cognitive/developmental/evolutionary), depth psychology, philosophy of mind, network science, complex systems |
+| `meaning` | metaphysics, epistemology, ethics/value theory, religious studies/theology, history, mythology, anthropology, archaeology, linguistics, sociology, economics/game theory, aesthetics, visual art, music, architecture, literature, semiotics, philosophy of science |
+| `all` | all of the above (deduped, ~37-43) — **default** |
+
+Selection rule: a field qualifies only if (1) it touches an origin question through its own lens, and (2) it can form shared concept nodes with other fields (i.e., it can bridge).
+
+### 3.1 Model assignment (by role)
+Models are **shared** like MiroFish (no per-agent instance/history — the graph is the memory). Split only by role:
+
+| Role | Model | Reason |
+|---|---|---|
+| Researcher agent `propose_move` (×N×rounds) | **sonnet-4.6** | Volume. Fast and cheap |
+| Skeptic `critique` (in-loop, high frequency) | **sonnet-4.6** | Volume |
+| Synthesizer / Referee scoring / **Root synthesis** | **Opus 4.8** | Hard fusion/falsification/root reasoning = "Opus 4.8 Use (15%)" + surprise |
+
+Use the exact model slug from the hackathon console. Code takes `agent_model`/`referee_model` args so any slug can be injected.
+
+### 3.2 Researcher grounding = paper RAG (OpenAlex)
+"Each agent starts having read the papers" = **inject that researcher's paper corpus as retrievable context**. The model is generic; the injected papers make it that researcher.
+
+- **Ingest (`ingest.py`)**: fetch each researcher's title + abstract via the OpenAlex `works`/`authors` API (reconstruct `abstract_inverted_index`). No key needed (polite pool, `mailto`). Cache to `data/corpus/<discipline>.json`. **(Done: 43 disciplines, real authors + papers + abstracts.)**
+- **Retrieve (`retrieval.py`)**: corpora are small, so a lightweight token-overlap score selects the top-N abstracts relevant to the current question/graph context (stdlib, no embeddings).
+- **Inject**: `agents.act` → puts excerpts into the `Brain.propose_move` context, with "argue only from these excerpts" enforced.
+- **Offline safety**: cache first. If no network/cache, fall back to the authored persona/`Move` → stage demos never depend on the network. Mock mode is always deterministic via the fallback path.
+
+## 4. Co-discovery loop (N rounds)
+
+```mermaid
+flowchart TD
+    S["Seed: ~37 field personas + shared graph"] --> R1
+    subgraph loop [repeat rounds]
+        R1["① Agent: read graph near its problem, write grounded trace"] --> R2
+        R2["② Bridge Detector: light up cross-field confluence node"] --> R3
+        R3["③ Skeptic R2: rebut leaps/constraint violations → contradicts"] -->|accumulate| R1
+    end
+    R1 --> T["Tension Scan → original Genesis Questions"]
+    R1 --> RT["Root Scan → 5 roots of the 3 questions"]
+```
+
+## 5. Distributed referee (verification)
+
+| # | Where | Function | Implementation |
+|---|---|---|---|
+| R1 | always (graph) | auto-invalidate contradictory facts, evolve knowledge | `graph.invalidate_conflicts()` |
+| R2 | in-loop | Skeptic real-time rebuttal (correlation↔causation, constraint violations) | `bridge.skeptic_pass()` |
+| R3 | post-hoc | score questions by a rubric (depth/cross-disc./tractability/novelty) | `referee.adjudicate*()` |
+
+## 6. Tension Scan vs Root Scan (the key new capability)
+
+- **Tension Scan** (`tension.py`): score every Concept node by `orphan_bridge` (fields meet but bridges are sparse) + `contradiction` (cross-field conflict) + `cross_centrality` (high degree × diversity) → **original Genesis Questions** (emergence / it-from-bit / observer-measurement, etc.).
+- **Root Scan** (`roots.py`, new): take those three as `ROOT_TARGETS` and find the **upstream concepts that feed multiple target nodes at once**.
+  - Root score = (number of targets reachable within K hops) × field diversity + contradiction pressure, **excluding the targets themselves**.
+  - Intuition: a deeper question that, if answered, would dissolve all three at once. The nodes that appear once humanities/arts join (`distinction`, `meaning_intentionality`, `self_reference`, `nothingness`) become candidates.
+  - Output: **5 Root Questions** (each + which targets it supports + evidence/tensions + score).
+
+## 7. Brain (swappable, MiroFish CloudBrain/LocalBrain pattern)
+
+`Brain` interface → `MockBrain` (deterministic, offline) / `ClaudeBrain`. Same mechanism, swap the brain only.
+- Methods: `propose_move`, `critique` (→ sonnet), `synthesize_question`, `score_question`, **`synthesize_root_question` (new)**, plus `synthesize_report` for Ask Mode (→ Opus).
+- `ClaudeBrain(agent_model=sonnet, referee_model=opus)` — routes by role internally (§3.1). One shared client, branches by slug at call time.
+- Live failure → mock fallback.
+
+## 8. Data flow
 
 ```
-ingest(OpenAlex→캐시) ─┐
-corpus(personas+openalex_id) ─┤→ retrieval(top-N 초록) ─┐
-                              agents.act(논문 발췌 주입) → graph(write)
+ingest(OpenAlex→cache) ─┐
+corpus(personas+openalex_id) ─┤→ retrieval(top-N abstracts) ─┐
+                              agents.act(inject paper excerpts) → graph(write)
    → bridge.detect/skeptic(sonnet) → graph.invalidate
    → tension.scan → referee.adjudicate(opus) → GenesisQuestion[]
    → roots.scan   → referee.adjudicate_roots(opus) → RootQuestion[5]
    → cards/report/run.py(event stream → live viz)
 ```
 
-## 9. 모듈 맵 (신규/변경)
+## 9. Module map (new/changed)
 
-| 파일 | 역할 | 상태 |
+| File | Role | Status |
 |---|---|---|
-| `genesis/graph.py` | 공유 시간그래프(valid/expired) | 유지 |
-| `genesis/corpus.py` | **온톨로지 확장 + ~37 페르소나(+OpenAlex id/검색어) + FIELD_PRESETS + ROOT_TARGETS/ROOT_QUESTIONS** | 대폭 확장 |
-| `genesis/ingest.py` | **OpenAlex 논문 적재 + 초록 복원 + 디스크 캐시** | 신규 |
-| `genesis/retrieval.py` | **연구자 코퍼스에서 맥락별 top-N 초록 선택(stdlib)** | 신규 |
-| `genesis/brain_types.py` | `MoveResult/BridgeCandidate/TensionSite/GenesisQuestion` + **`RootQuestion`** | 추가 |
-| `genesis/llm.py` | Mock/Claude 두뇌 + **역할별 모델 라우팅(agent/referee)** + **`synthesize_root_question`** | 추가 |
-| `genesis/agents.py` | 그래프 읽기/쓰기 + **논문 발췌 검색·주입** | 변경 |
-| `genesis/bridge.py` | 합류 탐지 + Skeptic | 유지 |
-| `genesis/tension.py` | 긴장 채점 → 원본 질문 | 유지 |
-| `genesis/roots.py` | **Root Scan: 3질문의 근원 탐색** | 신규 |
-| `genesis/referee.py` | 채점 + **`adjudicate_roots`** | 추가 |
-| `genesis/cards.py` | 카드 렌더 + **root 카드** | 추가 |
-| `genesis/loop.py` | 오케스트레이션 + roots 단계 + 이벤트 | 변경 |
-| `run.py` | `--preset`, rounds 상향, Root 섹션 출력/리포트 | 변경 |
-| `viz/`(옵션) | 이벤트 스트림 기반 얇은 라이브 그래프 뷰 | 후속 |
+| `genesis/graph.py` | Shared temporal graph (valid/expired) | keep |
+| `genesis/corpus.py` | Ontology + seed personas + per-round moves + ROOT_TARGETS/ROOT_QUESTIONS | expand |
+| `genesis/ingest.py` | OpenAlex ingestion + abstract reconstruction + disk cache | ✅ done (43 fields) |
+| `genesis/seeds.py` / `disciplines.py` | Origin-relevant researcher seeds / 43-field taxonomy | ✅ done |
+| `genesis/graphbuild.py` | Pre-build: corpus → claim-node graph (offline) | new (Ask) |
+| `genesis/router.py` | Question → relevant top-K fields + wildcards | new (Ask) |
+| `genesis/retrieval.py` | Select context-relevant top-N abstracts from a corpus (stdlib) | new |
+| `genesis/synth.py` | Synthesizer (Opus): report + claim_id tags | new (Ask) |
+| `genesis/attribution.py` | citation-trace → glow influence | new (Ask) |
+| `genesis/brain_types.py` | + `Report`, `Contribution`, `RootQuestion` | add |
+| `genesis/llm.py` | Mock/Claude + role-based models (agent/synth) + `synthesize_report` | add |
+| `genesis/agents.py` | graph read/write + **paper-excerpt RAG injection** | change |
+| `genesis/bridge.py` | confluence detection + Skeptic | keep |
+| `genesis/tension.py` / `roots.py` / `referee.py` / `cards.py` | Explore mode (secondary) | keep/add |
+| `genesis/loop.py` | Ask collision loop + event stream | change |
+| `server.py` (Flask) | **MiroFish-compatible API adapter**: serves `/api/graph/*` and `/api/simulation/*` over the reused Vue frontend | new (Ask) |
+| MiroFish `frontend/` | **reused as-is**; only GraphPanel gains an `influence` field for glow | reuse |
+| `run.py` | CLI (Explore mode, offline demo) | keep |
 
-## 10. 데모 (3분)
+## 10. Demo (3 min, Ask Mode focus)
 
-1. **0:00–0:20** 후크: "외계인에게 우주·인류의 기원을 묻는 게 꿈이다. 그 질문을 우리가 먼저 벼릴 수 있을까?"
-2. **0:20–1:30** 라이브: ~37 분야 에이전트가 공유 그래프에서 토론, 합류 노드 점등·모순 폐기 실시간 스트리밍 → 원본 Genesis Questions 3개.
-3. **1:30–2:40** wow: **Root Scan** — "이 셋의 근원은?" 5개 Root Question 카드 생성(예: `distinction`/`self_reference`/`nothingness` 합류). 근본성/융합도/탐구가능/신규성 점수.
-4. **2:40–3:00** 클로징: 루브릭·responding URL·`--preset` 재실행으로 Orchestration 입증 + 로드맵(실제 논문 적재).
+- **0:00–0:20** Hook: "ChatGPT *merges* an answer for you. We make dozens of real researchers *collide* on your question — and show **whose paper made each idea**."
+- **0:20–1:00** Enter a question (hero = origin question, e.g. "Is consciousness a basic ingredient of the universe or emergent, and is there an observation that could decide?"). Relevant field agents light up + distant **wildcards glow**.
+- **1:00–2:10** Report streams: cross-field synthesis + new hypotheses + follow-ups. Contributing nodes' **glow intensity** updates live. **Click a glowing node → real researcher + real paper (DOI)** ("Jaynes's 1957 information-physics paper laid this bridge").
+- **2:10–2:45** Trust beat: every claim has citation-trace → "not hallucination, real-paper recombination". (Secondary) one cut of Explore Mode discovering its own root question.
+- **2:45–3:00** Close: take a live judge question (fallback ready) + Orchestration (rubric, responding URL, rerunnable on any question).
 
-## 11. 검증 기준 (done)
+Judging map: Impact 35% (a silo-crossing idea generator for researchers) · Demo 35% (live question + provenance glow + click) · Opus 15% (grounded synthesis + attribution) · Orchestration 15% (rubric + provenance = "show your work" + reproducible).
 
-- `python run.py --preset all` 오프라인(mock, 캐시/폴백) end-to-end 동작 — 네트워크 없이도 돈다.
-- `python ingest.py` 1회로 OpenAlex 초록을 `data/corpus/`에 캐시 → 이후 live 모드는 캐시에서 논문 주입.
-- 원본 Genesis Questions + **Root Questions 5개** 출력 및 마크다운 리포트 저장.
-- live 모드: 에이전트=sonnet-4.6, referee/Root=Opus 4.8로 라우팅 확인.
-- 린트 0, live 실패 시 mock 폴백 정상.
-- 새 분야/프리셋으로 내일 재실행 가능(Orchestration).
+## 11. Done criteria
 
-## 12. 로드맵 (해커톤 이후 — 삶의 목표 디딤돌)
+- ✅ `python ingest.py` — OpenAlex 43 fields, real authors/papers/abstracts cached (`data/corpus/`, done).
+- `python graphbuild.py` — corpus → pre-built claim-node graph (offline, once).
+- `server.py` up → web question input → **report + glow provenance** (responding URL).
+- glow computed via citation-trace; clicking a node reveals the real claim + DOI (auditable).
+- live: agents = sonnet-4.6, synth = Opus 4.8 routing confirmed. On live failure, mock/pre-cache fallback.
+- Hero question pre-cached for an uninterrupted stage + reproducible on a live judge question (Orchestration).
+- 0 lint errors.
 
-1. 시드 페르소나 → **실제 논문(OpenAlex/Semantic Scholar)** corpus로 교체(엔진 불변).
-2. 분야·라운드 확장으로 합류점 정밀화.
-3. Root Question 시계열 추적: 점점 더 많은 분야와 충돌하는 질문 = 가장 근본적.
-4. 각 질문에 **반증 설계(관측/실험) 자동 제안** 단계 추가 → tractability를 실제 실험으로.
+## 12. Roadmap (after the hackathon — a stepping stone to the life goal)
 
-목표: 외계인에게 물을 그 질문을, 우리가 스스로 벼려낸다.
+1. Swap seed personas → real-paper corpora (OpenAlex/Semantic Scholar). *(Engine unchanged; pipeline already built.)*
+2. Expand fields and rounds to sharpen confluence points.
+3. Track Root Questions over time: the one colliding with ever more fields = the most fundamental.
+4. Add a **falsification-design** stage that auto-proposes the observation/experiment to settle each question → turn tractability into real experiments.
+
+Goal: to forge, ourselves, the question we would ask a higher intelligence.

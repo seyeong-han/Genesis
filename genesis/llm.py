@@ -57,24 +57,26 @@ class MockBrain(Brain):
     def critique(self, bridge, context):
         disciplines = set(bridge.get("disciplines", []))
         # The classic over-reach: linking measurement to subjective experience.
-        if {"양자기초론", "의식 이론"}.issubset(disciplines):
+        if {"Quantum Foundations", "Consciousness Theory"}.issubset(disciplines):
             return {
                 "violates": True,
-                "reason": "관찰자-의식 연결은 상관을 인과로 비약할 위험 (범주오류). "
-                "측정의 '관찰자'는 물리적 상호작용이지 경험 주체가 아닐 수 있다.",
+                "reason": "The observer-consciousness link risks leaping from correlation "
+                "to causation (a category error). The 'observer' in measurement may be a "
+                "physical interaction, not an experiencing subject.",
             }
-        if {"의식 이론", "복잡계 과학"}.issubset(disciplines):
+        if {"Consciousness Theory", "Complex Systems Science"}.issubset(disciplines):
             return {
                 "violates": True,
-                "reason": "창발로서의 의식 vs 근본 성질로서의 의식 — 경계 기준 없이 합의 불가.",
+                "reason": "Consciousness-as-emergence vs consciousness-as-fundamental: "
+                "no agreement is possible without a boundary criterion.",
             }
         return {"violates": False, "reason": ""}
 
     def synthesize_question(self, concept_id, concept_label, context):
         return GENESIS_QUESTIONS.get(
             concept_id,
-            f"'{concept_label}'를 둘러싼 분야 간 충돌은 우주·생명의 기원에 대해 "
-            f"어떤 근본 질문을 강제하는가?",
+            f"What fundamental question about the origin of the universe and life does the "
+            f"cross-disciplinary collision around '{concept_label}' force upon us?",
         )
 
     def score_question(self, question, disciplines, signatures):
@@ -91,8 +93,8 @@ class MockBrain(Brain):
             "cross_disciplinarity": cross,
             "tractability": tractability,
             "novelty": novelty,
-            "rationale": "여러 분야가 같은 노드에서 충돌·합류하며, 어느 단일 분야도 "
-            "단독으로 답할 수 없는 구조적 공백을 가리킨다.",
+            "rationale": "Multiple fields collide and converge on the same node, pointing "
+            "to a structural gap that no single discipline can answer alone.",
         }
 
 
@@ -139,23 +141,23 @@ class ClaudeBrain(Brain):
 
     def propose_move(self, researcher, scripted, context, rnd):
         system = (
-            "너는 한 명의 연구자를 연기한다. 반드시 너의 분야의 방법·증거에서만 논증하고, "
-            "비위맞추기를 하지 말라. 다른 분야의 주장과 너의 분야를 잇거나 반박하라. "
-            "JSON만 출력하라."
+            "You are role-playing a single researcher. Argue strictly from the methods "
+            "and evidence of your own field; do not be sycophantic. Connect your field to, "
+            "or rebut, claims from other fields. Output JSON only."
         )
         inspiration = ""
         if scripted is not None:
             inspiration = (
-                f"\n참고용 시드 입장(그대로 베끼지 말고 발전시켜라): {scripted.claim}"
+                f"\nReference seed position (develop it, do not copy verbatim): {scripted.claim}"
             )
         user = (
             f"{researcher.persona_brief()}\n\n"
-            f"[공유 그래프에서 최근 남들이 남긴 흔적]\n{context}\n"
+            f"[Recent traces others left on the shared graph]\n{context}\n"
             f"{inspiration}\n\n"
-            "다음 형식의 JSON 하나만:\n"
-            '{"concept":"<짧은 개념 id, 영문 snake_case>","concept_label":"<한글 라벨>",'
-            '"claim":"<한 문장 주장>","connects_to":["<관련 개념 id>"],'
-            '"etype":"supports|builds_on|bridges|contradicts","evidence":"<코퍼스 근거 한 줄>"}'
+            "Return exactly one JSON object of this form:\n"
+            '{"concept":"<short concept id, english snake_case>","concept_label":"<label>",'
+            '"claim":"<one-sentence claim>","connects_to":["<related concept id>"],'
+            '"etype":"supports|builds_on|bridges|contradicts","evidence":"<one-line corpus grounding>"}'
         )
         try:
             return _extract_json(self._ask(system, user))
@@ -164,12 +166,13 @@ class ClaudeBrain(Brain):
 
     def critique(self, bridge, context):
         system = (
-            "너는 회의주의자(Skeptic)다. 제안된 분야 간 다리가 열역학·스케일·생화학 제약을 "
-            "위반하거나, 상관을 인과로 비약하거나, 이미 알려진 사실의 재포장인지 점검하라. JSON만."
+            "You are a Skeptic. Check whether the proposed cross-disciplinary bridge "
+            "violates thermodynamic/scale/biochemical constraints, leaps from correlation "
+            "to causation, or merely repackages an already-known fact. JSON only."
         )
         user = (
-            f"[다리 후보]\n{json.dumps(bridge, ensure_ascii=False)}\n\n[맥락]\n{context}\n\n"
-            '{"violates": true|false, "reason": "<위반 시 한 줄 근거, 아니면 빈 문자열>"}'
+            f"[Bridge candidate]\n{json.dumps(bridge, ensure_ascii=False)}\n\n[Context]\n{context}\n\n"
+            '{"violates": true|false, "reason": "<one-line basis if it violates, else empty string>"}'
         )
         try:
             return _extract_json(self._ask(system, user, max_tokens=400))
@@ -178,30 +181,34 @@ class ClaudeBrain(Brain):
 
     def synthesize_question(self, concept_id, concept_label, context):
         system = (
-            "너는 여러 분야의 충돌을 읽고, 인류가 아직 답하지 못한 '우주·생명의 기원'에 관한 "
-            "가장 근본적인 질문 하나를 벼려낸다. 답을 주지 말고, 반증/탐구의 방향이 보이는 "
-            "날카로운 질문 한 문장을 한국어로 출력하라. 따옴표·접두사 없이 질문만."
+            "You read the collision of several fields and forge a single most-fundamental "
+            "unanswered question about the origin of the universe and life. Do not give an "
+            "answer; output one sharp question that suggests a direction for falsification "
+            "or inquiry. Output the question only, no quotes or prefix."
         )
         user = (
-            f"[합류·충돌 노드]\n{concept_id} — {concept_label}\n\n"
-            f"[이 노드를 둘러싼 분야 간 주장·반박]\n{context}"
+            f"[Confluence / collision node]\n{concept_id} — {concept_label}\n\n"
+            f"[Cross-field claims and rebuttals around this node]\n{context}"
         )
         try:
             return self._ask(system, user, max_tokens=300).strip().strip('"')
         except Exception:
-            return GENESIS_QUESTIONS.get(concept_id, f"{concept_label}에 관한 근본 질문은 무엇인가?")
+            return GENESIS_QUESTIONS.get(
+                concept_id, f"What is the fundamental question about '{concept_label}'?"
+            )
 
     def score_question(self, question, disciplines, signatures):
         system = (
-            "너는 심판이다. 다음 루브릭으로 0~10 정수 채점하고 JSON만 출력하라: "
-            "depth(근본성), cross_disciplinarity(분야 융합도), tractability(가까운 미래에 "
-            "관측·실험으로 접근 가능한 정도), novelty(기존 문헌 대비 신선함)."
+            "You are a referee. Score with the following rubric as integers 0-10 and output "
+            "JSON only: depth (how fundamental), cross_disciplinarity (degree of fusion), "
+            "tractability (how approachable by observation/experiment in the near future), "
+            "novelty (freshness vs existing literature)."
         )
         user = (
-            f"[질문]\n{question}\n\n[관련 분야]\n{', '.join(sorted(set(disciplines)))}\n"
-            f"[그래프 시그니처]\n{json.dumps(signatures, ensure_ascii=False)}\n\n"
+            f"[Question]\n{question}\n\n[Related fields]\n{', '.join(sorted(set(disciplines)))}\n"
+            f"[Graph signatures]\n{json.dumps(signatures, ensure_ascii=False)}\n\n"
             '{"depth":int,"cross_disciplinarity":int,"tractability":int,"novelty":int,'
-            '"rationale":"<한 줄>"}'
+            '"rationale":"<one line>"}'
         )
         try:
             return _extract_json(self._ask(system, user, max_tokens=400))

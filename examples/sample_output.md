@@ -1,168 +1,168 @@
 # Genesis Engine — Run Report
 
 - brain: `mock`
-- 그래프: {"nodes": 16, "concepts": 9, "edges_total": 54, "edges_valid": 41, "edges_expired": 13, "contradictions": 12}
-- 라운드: 3
+- graph: {"nodes": 16, "concepts": 9, "edges_total": 54, "edges_valid": 41, "edges_expired": 13, "contradictions": 12}
+- rounds: 3
 
-## 발굴된 Genesis Questions (점수순)
+## Discovered Genesis Questions (by score)
 
-### Genesis Question #1 — 합류 노드 `창발`
+### Genesis Question #1 — confluence node `Emergence`
 
-> **'창발'은 진짜 새로운 인과의 출현인가, 아니면 우리가 미시법칙을 못 풀어서 붙인 이름인가? 강한 창발이 참이라면 환원주의적 기원 서사는 어디서 무너지는가?**
+> **Is 'emergence' the appearance of genuinely new causation, or a name we give to microlaws we cannot solve? If strong emergence is true, where does the reductionist origin story break down?**
 
-- **잇는 분야**: 과학철학 ⨯ 복잡계 과학 ⨯ 의식 이론 ⨯ 정보물리학
-- **기여 연구자**: Dr. Theo Sasaki, Dr. Sofia Reyes, Dr. Kenji Adeyemi, Dr. Lina Hartmann
-- **점수**: 근본성 9 / 융합도 10 / 탐구가능 6 / 신규성 9  (총 34/40)
+- **Fields bridged**: Complex Systems Science ⨯ Consciousness Theory ⨯ Information Physics ⨯ Philosophy of Science
+- **Contributing researchers**: Dr. Theo Sasaki, Dr. Sofia Reyes, Dr. Kenji Adeyemi, Dr. Lina Hartmann
+- **Scores**: depth 9 / cross-disc. 10 / tractability 6 / novelty 9  (total 34/40)
 
-**지지 근거**
-- (복잡계 과학) Dr. Theo Sasaki: 자연은 국소 규칙의 반복 계산처럼 행동한다 — 생명·인지는 그 계산의 특수 모드.
-- (정보물리학) Dr. Kenji Adeyemi: 시공간은 얽힘 정보의 패턴에서 창발한다 — 기하보다 정보가 선행.
-- (복잡계 과학) Dr. Theo Sasaki: 의식도 충분한 통합·임계성에서 창발하는 또 하나의 상전이일 수 있다.
-- (의식 이론) Dr. Lina Hartmann: 의식이 창발이라면 어디서 '켜지는가'? 그 경계가 없다는 점이 창발설의 빈틈이다.
+**Supporting evidence**
+- (Complex Systems Science) Dr. Theo Sasaki: Nature behaves like iterated computation of local rules — life and cognition are special modes of that computation.
+- (Information Physics) Dr. Kenji Adeyemi: Spacetime emerges from patterns of entanglement information — information precedes geometry.
+- (Complex Systems Science) Dr. Theo Sasaki: Consciousness too may be another phase transition emerging from sufficient integration and criticality.
+- (Consciousness Theory) Dr. Lina Hartmann: If consciousness is emergent, where does it 'switch on'? The absence of a boundary is the gap in the emergence account.
 
-**긴장 / 반박**
-- [폐기됨] (복잡계 과학) Dr. Theo Sasaki: 부분의 상호작용에서 부분에 없던 질서가 임계점에서 출현한다 — 스케일 불변.
-- [폐기됨] (과학철학) Dr. Sofia Reyes: 미세조정 설명은 다중우주(선택효과)와 더 깊은 단일원리 사이에서 미결이다.
-- (과학철학) Dr. Sofia Reyes: 창발이 '설명'인지 '설명 포기의 이름'인지 — 강한 창발은 환원 불가를 주장한다.
-- ⚠ Skeptic: 창발로서의 의식 vs 근본 성질로서의 의식 — 경계 기준 없이 합의 불가.
+**Tensions / rebuttals**
+- [expired] (Complex Systems Science) Dr. Theo Sasaki: From the interaction of parts, order absent in the parts appears at a critical point — scale-invariant.
+- [expired] (Philosophy of Science) Dr. Sofia Reyes: The fine-tuning explanation is undecided between a multiverse (selection effects) and a deeper single principle.
+- (Philosophy of Science) Dr. Sofia Reyes: Whether emergence is an 'explanation' or 'a name for giving up explaining' — strong emergence claims irreducibility.
+- ⚠ Skeptic: Consciousness-as-emergence vs consciousness-as-fundamental: no agreement is possible without a boundary criterion.
 
-_심판 코멘트: 여러 분야가 같은 노드에서 충돌·합류하며, 어느 단일 분야도 단독으로 답할 수 없는 구조적 공백을 가리킨다._
+_Referee note: Multiple fields collide and converge on the same node, pointing to a structural gap that no single discipline can answer alone._
 
-### Genesis Question #2 — 합류 노드 `시간의 시작`
+### Genesis Question #2 — confluence node `Is information more fundamental than matter/spacetime (it-from-bit)`
 
-> **시간 자체에 '시작'이 있는가, 아니면 시작이라는 개념이 시간 안에서만 정의되는 범주오류인가?**
+> **Does information (bits) ontologically precede matter and spacetime? If so, was the 'beginning' an event of distinction rather than of energy, and was the universe a 'computation' from the start?**
 
-- **잇는 분야**: 양자기초론 ⨯ 우주론 ⨯ 정보물리학
-- **기여 연구자**: Dr. Aria Vance, Dr. Niels Okonkwo, Dr. Kenji Adeyemi
-- **점수**: 근본성 8 / 융합도 8 / 탐구가능 6 / 신규성 8  (총 30/40)
+- **Fields bridged**: Complex Systems Science ⨯ Consciousness Theory ⨯ Information Physics ⨯ Quantum Foundations
+- **Contributing researchers**: Dr. Niels Okonkwo, Dr. Lina Hartmann, Dr. Kenji Adeyemi, Dr. Mara Lindqvist, Dr. Theo Sasaki
+- **Scores**: depth 9 / cross-disc. 10 / tractability 5 / novelty 9  (total 33/40)
 
-**지지 근거**
-- (우주론) Dr. Aria Vance: 인플레이션 이전 '시간'은 정의되지 않을 수 있다 — t=0은 좌표가 아니라 경계다.
-- (우주론) Dr. Aria Vance: 우주는 극도로 낮은 엔트로피 상태로 시작했고, 이 초기조건이 시간의 화살을 만든다.
-- (양자기초론) Dr. Niels Okonkwo: 관찰자가 없던 초기 우주의 '상태'는 어떤 의미였는가 — 측정 없는 실재는 정의 가능한가?
-- (정보물리학) Dr. Kenji Adeyemi: 정보가 물질보다 선행한다면 '태초'는 에너지 사건이 아니라 비트 사건이었다.
+**Supporting evidence**
+- (Complex Systems Science) Dr. Theo Sasaki: Nature behaves like iterated computation of local rules — life and cognition are special modes of that computation.
+- (Consciousness Theory) Dr. Lina Hartmann: If observation fixes reality, the emergence of an experiencing subject may be linked to the universe becoming 'actualized'.
+- (Information Physics) Dr. Kenji Adeyemi: Spacetime emerges from patterns of entanglement information — information precedes geometry.
+- (Quantum Foundations) Dr. Niels Okonkwo: What did the 'state' of the early observer-free universe even mean — is reality without measurement definable?
 
-**긴장 / 반박**
-- (없음)
+**Tensions / rebuttals**
+- [expired] (Quantum Foundations) Dr. Niels Okonkwo: The pre-measurement state is not 'real' but information about possibilities — observation fixes the fact.
+- [expired] (Consciousness Theory) Dr. Lina Hartmann: Consciousness is the intrinsic property of a system's integrated information (Phi) — closer to a fundamental property than an emergent one.
+- [expired] (Information Physics) Dr. Kenji Adeyemi: Entropy = information. Black-hole entropy is proportional to area (boundary information content).
+- ⚠ Skeptic: The observer-consciousness link risks leaping from correlation to causation (a category error). The 'observer' in measurement may be a physical interaction, not an experiencing subject.
 
-_심판 코멘트: 여러 분야가 같은 노드에서 충돌·합류하며, 어느 단일 분야도 단독으로 답할 수 없는 구조적 공백을 가리킨다._
+_Referee note: Multiple fields collide and converge on the same node, pointing to a structural gap that no single discipline can answer alone._
 
-### Genesis Question #3 — 합류 노드 `관찰과 측정`
+### Genesis Question #3 — confluence node `The beginning of time`
 
-> **관찰자 없는 우주는 '실재'했는가? 측정이 사실을 고정한다면, 관찰·경험하는 주체의 출현은 우주 생성(cosmogenesis)의 사후 부록이 아니라 그 일부인가 — 즉 우주의 기원과 의식의 기원은 같은 사건의 두 단면인가?**
+> **Does time itself have a 'beginning', or is the notion of a beginning a category error definable only within time?**
 
-- **잇는 분야**: 과학철학 ⨯ 양자기초론 ⨯ 의식 이론
-- **기여 연구자**: Dr. Niels Okonkwo, Dr. Lina Hartmann, Dr. Sofia Reyes
-- **점수**: 근본성 8 / 융합도 8 / 탐구가능 5 / 신규성 8  (총 29/40)
+- **Fields bridged**: Cosmology ⨯ Information Physics ⨯ Quantum Foundations
+- **Contributing researchers**: Dr. Aria Vance, Dr. Niels Okonkwo, Dr. Kenji Adeyemi
+- **Scores**: depth 8 / cross-disc. 8 / tractability 7 / novelty 9  (total 32/40)
 
-**지지 근거**
-- (의식 이론) Dr. Lina Hartmann: 만약 관찰이 실재를 고정한다면, 경험하는 주체의 출현은 우주가 '실재화'되는 사건과 연결될 수 있다.
-- (과학철학) Dr. Sofia Reyes: 관찰자 의존 실재와 관찰자 독립 실재 중 무엇이 더 적은 가정을 요구하는가?
-- (양자기초론) Dr. Niels Okonkwo: 관찰자가 없던 초기 우주의 '상태'는 어떤 의미였는가 — 측정 없는 실재는 정의 가능한가?
+**Supporting evidence**
+- (Cosmology) Dr. Aria Vance: 'Time' before inflation may be undefined — t=0 is a boundary, not a coordinate.
+- (Cosmology) Dr. Aria Vance: The universe began in an extremely low-entropy state, and this initial condition creates the arrow of time.
+- (Quantum Foundations) Dr. Niels Okonkwo: What did the 'state' of the early observer-free universe even mean — is reality without measurement definable?
+- (Information Physics) Dr. Kenji Adeyemi: If information precedes matter, the 'beginning' was a bit-event, not an energy-event.
 
-**긴장 / 반박**
-- [폐기됨] (양자기초론) Dr. Niels Okonkwo: 측정 전 상태는 '실재'가 아니라 가능성의 정보다 — 관찰이 사실을 고정한다.
-- [폐기됨] (양자기초론) Dr. Niels Okonkwo: 물리량은 결국 '예/아니오' 정보로 환원된다 (it-from-bit).
-- ⚠ Skeptic: 관찰자-의식 연결은 상관을 인과로 비약할 위험 (범주오류). 측정의 '관찰자'는 물리적 상호작용이지 경험 주체가 아닐 수 있다.
+**Tensions / rebuttals**
+- (none)
 
-_심판 코멘트: 여러 분야가 같은 노드에서 충돌·합류하며, 어느 단일 분야도 단독으로 답할 수 없는 구조적 공백을 가리킨다._
+_Referee note: Multiple fields collide and converge on the same node, pointing to a structural gap that no single discipline can answer alone._
 
-### Genesis Question #4 — 합류 노드 `정보가 물질·시공간보다 근본적인가 (it-from-bit)`
+### Genesis Question #4 — confluence node `The nature of consciousness`
 
-> **정보(비트)는 물질·시공간보다 존재론적으로 선행하는가? 그렇다면 '태초'는 에너지의 사건이 아니라 구별(distinction)의 사건이며, 우주는 처음부터 '계산'이었는가?**
+> **Is consciousness an emergent property of complex systems, or — like information and the observer — a basic ingredient of the universe? Does an observation or experiment exist that could decide between the two, or is it forever undecidable?**
 
-- **잇는 분야**: 복잡계 과학 ⨯ 양자기초론 ⨯ 의식 이론 ⨯ 정보물리학
-- **기여 연구자**: Dr. Niels Okonkwo, Dr. Lina Hartmann, Dr. Kenji Adeyemi, Dr. Mara Lindqvist, Dr. Theo Sasaki
-- **점수**: 근본성 9 / 융합도 10 / 탐구가능 3 / 신규성 5  (총 27/40)
+- **Fields bridged**: Complex Systems Science ⨯ Consciousness Theory ⨯ Philosophy of Science
+- **Contributing researchers**: Dr. Lina Hartmann, Dr. Sofia Reyes, Dr. Theo Sasaki
+- **Scores**: depth 9 / cross-disc. 8 / tractability 4 / novelty 5  (total 26/40)
 
-**지지 근거**
-- (복잡계 과학) Dr. Theo Sasaki: 자연은 국소 규칙의 반복 계산처럼 행동한다 — 생명·인지는 그 계산의 특수 모드.
-- (의식 이론) Dr. Lina Hartmann: 만약 관찰이 실재를 고정한다면, 경험하는 주체의 출현은 우주가 '실재화'되는 사건과 연결될 수 있다.
-- (정보물리학) Dr. Kenji Adeyemi: 시공간은 얽힘 정보의 패턴에서 창발한다 — 기하보다 정보가 선행.
-- (양자기초론) Dr. Niels Okonkwo: 관찰자가 없던 초기 우주의 '상태'는 어떤 의미였는가 — 측정 없는 실재는 정의 가능한가?
+**Supporting evidence**
+- (Consciousness Theory) Dr. Lina Hartmann: If observation fixes reality, the emergence of an experiencing subject may be linked to the universe becoming 'actualized'.
+- (Philosophy of Science) Dr. Sofia Reyes: Which requires fewer assumptions: observer-dependent reality or observer-independent reality?
+- (Complex Systems Science) Dr. Theo Sasaki: Consciousness too may be another phase transition emerging from sufficient integration and criticality.
+- (Philosophy of Science) Dr. Sofia Reyes: Whether emergence is an 'explanation' or 'a name for giving up explaining' — strong emergence claims irreducibility.
 
-**긴장 / 반박**
-- [폐기됨] (양자기초론) Dr. Niels Okonkwo: 측정 전 상태는 '실재'가 아니라 가능성의 정보다 — 관찰이 사실을 고정한다.
-- [폐기됨] (의식 이론) Dr. Lina Hartmann: 의식은 시스템의 통합정보(Φ)의 내재적 성질이다 — 창발이 아니라 근본 속성에 가깝다.
-- [폐기됨] (정보물리학) Dr. Kenji Adeyemi: 엔트로피 = 정보다. 블랙홀 엔트로피는 면적(경계 정보량)에 비례한다.
-- ⚠ Skeptic: 관찰자-의식 연결은 상관을 인과로 비약할 위험 (범주오류). 측정의 '관찰자'는 물리적 상호작용이지 경험 주체가 아닐 수 있다.
+**Tensions / rebuttals**
+- (Consciousness Theory) Dr. Lina Hartmann: Consciousness is the intrinsic property of a system's integrated information (Phi) — closer to a fundamental property than an emergent one.
+- (Consciousness Theory) Dr. Lina Hartmann: If consciousness is emergent, where does it 'switch on'? The absence of a boundary is the gap in the emergence account.
+- ⚠ Skeptic: Consciousness-as-emergence vs consciousness-as-fundamental: no agreement is possible without a boundary criterion.
 
-_심판 코멘트: 여러 분야가 같은 노드에서 충돌·합류하며, 어느 단일 분야도 단독으로 답할 수 없는 구조적 공백을 가리킨다._
+_Referee note: Multiple fields collide and converge on the same node, pointing to a structural gap that no single discipline can answer alone._
 
-### Genesis Question #5 — 합류 노드 `의식의 본성`
+### Genesis Question #5 — confluence node `Observation and measurement`
 
-> **의식은 복잡계의 창발인가, 아니면 정보·관찰자처럼 우주의 기본 성분인가? 이 둘을 원리적으로 가를 수 있는 관측·실험은 존재하는가, 아니면 영원히 미결인가?**
+> **Was the observer-free universe ever 'real'? If measurement fixes facts, is the emergence of observing, experiencing subjects not a postscript to cosmogenesis but a part of it — i.e., are the origin of the universe and the origin of consciousness two faces of the same event?**
 
-- **잇는 분야**: 과학철학 ⨯ 복잡계 과학 ⨯ 의식 이론
-- **기여 연구자**: Dr. Lina Hartmann, Dr. Sofia Reyes, Dr. Theo Sasaki
-- **점수**: 근본성 9 / 융합도 8 / 탐구가능 4 / 신규성 5  (총 26/40)
+- **Fields bridged**: Consciousness Theory ⨯ Philosophy of Science ⨯ Quantum Foundations
+- **Contributing researchers**: Dr. Niels Okonkwo, Dr. Lina Hartmann, Dr. Sofia Reyes
+- **Scores**: depth 8 / cross-disc. 8 / tractability 4 / novelty 6  (total 26/40)
 
-**지지 근거**
-- (의식 이론) Dr. Lina Hartmann: 만약 관찰이 실재를 고정한다면, 경험하는 주체의 출현은 우주가 '실재화'되는 사건과 연결될 수 있다.
-- (과학철학) Dr. Sofia Reyes: 관찰자 의존 실재와 관찰자 독립 실재 중 무엇이 더 적은 가정을 요구하는가?
-- (복잡계 과학) Dr. Theo Sasaki: 의식도 충분한 통합·임계성에서 창발하는 또 하나의 상전이일 수 있다.
-- (과학철학) Dr. Sofia Reyes: 창발이 '설명'인지 '설명 포기의 이름'인지 — 강한 창발은 환원 불가를 주장한다.
+**Supporting evidence**
+- (Consciousness Theory) Dr. Lina Hartmann: If observation fixes reality, the emergence of an experiencing subject may be linked to the universe becoming 'actualized'.
+- (Philosophy of Science) Dr. Sofia Reyes: Which requires fewer assumptions: observer-dependent reality or observer-independent reality?
+- (Quantum Foundations) Dr. Niels Okonkwo: What did the 'state' of the early observer-free universe even mean — is reality without measurement definable?
 
-**긴장 / 반박**
-- (의식 이론) Dr. Lina Hartmann: 의식은 시스템의 통합정보(Φ)의 내재적 성질이다 — 창발이 아니라 근본 속성에 가깝다.
-- (의식 이론) Dr. Lina Hartmann: 의식이 창발이라면 어디서 '켜지는가'? 그 경계가 없다는 점이 창발설의 빈틈이다.
-- ⚠ Skeptic: 창발로서의 의식 vs 근본 성질로서의 의식 — 경계 기준 없이 합의 불가.
+**Tensions / rebuttals**
+- [expired] (Quantum Foundations) Dr. Niels Okonkwo: The pre-measurement state is not 'real' but information about possibilities — observation fixes the fact.
+- [expired] (Quantum Foundations) Dr. Niels Okonkwo: Physical quantities ultimately reduce to yes/no information (it-from-bit).
+- ⚠ Skeptic: The observer-consciousness link risks leaping from correlation to causation (a category error). The 'observer' in measurement may be a physical interaction, not an experiencing subject.
 
-_심판 코멘트: 여러 분야가 같은 노드에서 충돌·합류하며, 어느 단일 분야도 단독으로 답할 수 없는 구조적 공백을 가리킨다._
+_Referee note: Multiple fields collide and converge on the same node, pointing to a structural gap that no single discipline can answer alone._
 
-## 라운드별 co-discovery 로그
+## Per-round co-discovery log
 
-### 라운드 0
-- (우주론) Dr. Aria Vance [supports]: 인플레이션 이전 '시간'은 정의되지 않을 수 있다 — t=0은 좌표가 아니라 경계다.
-- (양자기초론) Dr. Niels Okonkwo [supports]: 측정 전 상태는 '실재'가 아니라 가능성의 정보다 — 관찰이 사실을 고정한다.
-- (생명기원 화학) Dr. Mara Lindqvist [supports]: 생명은 비평형에서 에너지를 흘려보내며 질서를 유지하는 흩어지는 구조다.
-- (복잡계 과학) Dr. Theo Sasaki [supports]: 부분의 상호작용에서 부분에 없던 질서가 임계점에서 출현한다 — 스케일 불변.
-- (의식 이론) Dr. Lina Hartmann [contradicts]: 의식은 시스템의 통합정보(Φ)의 내재적 성질이다 — 창발이 아니라 근본 속성에 가깝다.
-- (정보물리학) Dr. Kenji Adeyemi [builds_on]: 엔트로피 = 정보다. 블랙홀 엔트로피는 면적(경계 정보량)에 비례한다.
-- (과학철학) Dr. Sofia Reyes [supports]: 미세조정 설명은 다중우주(선택효과)와 더 깊은 단일원리 사이에서 미결이다.
-  - 🔗 합류: **창발** ← 과학철학 ⨯ 복잡계 과학
-  - 🔗 합류: **자기조직화** ← 복잡계 과학 ⨯ 생명기원 화학
-  - 🔗 합류: **정보가 물질·시공간보다 근본적인가 (it-from-bit)** ← 양자기초론 ⨯ 의식 이론 ⨯ 정보물리학
-  - 🔗 합류: **엔트로피와 시간의 화살, 낮은 엔트로피 초기조건** ← 생명기원 화학 ⨯ 우주론 ⨯ 정보물리학
-  - ⚠ Skeptic 반박 @ 정보가 물질·시공간보다 근본적인가 (it-from-bit): 관찰자-의식 연결은 상관을 인과로 비약할 위험 (범주오류). 측정의 '관찰자'는 물리적 상호작용이지 경험 주체가 아닐 수 있다.
+### Round 0
+- (Cosmology) Dr. Aria Vance [supports]: 'Time' before inflation may be undefined — t=0 is a boundary, not a coordinate.
+- (Quantum Foundations) Dr. Niels Okonkwo [supports]: The pre-measurement state is not 'real' but information about possibilities — observation fixes the fact.
+- (Origin-of-Life Chemistry) Dr. Mara Lindqvist [supports]: Life is a dissipative structure that maintains order by channeling energy far from equilibrium.
+- (Complex Systems Science) Dr. Theo Sasaki [supports]: From the interaction of parts, order absent in the parts appears at a critical point — scale-invariant.
+- (Consciousness Theory) Dr. Lina Hartmann [contradicts]: Consciousness is the intrinsic property of a system's integrated information (Phi) — closer to a fundamental property than an emergent one.
+- (Information Physics) Dr. Kenji Adeyemi [builds_on]: Entropy = information. Black-hole entropy is proportional to area (boundary information content).
+- (Philosophy of Science) Dr. Sofia Reyes [supports]: The fine-tuning explanation is undecided between a multiverse (selection effects) and a deeper single principle.
+  - 🔗 confluence: **Emergence** ← Complex Systems Science ⨯ Philosophy of Science
+  - 🔗 confluence: **Entropy, the arrow of time, and the low-entropy initial condition** ← Cosmology ⨯ Information Physics ⨯ Origin-of-Life Chemistry
+  - 🔗 confluence: **Self-organization** ← Complex Systems Science ⨯ Origin-of-Life Chemistry
+  - 🔗 confluence: **Is information more fundamental than matter/spacetime (it-from-bit)** ← Consciousness Theory ⨯ Information Physics ⨯ Quantum Foundations
+  - ⚠ Skeptic rebuttal @ Is information more fundamental than matter/spacetime (it-from-bit): The observer-consciousness link risks leaping from correlation to causation (a category error). The 'observer' in measurement may be a physical interaction, not an experiencing subject.
 
-### 라운드 1
-- (우주론) Dr. Aria Vance [builds_on]: 우주는 극도로 낮은 엔트로피 상태로 시작했고, 이 초기조건이 시간의 화살을 만든다.
-- (양자기초론) Dr. Niels Okonkwo [builds_on]: 물리량은 결국 '예/아니오' 정보로 환원된다 (it-from-bit).
-- (생명기원 화학) Dr. Mara Lindqvist [contradicts]: 대사 네트워크(자가촉매)가 유전정보보다 먼저 출현했을 수 있다.
-- (복잡계 과학) Dr. Theo Sasaki [bridges]: 자연은 국소 규칙의 반복 계산처럼 행동한다 — 생명·인지는 그 계산의 특수 모드.
-- (의식 이론) Dr. Lina Hartmann [bridges]: 만약 관찰이 실재를 고정한다면, 경험하는 주체의 출현은 우주가 '실재화'되는 사건과 연결될 수 있다.
-- (정보물리학) Dr. Kenji Adeyemi [bridges]: 시공간은 얽힘 정보의 패턴에서 창발한다 — 기하보다 정보가 선행.
-- (과학철학) Dr. Sofia Reyes [bridges]: 관찰자 의존 실재와 관찰자 독립 실재 중 무엇이 더 적은 가정을 요구하는가?
-  - 🔗 합류: **창발** ← 과학철학 ⨯ 복잡계 과학 ⨯ 정보물리학
-  - 🔗 합류: **의식의 본성** ← 과학철학 ⨯ 의식 이론
-  - 🔗 합류: **자기조직화** ← 복잡계 과학 ⨯ 생명기원 화학
-  - 🔗 합류: **정보가 물질·시공간보다 근본적인가 (it-from-bit)** ← 복잡계 과학 ⨯ 생명기원 화학 ⨯ 양자기초론 ⨯ 의식 이론 ⨯ 정보물리학
-  - 🔗 합류: **엔트로피와 시간의 화살, 낮은 엔트로피 초기조건** ← 생명기원 화학 ⨯ 우주론 ⨯ 정보물리학
-  - 🔗 합류: **계산하는 우주** ← 복잡계 과학 ⨯ 정보물리학
-  - 🔗 합류: **관찰과 측정** ← 과학철학 ⨯ 양자기초론 ⨯ 의식 이론
-  - ⚠ Skeptic 반박 @ 정보가 물질·시공간보다 근본적인가 (it-from-bit): 관찰자-의식 연결은 상관을 인과로 비약할 위험 (범주오류). 측정의 '관찰자'는 물리적 상호작용이지 경험 주체가 아닐 수 있다.
-  - ⚠ Skeptic 반박 @ 관찰과 측정: 관찰자-의식 연결은 상관을 인과로 비약할 위험 (범주오류). 측정의 '관찰자'는 물리적 상호작용이지 경험 주체가 아닐 수 있다.
-  - 🕒 8개 옛 믿음 폐기(expired)
+### Round 1
+- (Cosmology) Dr. Aria Vance [builds_on]: The universe began in an extremely low-entropy state, and this initial condition creates the arrow of time.
+- (Quantum Foundations) Dr. Niels Okonkwo [builds_on]: Physical quantities ultimately reduce to yes/no information (it-from-bit).
+- (Origin-of-Life Chemistry) Dr. Mara Lindqvist [contradicts]: Metabolic networks (autocatalysis) may have emerged before genetic information.
+- (Complex Systems Science) Dr. Theo Sasaki [bridges]: Nature behaves like iterated computation of local rules — life and cognition are special modes of that computation.
+- (Consciousness Theory) Dr. Lina Hartmann [bridges]: If observation fixes reality, the emergence of an experiencing subject may be linked to the universe becoming 'actualized'.
+- (Information Physics) Dr. Kenji Adeyemi [bridges]: Spacetime emerges from patterns of entanglement information — information precedes geometry.
+- (Philosophy of Science) Dr. Sofia Reyes [bridges]: Which requires fewer assumptions: observer-dependent reality or observer-independent reality?
+  - 🔗 confluence: **Emergence** ← Complex Systems Science ⨯ Information Physics ⨯ Philosophy of Science
+  - 🔗 confluence: **Entropy, the arrow of time, and the low-entropy initial condition** ← Cosmology ⨯ Information Physics ⨯ Origin-of-Life Chemistry
+  - 🔗 confluence: **The nature of consciousness** ← Consciousness Theory ⨯ Philosophy of Science
+  - 🔗 confluence: **Observation and measurement** ← Consciousness Theory ⨯ Philosophy of Science ⨯ Quantum Foundations
+  - 🔗 confluence: **Self-organization** ← Complex Systems Science ⨯ Origin-of-Life Chemistry
+  - 🔗 confluence: **Is information more fundamental than matter/spacetime (it-from-bit)** ← Complex Systems Science ⨯ Consciousness Theory ⨯ Information Physics ⨯ Origin-of-Life Chemistry ⨯ Quantum Foundations
+  - 🔗 confluence: **The computing universe** ← Complex Systems Science ⨯ Information Physics
+  - ⚠ Skeptic rebuttal @ Observation and measurement: The observer-consciousness link risks leaping from correlation to causation (a category error). The 'observer' in measurement may be a physical interaction, not an experiencing subject.
+  - ⚠ Skeptic rebuttal @ Is information more fundamental than matter/spacetime (it-from-bit): The observer-consciousness link risks leaping from correlation to causation (a category error). The 'observer' in measurement may be a physical interaction, not an experiencing subject.
+  - 🕒 8 old belief(s) expired
 
-### 라운드 2
-- (우주론) Dr. Aria Vance [supports]: 우주상수·초기조건은 생명을 허용하는 좁은 창에 있다 — 다중우주 선택효과로 설명 시도.
-- (양자기초론) Dr. Niels Okonkwo [bridges]: 관찰자가 없던 초기 우주의 '상태'는 어떤 의미였는가 — 측정 없는 실재는 정의 가능한가?
-- (생명기원 화학) Dr. Mara Lindqvist [bridges]: 생명은 엔트로피 증가를 '가속'하는 배수로다 — 우주의 엔트로피 화살이 생명을 선호한다.
-- (복잡계 과학) Dr. Theo Sasaki [supports]: 의식도 충분한 통합·임계성에서 창발하는 또 하나의 상전이일 수 있다.
-- (의식 이론) Dr. Lina Hartmann [contradicts]: 의식이 창발이라면 어디서 '켜지는가'? 그 경계가 없다는 점이 창발설의 빈틈이다.
-- (정보물리학) Dr. Kenji Adeyemi [contradicts]: 정보가 물질보다 선행한다면 '태초'는 에너지 사건이 아니라 비트 사건이었다.
-- (과학철학) Dr. Sofia Reyes [contradicts]: 창발이 '설명'인지 '설명 포기의 이름'인지 — 강한 창발은 환원 불가를 주장한다.
-  - 🔗 합류: **미세조정** ← 과학철학 ⨯ 우주론
-  - 🔗 합류: **창발** ← 과학철학 ⨯ 복잡계 과학 ⨯ 의식 이론 ⨯ 정보물리학
-  - 🔗 합류: **의식의 본성** ← 과학철학 ⨯ 복잡계 과학 ⨯ 의식 이론
-  - 🔗 합류: **정보가 물질·시공간보다 근본적인가 (it-from-bit)** ← 복잡계 과학 ⨯ 생명기원 화학 ⨯ 양자기초론 ⨯ 의식 이론 ⨯ 정보물리학
-  - 🔗 합류: **시간의 시작** ← 양자기초론 ⨯ 우주론 ⨯ 정보물리학
-  - 🔗 합류: **엔트로피와 시간의 화살, 낮은 엔트로피 초기조건** ← 생명기원 화학 ⨯ 우주론
-  - 🔗 합류: **계산하는 우주** ← 과학철학 ⨯ 복잡계 과학 ⨯ 정보물리학
-  - 🔗 합류: **관찰과 측정** ← 과학철학 ⨯ 양자기초론 ⨯ 의식 이론
-  - ⚠ Skeptic 반박 @ 창발: 창발로서의 의식 vs 근본 성질로서의 의식 — 경계 기준 없이 합의 불가.
-  - ⚠ Skeptic 반박 @ 의식의 본성: 창발로서의 의식 vs 근본 성질로서의 의식 — 경계 기준 없이 합의 불가.
-  - ⚠ Skeptic 반박 @ 정보가 물질·시공간보다 근본적인가 (it-from-bit): 관찰자-의식 연결은 상관을 인과로 비약할 위험 (범주오류). 측정의 '관찰자'는 물리적 상호작용이지 경험 주체가 아닐 수 있다.
-  - ⚠ Skeptic 반박 @ 관찰과 측정: 관찰자-의식 연결은 상관을 인과로 비약할 위험 (범주오류). 측정의 '관찰자'는 물리적 상호작용이지 경험 주체가 아닐 수 있다.
-  - 🕒 5개 옛 믿음 폐기(expired)
+### Round 2
+- (Cosmology) Dr. Aria Vance [supports]: The cosmological constant and initial conditions sit in a narrow window that permits life — attempted via multiverse selection effects.
+- (Quantum Foundations) Dr. Niels Okonkwo [bridges]: What did the 'state' of the early observer-free universe even mean — is reality without measurement definable?
+- (Origin-of-Life Chemistry) Dr. Mara Lindqvist [bridges]: Life is a drain that 'accelerates' entropy increase — the cosmic arrow of entropy favors life.
+- (Complex Systems Science) Dr. Theo Sasaki [supports]: Consciousness too may be another phase transition emerging from sufficient integration and criticality.
+- (Consciousness Theory) Dr. Lina Hartmann [contradicts]: If consciousness is emergent, where does it 'switch on'? The absence of a boundary is the gap in the emergence account.
+- (Information Physics) Dr. Kenji Adeyemi [contradicts]: If information precedes matter, the 'beginning' was a bit-event, not an energy-event.
+- (Philosophy of Science) Dr. Sofia Reyes [contradicts]: Whether emergence is an 'explanation' or 'a name for giving up explaining' — strong emergence claims irreducibility.
+  - 🔗 confluence: **Emergence** ← Complex Systems Science ⨯ Consciousness Theory ⨯ Information Physics ⨯ Philosophy of Science
+  - 🔗 confluence: **Entropy, the arrow of time, and the low-entropy initial condition** ← Cosmology ⨯ Origin-of-Life Chemistry
+  - 🔗 confluence: **The nature of consciousness** ← Complex Systems Science ⨯ Consciousness Theory ⨯ Philosophy of Science
+  - 🔗 confluence: **Observation and measurement** ← Consciousness Theory ⨯ Philosophy of Science ⨯ Quantum Foundations
+  - 🔗 confluence: **Fine-tuning** ← Cosmology ⨯ Philosophy of Science
+  - 🔗 confluence: **Is information more fundamental than matter/spacetime (it-from-bit)** ← Complex Systems Science ⨯ Consciousness Theory ⨯ Information Physics ⨯ Origin-of-Life Chemistry ⨯ Quantum Foundations
+  - 🔗 confluence: **The beginning of time** ← Cosmology ⨯ Information Physics ⨯ Quantum Foundations
+  - 🔗 confluence: **The computing universe** ← Complex Systems Science ⨯ Information Physics ⨯ Philosophy of Science
+  - ⚠ Skeptic rebuttal @ Emergence: Consciousness-as-emergence vs consciousness-as-fundamental: no agreement is possible without a boundary criterion.
+  - ⚠ Skeptic rebuttal @ The nature of consciousness: Consciousness-as-emergence vs consciousness-as-fundamental: no agreement is possible without a boundary criterion.
+  - ⚠ Skeptic rebuttal @ Observation and measurement: The observer-consciousness link risks leaping from correlation to causation (a category error). The 'observer' in measurement may be a physical interaction, not an experiencing subject.
+  - ⚠ Skeptic rebuttal @ Is information more fundamental than matter/spacetime (it-from-bit): The observer-consciousness link risks leaping from correlation to causation (a category error). The 'observer' in measurement may be a physical interaction, not an experiencing subject.
+  - 🕒 5 old belief(s) expired

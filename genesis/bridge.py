@@ -54,7 +54,7 @@ def skeptic_pass(
                     dst=b.node_id,
                     etype="contradicts",
                     author="Skeptic",
-                    discipline="검증",
+                    discipline="Verification",
                     evidence=verdict.get("reason", ""),
                     claim=verdict.get("reason", ""),
                     created_round=rnd,

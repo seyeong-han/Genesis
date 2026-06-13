@@ -77,12 +77,12 @@ class KnowledgeGraph:
         return out
 
     def disciplines_touching(self, node_id: str) -> set[str]:
-        # "검증" is the Skeptic/referee, not a research field — it never counts
-        # as one of the disciplines that *meet* at a node.
+        # "Verification" is the Skeptic/referee, not a research field — it never
+        # counts as one of the disciplines that *meet* at a node.
         return {
             e.discipline
             for e in self.edges_incident(node_id)
-            if e.discipline and e.discipline != "검증"
+            if e.discipline and e.discipline != "Verification"
         }
 
     def degree(self, node_id: str) -> int:

@@ -56,10 +56,10 @@ def scan_tensions(graph: KnowledgeGraph, top_k: int = 5) -> list[TensionSite]:
 
         why_bits = []
         if orphan > 0:
-            why_bits.append(f"{len(disciplines)}개 분야가 만나지만 연결 다리가 부족(orphan {orphan:.0f})")
+            why_bits.append(f"{len(disciplines)} fields meet but few connecting bridges (orphan {orphan:.0f})")
         if contradiction > 0:
-            why_bits.append(f"{contradiction}개의 분야 간 모순")
-        why_bits.append(f"중심성 {centrality:.1f} (degree {degree})")
+            why_bits.append(f"{contradiction} cross-field contradictions")
+        why_bits.append(f"centrality {centrality:.1f} (degree {degree})")
 
         sites.append(
             TensionSite(

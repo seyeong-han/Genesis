@@ -36,29 +36,29 @@ def _load_env() -> None:
 def make_printer(slow: float):
     def printer(event: str, data: dict) -> None:
         if event == "start":
-            print(f"\n{DIVIDER}\n  GENESIS ENGINE — 기원에 대한 '질문'을 발굴한다")
-            print(f"  연구자 로스터: {', '.join(data['researchers'])}")
-            print(f"  공유 그래프 위 {data['rounds']} 라운드 co-discovery 시작\n{DIVIDER}")
+            print(f"\n{DIVIDER}\n  GENESIS ENGINE — discovering the deepest *questions* about origins")
+            print(f"  Researcher roster: {', '.join(data['researchers'])}")
+            print(f"  Starting {data['rounds']}-round co-discovery on the shared graph\n{DIVIDER}")
         elif event == "move":
             tag = {"contradicts": "⚔", "bridges": "🌉"}.get(data["etype"], "•")
             print(f"  {tag} [{data['discipline']}] {data['author']}: {data['claim']}")
         elif event == "bridge":
-            print(f"    🔗 합류 노드 점등! '{data['node']}' ← {' ⨯ '.join(data['disciplines'])}")
+            print(f"    🔗 Confluence node lights up! '{data['node']}' ← {' ⨯ '.join(data['disciplines'])}")
         elif event == "critique":
-            print(f"    ⚠ Skeptic: '{data['label']}' 반박 → {data['reason']}")
+            print(f"    ⚠ Skeptic: rebuts '{data['label']}' → {data['reason']}")
         elif event == "round_end":
             st = data["stats"]
-            extra = f", 폐기 {data['expired']}" if data["expired"] else ""
+            extra = f", expired {data['expired']}" if data["expired"] else ""
             print(
-                f"  ── 라운드 {data['round']} 종료: 노드 {st['nodes']}, 유효 엣지 "
-                f"{st['edges_valid']}, 모순 {st['contradictions']}{extra}\n"
+                f"  ── Round {data['round']} done: nodes {st['nodes']}, valid edges "
+                f"{st['edges_valid']}, contradictions {st['contradictions']}{extra}\n"
             )
         elif event == "scanning":
-            print(f"{DIVIDER}\n  TENSION SCAN — 어느 노드가 '풀 가치 있는 질문'인가\n{DIVIDER}")
+            print(f"{DIVIDER}\n  TENSION SCAN — which node is a question worth solving\n{DIVIDER}")
         elif event == "tension":
             print(f"  ▣ {data['label']}  (tension {data['score']}) — {data['why']}")
         elif event == "done":
-            print(f"\n{DIVIDER}\n  {data['questions']}개의 GENESIS QUESTION 생성 완료\n{DIVIDER}\n")
+            print(f"\n{DIVIDER}\n  Generated {data['questions']} GENESIS QUESTIONS\n{DIVIDER}\n")
         if slow:
             time.sleep(slow)
 
@@ -70,26 +70,26 @@ def write_report(result: GenesisResult, path: Path, mode: str) -> None:
         "# Genesis Engine — Run Report",
         "",
         f"- brain: `{mode}`",
-        f"- 그래프: {json.dumps(result.stats(), ensure_ascii=False)}",
-        f"- 라운드: {len(result.rounds)}",
+        f"- graph: {json.dumps(result.stats(), ensure_ascii=False)}",
+        f"- rounds: {len(result.rounds)}",
         "",
-        "## 발굴된 Genesis Questions (점수순)",
+        "## Discovered Genesis Questions (by score)",
         "",
     ]
     for i, q in enumerate(result.questions, 1):
         md.append(render_card_markdown(q, i))
-    md.append("## 라운드별 co-discovery 로그\n")
+    md.append("## Per-round co-discovery log\n")
     for t in result.rounds:
-        md.append(f"### 라운드 {t.rnd}")
+        md.append(f"### Round {t.rnd}")
         for m in t.moves:
             md.append(f"- ({m['discipline']}) {m['author']} [{m['etype']}]: {m['claim']}")
         for b in t.bridges:
-            md.append(f"  - 🔗 합류: **{b['node']}** ← {' ⨯ '.join(b['disciplines'])}")
+            md.append(f"  - 🔗 confluence: **{b['node']}** ← {' ⨯ '.join(b['disciplines'])}")
         for c in t.critiques:
             if c["violates"]:
-                md.append(f"  - ⚠ Skeptic 반박 @ {c['label']}: {c['reason']}")
+                md.append(f"  - ⚠ Skeptic rebuttal @ {c['label']}: {c['reason']}")
         if t.expired:
-            md.append(f"  - 🕒 {t.expired}개 옛 믿음 폐기(expired)")
+            md.append(f"  - 🕒 {t.expired} old belief(s) expired")
         md.append("")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(md), encoding="utf-8")
@@ -111,7 +111,7 @@ def main(argv: list[str]) -> int:
     try:
         brain = make_brain(mode, model=args.model or None)
     except Exception as e:  # e.g. anthropic not installed
-        print(f"[live 모드 초기화 실패: {e}] → mock 모드로 폴백", file=sys.stderr)
+        print(f"[live mode init failed: {e}] → falling back to mock mode", file=sys.stderr)
         mode, brain = "mock", make_brain("mock")
 
     printer = None if args.quiet else make_printer(args.slow)
@@ -129,7 +129,7 @@ def main(argv: list[str]) -> int:
         if not out.is_absolute():
             out = Path(__file__).parent / out
         write_report(result, out, mode)
-        print(f"리포트 저장됨: {out}")
+        print(f"Report saved: {out}")
 
     return 0
 

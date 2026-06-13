@@ -50,7 +50,7 @@ def _recent_context(graph: KnowledgeGraph, rnd: int, limit: int = 8) -> str:
     for e in graph.edges:
         if e.created_round == rnd - 1 and e.claim:
             lines.append(f"- ({e.discipline}) {e.author}: {e.claim}")
-    return "\n".join(lines[-limit:]) if lines else "(아직 흔적 없음 — 너의 분야에서 출발하라)"
+    return "\n".join(lines[-limit:]) if lines else "(no traces yet — start from your own field)"
 
 
 def run_genesis(

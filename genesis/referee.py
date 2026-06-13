@@ -30,7 +30,7 @@ def _gather_evidence(graph: KnowledgeGraph, node_id: str) -> tuple[list[str], li
         elif e.valid:
             supporting.append(f"({e.discipline}) {e.author}: {e.claim}")
         else:
-            tensions.append(f"[폐기됨] ({e.discipline}) {e.author}: {e.claim}")
+            tensions.append(f"[expired] ({e.discipline}) {e.author}: {e.claim}")
     return supporting, tensions, contributors
 
 
