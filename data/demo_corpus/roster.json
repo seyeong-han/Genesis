@@ -1,0 +1,68 @@
+[
+  {
+    "domain": "Cognitive & Interdisciplinary",
+    "discipline": "Transformers",
+    "concept": "attention is all you need transformer",
+    "concept_id": "A5103024730",
+    "author": "Ashish Vaswani",
+    "author_openalex_id": "A5103024730",
+    "institution": "Google (United States)",
+    "papers": [
+      {
+        "openalex_id": "W2626778328",
+        "title": "Attention Is All You Need",
+        "year": 2025,
+        "cited_by_count": 6563,
+        "doi": "https://doi.org/10.65215/2q58a426",
+        "oa_pdf_url": "https://langtaosha.org.cn/index.php/lts/preprint/download/10/108",
+        "abstract": "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks in an encoder-decoder configuration. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data."
+      }
+    ],
+    "origin_lens": "attention as a general-purpose architecture that may subsume others",
+    "author_total_citations": 12446
+  },
+  {
+    "domain": "Cognitive & Interdisciplinary",
+    "discipline": "Convolutional / Energy-Based Models",
+    "concept": "convolutional networks gradient-based learning",
+    "concept_id": "A5001226970",
+    "author": "Yann LeCun",
+    "author_openalex_id": "A5001226970",
+    "institution": "Courant Institute of Mathematical Sciences",
+    "papers": [
+      {
+        "openalex_id": "W2112796928",
+        "title": "Gradient-based learning applied to document recognition",
+        "year": 1998,
+        "cited_by_count": 58088,
+        "doi": "https://doi.org/10.1109/5.726791",
+        "oa_pdf_url": "https://hal.science/hal-03926082/document",
+        "abstract": "Multilayer neural networks trained with the back-propagation algorithm constitute the best example of a successful gradient based learning technique. Given an appropriate network architecture, gradient-based learning algorithms can be used to synthesize a complex decision surface that can classify high-dimensional patterns, such as handwritten characters, with minimal preprocessing. This paper reviews various methods applied to handwritten character recognition and compares them on a standard handwritten digit recognition task. Convolutional neural networks, which are specifically designed to deal with the variability of 2D shapes, are shown to outperform all other techniques. Real-life document recognition systems are composed of multiple modules including field extraction, segmentation recognition, and language modeling. A new learning paradigm, called graph transformer networks (GTN), allows such multimodule systems to be trained globally using gradient-based methods so as to minimize an overall performance measure. Two systems for online handwriting recognition are described. Experiments demonstrate the advantage of global training, and the flexibility of graph transformer networks. A graph transformer network for reading a bank cheque is also described. It uses convolutional neural network character recognizers combined with global training techniques to provide record accuracy on business and personal cheques. It is deployed commercially and reads several million cheques per day."
+      }
+    ],
+    "origin_lens": "inductive biases matter; pure autoregressive LLMs are insufficient",
+    "author_total_citations": 250196
+  },
+  {
+    "domain": "Cognitive & Interdisciplinary",
+    "discipline": "Diffusion Models",
+    "concept": "denoising diffusion probabilistic models",
+    "concept_id": "A5053018827",
+    "author": "Jonathan Ho",
+    "author_openalex_id": "A5053018827",
+    "institution": "Cloud Computing Center",
+    "papers": [
+      {
+        "openalex_id": "W3155072588",
+        "title": "Image Super-Resolution Via Iterative Refinement",
+        "year": 2022,
+        "cited_by_count": 1637,
+        "doi": "https://doi.org/10.1109/tpami.2022.3204461",
+        "oa_pdf_url": "https://ieeexplore.ieee.org/ielx7/34/4359286/09887996.pdf",
+        "abstract": "We present SR3, an approach to image Super-Resolution via Repeated Refinement. SR3 adapts denoising diffusion probabilistic models (Ho et al. 2020), (Sohl-Dickstein et al. 2015) to image-to-image translation, and performs super-resolution through a stochastic iterative denoising process. Output images are initialized with pure Gaussian noise and iteratively refined using a U-Net architecture that is trained on denoising at various noise levels, conditioned on a low-resolution input image. SR3 exhibits strong performance on super-resolution tasks at different magnification factors, on faces and natural images. We conduct human evaluation on a standard 8× face super-resolution task on CelebA-HQ for which SR3 achieves a fool rate close to 50%, suggesting photo-realistic outputs, while GAN baselines do not exceed a fool rate of 34%. We evaluate SR3 on a 4× super-resolution task on ImageNet, where SR3 outperforms baselines in human evaluation and classification accuracy of a ResNet-50 classifier trained on high-resolution images. We further show the effectiveness of SR3 in cascaded image generation, where a generative model is chained with super-resolution models to synthesize high-resolution images with competitive FID scores on the class-conditional 256×256 ImageNet generation challenge."
+      }
+    ],
+    "origin_lens": "diffusion as a distinct generative pillar, increasingly hybridized",
+    "author_total_citations": 8618
+  }
+]

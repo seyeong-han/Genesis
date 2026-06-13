@@ -1,20 +1,21 @@
 [project]
-name = "mirofish-backend"
+name = "genesis-backend"
 version = "0.1.0"
-description = "MiroFish - 简洁通用的群体智能引擎，预测万物"
+description = "Genesis - cross-disciplinary researcher-debate engine (AGPL fork of MiroFish)"
 requires-python = ">=3.11,<3.13"
 license = { text = "AGPL-3.0" }
 authors = [
-    { name = "MiroFish Team" }
+    { name = "Genesis Team" }
 ]
 
 dependencies = [
-    # 核心框架
+    # Core framework
     "flask>=3.0.0",
     "flask-cors>=6.0.0",
-    
-    # LLM 相关
+
+    # LLM clients
     "openai>=1.0.0",
+    "anthropic>=0.39.0",
     
     # Zep Cloud
     "zep-cloud==3.13.0",

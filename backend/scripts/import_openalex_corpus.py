@@ -24,7 +24,9 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-CORPUS_DIR = REPO_ROOT / "data" / "corpus"
+DEFAULT_CORPUS_DIR = REPO_ROOT / "data" / "corpus"
+# Overridable at runtime via --corpus-dir (e.g. data/demo_corpus for the 3-agent test)
+CORPUS_DIR = DEFAULT_CORPUS_DIR
 
 
 def _make_project_id() -> str:
@@ -74,7 +76,8 @@ def import_corpus(project_dir: Path, max_researchers: int | None = None) -> int:
     files_dir = project_dir / "files"
     files_dir.mkdir(parents=True, exist_ok=True)
 
-    corpus_files = sorted(CORPUS_DIR.glob("*.json"))
+    # roster.json is a summary list, not a researcher record — skip it
+    corpus_files = sorted(p for p in CORPUS_DIR.glob("*.json") if p.name != "roster.json")
     if not corpus_files:
         print(f"No corpus files found in {CORPUS_DIR}", file=sys.stderr)
         return 0
@@ -90,6 +93,10 @@ def import_corpus(project_dir: Path, max_researchers: int | None = None) -> int:
             record = json.loads(path.read_text(encoding="utf-8"))
         except Exception as e:
             print(f"  skip {path.name}: {e}", file=sys.stderr)
+            continue
+        # guard: only per-researcher dict records (skip stray lists, etc.)
+        if not isinstance(record, dict) or "author" not in record:
+            print(f"  skip {path.name}: not a researcher record", file=sys.stderr)
             continue
 
         author = record.get("author", path.stem)
@@ -131,7 +138,15 @@ def main(argv: list[str]) -> int:
                    help="Create a new project directory automatically")
     p.add_argument("--max", type=int, default=0,
                    help="Limit to first N researchers (0 = all)")
+    p.add_argument("--corpus-dir", type=str, default="",
+                   help="Corpus dir to import (default data/corpus; use data/demo_corpus for the 3-agent test)")
     args = p.parse_args(argv)
+
+    if args.corpus_dir:
+        global CORPUS_DIR
+        cdir = Path(args.corpus_dir)
+        CORPUS_DIR = cdir if cdir.is_absolute() else (REPO_ROOT / cdir)
+        print(f"Using corpus dir: {CORPUS_DIR}")
 
     if args.auto or not args.project_dir:
         pid = _make_project_id()

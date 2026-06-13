@@ -9,8 +9,10 @@
 flask>=3.0.0
 flask-cors>=6.0.0
 
-# ============= LLM 相关 =============
-# OpenAI SDK（统一使用 OpenAI 格式调用 LLM）
+# ============= LLM clients =============
+# Anthropic SDK (primary — used directly when LLM_BASE_URL is blank)
+anthropic>=0.39.0
+# OpenAI SDK (fallback — used when LLM_BASE_URL points to an OpenAI-compatible gateway)
 openai>=1.0.0
 
 # ============= Zep Cloud =============
