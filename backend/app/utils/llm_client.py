@@ -74,7 +74,16 @@ class LLMClient:
         }
         if response_format:
             kwargs["response_format"] = response_format
-        response = self._client.chat.completions.create(**kwargs)
+        try:
+            response = self._client.chat.completions.create(**kwargs)
+        except Exception as e:
+            # Newer models (e.g. opus-4-8) deprecate `temperature` and reject it,
+            # even via the OpenAI-compatible endpoint. Retry once without it.
+            if "temperature" in str(e).lower():
+                kwargs.pop("temperature", None)
+                response = self._client.chat.completions.create(**kwargs)
+            else:
+                raise
         content = response.choices[0].message.content
         content = re.sub(r'<think>[\s\S]*?</think>', '', content).strip()
         return content
