@@ -98,7 +98,16 @@ class LLMClient:
         if system:
             kwargs["system"] = system
 
-        response = self._client.messages.create(**kwargs)
+        try:
+            response = self._client.messages.create(**kwargs)
+        except Exception as e:
+            # Some newer models (e.g. opus-4-8) deprecate `temperature` and reject it.
+            # Retry once without it.
+            if "temperature" in str(e).lower():
+                kwargs.pop("temperature", None)
+                response = self._client.messages.create(**kwargs)
+            else:
+                raise
         content = "".join(
             block.text for block in response.content if hasattr(block, "text")
         )
