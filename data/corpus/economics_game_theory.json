@@ -1,0 +1,22 @@
+{
+  "domain": "Social Sciences",
+  "discipline": "Economics & Game Theory",
+  "concept": "evolution of cooperation",
+  "concept_id": "A5005640779",
+  "author": "Robert Axelrod",
+  "author_openalex_id": "A5005640779",
+  "institution": "University of Michigan",
+  "papers": [
+    {
+      "openalex_id": "W2483014731",
+      "title": "The Complexity of Cooperation: Agent-Based Models of Competition and Collaboration",
+      "year": 1997,
+      "cited_by_count": 1732,
+      "doi": "https://doi.org/10.1515/9781400822300",
+      "oa_pdf_url": null,
+      "abstract": "Robert Axelrod is widely known for his groundbreaking work in game theory and complexity theory. He is a leader in applying computer modeling to social science problems. His book The Evolution of Cooperation has been hailed as a seminal contribution and has been translated into eight languages since its initial publication. The Complexity of Cooperation is a sequel to that landmark book. It collects seven essays, originally published in a broad range of journals, and adds an extensive new introduction to the collection, along with new prefaces to each essay and a useful new appendix of additional resources. Written in Axelrod's acclaimed, accessible style, this collection serves as an introductory text on complexity theory and computer modeling in the social sciences and as an overview of the current state of the art in the field. The articles move beyond the basic paradigm of the Prisoner's Dilemma to study a rich set of issues, including how to cope with errors in perception or implementation, how norms emerge, and how new political actors and regions of shared culture can develop. They use the shared methodology of agent-based modeling, a powerful technique that specifies the rules of interaction between individuals and uses computer simulation to discover emergent properties of the social system. The Complexity of Cooperation is essential reading for all social scientists who are interested in issues of cooperation and complexity."
+    }
+  ],
+  "origin_lens": "the origin of cooperation",
+  "author_total_citations": 31922
+}

@@ -1,0 +1,22 @@
+{
+  "domain": "Social Sciences",
+  "discipline": "Linguistics",
+  "concept": "language faculty syntax universal",
+  "concept_id": "A5072532913",
+  "author": "Noam Chomsky",
+  "author_openalex_id": "A5072532913",
+  "institution": "Massachusetts Institute of Technology",
+  "papers": [
+    {
+      "openalex_id": "W2134533669",
+      "title": "The mystery of language evolution",
+      "year": 2014,
+      "cited_by_count": 331,
+      "doi": "https://doi.org/10.3389/fpsyg.2014.00401",
+      "oa_pdf_url": "https://www.frontiersin.org/articles/10.3389/fpsyg.2014.00401/pdf",
+      "abstract": "Understanding the evolution of language requires evidence regarding origins and processes that led to change. In the last 40 years, there has been an explosion of research on this problem as well as a sense that considerable progress has been made. We argue instead that the richness of ideas is accompanied by a poverty of evidence, with essentially no explanation of how and why our linguistic computations and representations evolved. We show that, to date, (1) studies of nonhuman animals provide virtually no relevant parallels to human linguistic communication, and none to the underlying biological capacity; (2) the fossil and archaeological evidence does not inform our understanding of the computations and representations of our earliest ancestors, leaving details of origins and selective pressure unresolved; (3) our understanding of the genetics of language is so impoverished that there is little hope of connecting genes to linguistic processes any time soon; (4) all modeling attempts have made unfounded assumptions, and have provided no empirical tests, thus leaving any insights into language's origins unverifiable. Based on the current state of evidence, we submit that the most fundamental questions about the origins and evolution of our linguistic capacity remain as mysterious as ever, with considerable uncertainty about the discovery of either relevant or conclusive evidence that can adjudicate among the many open hypotheses. We conclude by presenting some suggestions about possible paths forward."
+    }
+  ],
+  "origin_lens": "an innate origin of language",
+  "author_total_citations": 140370
+}

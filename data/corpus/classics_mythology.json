@@ -1,0 +1,22 @@
+{
+  "domain": "Humanities",
+  "discipline": "Classics & Mythology",
+  "concept": "comparative mythology origins",
+  "concept_id": "A5049951661",
+  "author": "Michael Witzel",
+  "author_openalex_id": "A5049951661",
+  "institution": null,
+  "papers": [
+    {
+      "openalex_id": "W2185936337",
+      "title": "Autochthonous Aryans? The Evidence from Old Indian and Iranian texts",
+      "year": 2008,
+      "cited_by_count": 70,
+      "doi": "https://doi.org/10.11588/xarep.00000118",
+      "oa_pdf_url": "http://crossasia-repository.ub.uni-heidelberg.de/118/2/EJVS_AutochthonousAryans_2001.pdf",
+      "abstract": "The \"Aryan question\" is concerned with the immigration of a population speaking an archaic Indo-European language, Vedic Sanskrit, who celebrate their gods and chieftains in the poems of the oldest Indian literature, the Rigveda, and who subsequently spread their language, religion, ritual and social organization throughout the subcontinent. Who were the \"Aryans\"? What was their spiritual and material culture and their outlook on life? Did they ever enter the Indian subcontinent from the outside? Or did this people develop indigenously in the Greater Panjab? This, the \"Aryan\" question, has kept minds - and politicians - busy for the past 200 years; it has been used and misused in many ways. And, its discussion has become a cottage industry in India during recent years. In this paper, it will be attempted to present the pros and contras for the (non-)occurrence of a movement of an \"Aryan\" population and its consequences."
+    }
+  ],
+  "origin_lens": "the deep ancestry of origin myths",
+  "author_total_citations": 1343
+}

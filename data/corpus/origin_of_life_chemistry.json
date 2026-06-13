@@ -1,0 +1,22 @@
+{
+  "domain": "Physical Sciences",
+  "discipline": "Origin-of-Life Chemistry",
+  "concept": "origin of life protocell RNA",
+  "concept_id": "A5023274897",
+  "author": "Jack W. Szostak",
+  "author_openalex_id": "A5023274897",
+  "institution": "Howard Hughes Medical Institute",
+  "papers": [
+    {
+      "openalex_id": "W2166637067",
+      "title": "The Emergence of Competition Between Model Protocells",
+      "year": 2004,
+      "cited_by_count": 451,
+      "doi": "https://doi.org/10.1126/science.1100757",
+      "oa_pdf_url": null,
+      "abstract": "The transition from independent molecular entities to cellular structures with integrated behaviors was a crucial aspect of the origin of life. We show that simple physical principles can mediate a coordinated interaction between genome and compartment boundary, independent of any genomic functions beyond self-replication. RNA, encapsulated in fatty acid vesicles, exerts an osmotic pressure on the vesicle membrane that drives the uptake of additional membrane components, leading to membrane growth at the expense of relaxed vesicles, which shrink. Thus, more efficient RNA replication could cause faster cell growth, leading to the emergence of Darwinian evolution at the cellular level."
+    }
+  ],
+  "origin_lens": "from chemistry to self-replication",
+  "author_total_citations": 59226
+}

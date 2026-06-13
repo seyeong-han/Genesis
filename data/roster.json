@@ -1,0 +1,862 @@
+[
+  {
+    "domain": "Formal Sciences",
+    "discipline": "Mathematics & Logic",
+    "concept": "algorithmic information randomness",
+    "concept_id": "A5063257061",
+    "author": "Gregory J. Chaitin",
+    "author_openalex_id": "A5063257061",
+    "institution": "Universidade Federal do Rio de Janeiro",
+    "papers": [
+      {
+        "openalex_id": "W2020311636",
+        "title": "A Theory of Program Size Formally Identical to Information Theory",
+        "year": 1975,
+        "cited_by_count": 884,
+        "doi": "https://doi.org/10.1145/321892.321894",
+        "oa_pdf_url": "https://dl.acm.org/doi/pdf/10.1145/321892.321894",
+        "abstract": "A new definition of program-size complexity is made. H(A,B/C,D) is defined to be the size in bits of the shortest self-delimiting program for calculating strings A and B if one is given a minimal-size self-delimiting program for calculating strings C and D. This differs from previous definitions: (1) programs are required to be self-delimiting, i.e. no program is a prefix of another, and (2) instead of being given C and D directly, one is given a program for calculating them that is minimal in size. Unlike previous definitions, this one has precisely the formal properties of the entropy concept of information theory. For example, H(A,B) = H(A) + H(B/A) -~ 0(1). Also, if a program of length k is assigned measure 2 -k, then H(A) = -log2 (the probability that the standard universal computer will calculate A) -{-0(1)."
+      }
+    ]
+  },
+  {
+    "domain": "Formal Sciences",
+    "discipline": "Theory of Computation",
+    "concept": "computational universe cellular automata",
+    "concept_id": "A5022077412",
+    "author": "Stephen Wolfram",
+    "author_openalex_id": "A5022077412",
+    "institution": null,
+    "papers": [
+      {
+        "openalex_id": "W4241080249",
+        "title": "A New Kind of Science",
+        "year": 2003,
+        "cited_by_count": 234,
+        "doi": "https://doi.org/10.1115/1.1553433",
+        "oa_pdf_url": "https://asmedigitalcollection.asme.org/appliedmechanicsreviews/article-pdf/56/2/B18/5439804/b17_1.pdf",
+        "abstract": "3R3. A New Kind of Science. - S Wolfram (Wolfram Res Inc, 100 Trade Center Dr, Champaign IL 61820-7237). Wolfram Media, Champaign, IL. 2002. 1197 pp. ISBN 1-57955-008-8. $44.95. Reviewed by M Gad-el-Hak (Eng Build, Rm 303, Virginia Commonwealth Univ, 601 W Main St, PO Box 843015, Richmond, VA 23284-3015). Reviewing A New Kind of Science is like stepping in a minefield. The danger lies in going against the deluge of praise, proving relevance to this audience, and arguing against the proposed new science that allegedly is set to replace science, as we know it. Those issues will be addressed in turn, but first a brief background. Stephen Wolfram is considered by many to have been a child prodigy: first journal paper in particle physics at age 15; a stint at Oxford; PhD from Caltech at 20; youngest recipient of the MacArthur Prize; faculty positions at Caltech, Princeton, and Illinois; significant contributions to cellular automata and complexity theory; developer of the popular software Mathematica; and a successful entrepreneur, becoming a multi-millionaire at 30. Running his software company via e-mail and videoconference, Wolfram spent the last 10 years in virtual seclusion, relentlessly, tirelessly, secretly, and nocturnally working on an idea that possessed him: generating complexity from simple computations, algorithms of only a few lines. The book, targeting both scientists and non-scientists, is partially about using simple rules of cellular automata to generate complex patterns. In this task, the author has succeeded beyond reproach not only in showing that this can be done brilliantly and beautifully, but also in explaining it lucidly enough for all to understand, appreciate, and savor. In the opinion of several reviewers, including this one, this aspect of the book is a tour de force of clarity, elegance, and simplicity. The problem is the huge leap the author takes in arguing that since nature is complex and many of the computer-generated complex patterns look or behave similarly to natural or man-made things all around us—a snow flake, a turbulent flow, a lung, a mollusk shell, a traffic jam, an outbreak of starfish on a coral reef, the entire universe—therefore that must be the way nature works. Nature runs its course the same way that a computer runs a program. That is the essence of the new science: cellular automata will yield all the secrets of the universe, solve our long-standing problems, and provide the theory of everything. More on that flight of fancy later. The Deluge: The book was widely anticipated several years before its actual publication. Published on May 14, 2002, it quickly became an Amazon.com bestseller and was promptly reviewed by both the popular and scientific press. Heavyweights of the former included The New York Times, Chicago Tribune, Newsweek, Time, The Daily Telegraph, Le Monde, Frankfurter Allgemeine Zeitung, and The Economist. Except for the last, the popular press went gaga over the book, touting the author’s claim of a new science that will stand existing science on its head. The Economist (p 79, June 1, 2002) was more subdued even provocatively titling its review “The Emperor’s New Theory.” In the scientific press, the reviews were somewhat less glorious and more skeptical. In Physics Today (p 55, July 2002), Leo Kadanoff’s review was at once pointed, subtle and polite, concluding that he cannot support the view that any “new kind of science” is displayed in Wolfram’s book. Newsweek (p 59, May 27, 2002) quoted the famed physicist Freeman Dyson: “There’s a tradition of scientists approaching senility to come up with grand, improbable theories. Wolfram is unusual in that he’s doing this in his 40s.” Kadanoff and Dyson express the minority opinion, however, with the majority of reviewers being excited beyond reason about the new science that will solve every human mystery including the currently depressed stock market, human free will, quantum field theory, and entropy. For the present reviewer, danger lurks in going against the deluge of high praise, but particularly doing so several months behind the reviewers who have already anointed Stephen Wolfram as the Isaac Newton of the 21st century. Relevance: As New Kind of Science aims at replacing existing science, readers of Applied Mechanics Reviews have a significant stake in the matter. Mechanics—classical for the most part but occasionally quantum—is the underlying branch of physics upon which almost all of applied mechanics is based. The mathematics here is often in the form of partial differential field equations, where both space and time are indefinitely divisible continuum. For example, most, but not all, fluid flows can be described via the well-known, well-posed Navier–Stokes equations. In simple problems, those first-principles equations can be solved and agreement with experiment is beyond reproach. It is the complex problem, such as a turbulent flow, that frustrated Wolfram and scores of scientists before him. The search for simpler alternative to the field equations is, therefore, quite alluring. The field equations of mechanics, when they can be solved, provide a powerful predictive tool to explain the mechanical world around us as well as to help design our man-made machines. When analytical solutions are unattainable, the field equations are discretized and brute force numerical integration is used. But even that is not possible for some situations, for example for realistic high-Reynolds-number turbulent flows and other multi-scale problems where the required computational memory and speed overwhelm today’s supercomputers. For such impenetrable problems, a certain degree of empiricism is introduced to the first-principles equations and relatively faster computations can then proceed. Heuristic turbulence modeling is an example of such compromise. Despite those limitations, traditional science works exceedingly well, and applied mechanicians happily practice their craft. Readers of this journal should, therefore, care passionately if the traditional laws of mechanics are to be supplanted by a new kind of science. The Argument: Cellular automata were introduced in the late 1940s by John von Neumann and Stanislaw Ulam, although Stephen Wolfram claims to have independently discovered the tool three decades later. Cellular automata are discrete dynamical systems whose behavior is completely specified in terms of a repetitive local relation. The space continuum is represented by a uniform one-, two-, or three-dimensional grid, with each cell containing a single bit of data, for example 0 or 1, red, white, or blue, etc, a few bits of data, or even a continuum of states. The time continuum also advances in discrete steps. The state of each cell, or memory location, is computed at each time step from a simple algorithm in terms of its a priori defined close neighbors. Simple computer programs could, in fact, result in complex patterns. Stephen Wolfram particularly researched one-dimensional automata arranged in a line. The bit of data in each cell is updated at each time step based only on the value of that cell and that of its two nearest cells. Wolfram methodically studied such automata and identified a total of 256 different rules. Space–time diagrams of the bits generated show four distinct patterns: dull uniformity; periodic time-dependence; fractal behavior; and truly complex non-repetitive patterns. Stephen Wolfram says that science has been broken for more than 300 years and that he can fix it. The “errors” of Darwin, Newton, and the other great ones will be corrected once and for all. A New Kind of Science proposes a radical notion about the development of the natural world, and Wolfram aims to uncover the fundamental rules underlying the complex universe. The pattern-generating capabilities of discrete cellular automata are to supplant the difficult-to-solve or even yet-to-be-found continuum equations of traditional science. But just because the patterns of cellular automata can resemble those of the natural world does not mean that nature must work that way. Furthermore, traditional equations are believed to represent reality because they can be used to make predictions that agree with observations. This is the essence of Galileo’s paradigm that is the underpinning of modern science. The explanatory power and authority of science stem from its ability to make verifiable predictions; otherwise theory is a mere post-hoc speculation. That is exactly what the proposed new science is. The computer games of cellular automata provide mere post-hoc speculation and cannot possibly compete with the predictive horsepower of F=ma or E=mc2.Wolfram’s boasting, throughout 1200 pages, is at a minimum excessive. He writes, “I have discovered vastly more than I ever thought possible, and in fact what I have done now touches almost every existing area of science, and quite a bit besides.” Wolfram writes of several ideas as originating by him, but in fact the credits belong elsewhere. Alan Turing conceptualized the simplest universal computer, the Turing machine. Thinking of the universe as a vast digital computer was the brainchild of Edward Fredkin. The use of a cellular automata machine as an environment for physical modeling was detailed by Tommaso Toffoli and Norman Margolus. Other ideas by Per Bak, Charles Bennett, and Hans Meinhardt percolate throughout the present book, but are not properly credited. Writing in the first person, relegating all notes to the last 350 pages of the book, grudgingly as well as dismissively mentioning few names, and restricting the list of references to his own publications, Wolfram does not help to dispel this important shortcoming. Wolfram took the unusual approach of bypassing the peer review process. He self-published the present book, acting as author, editor, and publisher. The opening paragraph in the mostly favorable Time’s review of the book (May 20, 2002) is worth reflecting on: “Cranks are an occupational hazard that every scientist eventually faces. Fortunately, these characters are usually easy to spot. If someone claims to have a grand theory that overturns centuries of scientific knowledge—especially when the theory spans unrelated fields like physics and biology and economics—the odds are good that he or she is a crank. If the author publishes not in standard scientific journals but in a book for general readers, watch out. And if the book is issued by the author rather than a conventional publisher, the case is pretty much airtight.” A New Kind of Science claims are more extravagant than those of cold fusion—a` la Stanley Pons and Martin Fleischman—and deserve proportionally more vigilant scrutiny. Wolfram has not validated his theory nor has he subjected it to the peer review process like the rest of us mere mortals are expected to do. Furthermore, in contrast to the old kind of science, Wolfram’s anti-Newtonian model of the universe cannot be used to predict much of anything. The new emperor has no clothes. The present book is an offense to all those who play by the rules and brick by brick build this edifice we call science, good old science. The Bottom Line: For fun reading and pretty pictures, this book is not a bad recommendation. For inspiration, read Isaac Newton’s Principia Mathematica, in Latin. For problem solving in applied mechanics, the Newtonian framework is still the best bet, and one’s time is better spent reading traditional books and journals in mechanics."
+      }
+    ]
+  },
+  {
+    "domain": "Formal Sciences",
+    "discipline": "Information Theory",
+    "concept": "maximum entropy",
+    "concept_id": "A5044899451",
+    "author": "E. T. Jaynes",
+    "author_openalex_id": "A5044899451",
+    "institution": null,
+    "papers": [
+      {
+        "openalex_id": "W2032558547",
+        "title": "Information Theory and Statistical Mechanics",
+        "year": 1957,
+        "cited_by_count": 12912,
+        "doi": "https://doi.org/10.1103/physrev.106.620",
+        "oa_pdf_url": null,
+        "abstract": "Information theory provides a constructive criterion for setting up probability distributions on the basis of partial knowledge, and leads to a type of statistical inference which is called the maximum-entropy estimate. It is the least biased estimate possible on the given information; i.e., it is maximally noncommittal with regard to missing information. If one considers statistical mechanics as a form of statistical inference rather than as a physical theory, it is found that the usual computational rules, starting with the determination of the partition function, are an immediate consequence of the maximum-entropy principle. In the resulting \"subjective statistical mechanics,\" the usual rules are thus justified independently of any physical argument, and in particular independently of experimental verification; whether or not the results agree with experiment, they still represent the best estimates that could have been made on the basis of the information available.It is concluded that statistical mechanics need not be regarded as a physical theory dependent for its validity on the truth of additional assumptions not contained in the laws of mechanics (such as ergodicity, metric transitivity, equal a priori probabilities, etc.). Furthermore, it is possible to maintain a sharp distinction between its physical and statistical aspects. The former consists only of the correct enumeration of the states of a system and their properties; the latter is a straightforward example of statistical inference."
+      }
+    ]
+  },
+  {
+    "domain": "Formal Sciences",
+    "discipline": "Statistics & Probability",
+    "concept": "causality causal inference",
+    "concept_id": "A5108208924",
+    "author": "Judea Pearl",
+    "author_openalex_id": "A5108208924",
+    "institution": "University of California, Los Angeles",
+    "papers": [
+      {
+        "openalex_id": "W2143117649",
+        "title": "Causal inference in statistics: An overview",
+        "year": 2009,
+        "cited_by_count": 2321,
+        "doi": "https://doi.org/10.1214/09-ss057",
+        "oa_pdf_url": "https://projecteuclid.org/journals/statistics-surveys/volume-3/issue-none/Causal-inference-in-statistics-An-overview/10.1214/09-SS057.pdf",
+        "abstract": "This review presents empirical researchers with recent advances in causal inference, and stresses the paradigmatic shifts that must be undertaken in moving from traditional statistical analysis to causal analysis of multivariate data. Special emphasis is placed on the assumptions that underly all causal inferences, the languages used in formulating those assumptions, the conditional nature of all causal and counterfactual claims, and the methods that have been developed for the assessment of such claims. These advances are illustrated using a general theory of causation based on the Structural Causal Model (SCM) described in Pearl (2000a), which subsumes and unifies other approaches to causation, and provides a coherent mathematical foundation for the analysis of causes and counterfactuals. In particular, the paper surveys the development of mathematical tools for inferring (from a combination of data and assumptions) answers to three types of causal queries: (1) queries about the effects of potential interventions, (also called “causal effects” or “policy evaluation”) (2) queries about probabilities of counterfactuals, (including assessment of “regret,” “attribution” or “causes of effects”) and (3) queries about direct and indirect effects (also known as “mediation”). Finally, the paper defines the formal and conceptual relationships between the structural and potential-outcome frameworks and presents tools for a symbiotic analysis that uses the strong features of both."
+      }
+    ]
+  },
+  {
+    "domain": "Physical Sciences",
+    "discipline": "Cosmology",
+    "concept": "entropy singularity cosmology",
+    "concept_id": "A5014894861",
+    "author": "Roger Penrose",
+    "author_openalex_id": "A5014894861",
+    "institution": "University of Oxford",
+    "papers": [
+      {
+        "openalex_id": "W2082217691",
+        "title": "The Nature of Space and Time",
+        "year": 1996,
+        "cited_by_count": 348,
+        "doi": "https://doi.org/10.1038/scientificamerican0796-60",
+        "oa_pdf_url": "https://www.scientificamerican.com/index.cfm/_api/render/file/?method=inline&amp;fileID=6DD92ED4-D948-4036-99AA61213C1D4E68",
+        "abstract": "The Nature of Space and Time, SCIENTIFIC AMERICAN has culled excerpts that serve to compare and contrast the perspectives of the two scientists. Although they share a common heritage in physics-Penrose served on Hawking's Ph.D. thesis committee at Cambridge-the lecturers differ in their vision of quantum mechanics and its impact on the evolution of the universe. In particular, Hawking and Penrose disagree on what happens to the information stored in a black hole and on why the beginning of the universe differs from the end."
+      }
+    ]
+  },
+  {
+    "domain": "Physical Sciences",
+    "discipline": "Quantum Foundations",
+    "concept": "quantum entanglement measurement",
+    "concept_id": "A5001105113",
+    "author": "Anton Zeilinger",
+    "author_openalex_id": "A5001105113",
+    "institution": "Institute for Quantum Optics and Quantum Information Innsbruck",
+    "papers": [
+      {
+        "openalex_id": "W2045140905",
+        "title": "New High-Intensity Source of Polarization-Entangled Photon Pairs",
+        "year": 1995,
+        "cited_by_count": 3118,
+        "doi": "https://doi.org/10.1103/physrevlett.75.4337",
+        "oa_pdf_url": "http://link.aps.org/pdf/10.1103/PhysRevLett.75.4337",
+        "abstract": "We report on a high-intensity source of polarization-entangled photon pairs with high momentum definition. Type-II noncollinear phase matching in parametric down conversion produces true entanglement: No part of the wave function must be discarded, in contrast to previous schemes. With two-photon fringe visibilities in excess of 97%, we demonstrated a violation of Bell's inequality by over 100 standard deviations in less than 5 min. The new source allowed ready preparation of all four of the EPR-Bell states."
+      }
+    ]
+  },
+  {
+    "domain": "Physical Sciences",
+    "discipline": "Particle Physics & Unification",
+    "concept": "unified theory symmetry",
+    "concept_id": "A5043632498",
+    "author": "Steven Weinberg",
+    "author_openalex_id": "A5043632498",
+    "institution": "University of North Carolina at Chapel Hill",
+    "papers": [
+      {
+        "openalex_id": "W2070151728",
+        "title": "A Model of Leptons",
+        "year": 1967,
+        "cited_by_count": 7277,
+        "doi": "https://doi.org/10.1103/physrevlett.19.1264",
+        "oa_pdf_url": "http://link.aps.org/pdf/10.1103/PhysRevLett.19.1264",
+        "abstract": "Received 17 October 1967DOI:https://doi.org/10.1103/PhysRevLett.19.1264©1967 American Physical Society"
+      }
+    ]
+  },
+  {
+    "domain": "Physical Sciences",
+    "discipline": "Thermodynamics & Statistical Mechanics",
+    "concept": "dissipation driven adaptation",
+    "concept_id": "A5022792589",
+    "author": "Jeremy L. England",
+    "author_openalex_id": "A5022792589",
+    "institution": "Bar-Ilan University",
+    "papers": [
+      {
+        "openalex_id": "W2736552195",
+        "title": "Self-Organized Resonance during Search of a Diverse Chemical Space",
+        "year": 2017,
+        "cited_by_count": 52,
+        "doi": "https://doi.org/10.1103/physrevlett.119.038001",
+        "oa_pdf_url": "http://link.aps.org/pdf/10.1103/PhysRevLett.119.038001",
+        "abstract": "Recent studies of active matter have stimulated interest in the driven self-assembly of complex structures. Phenomenological modeling of particular examples has yielded insight, but general thermodynamic principles unifying the rich diversity of behaviors observed have been elusive. Here, we study the stochastic search of a toy chemical space by a collection of reacting Brownian particles subject to periodic forcing. We observe the emergence of an adaptive resonance in the system matched to the drive frequency, and show that the increased work absorption by these resonant structures is key to their stabilization. Our findings are consistent with a recently proposed thermodynamic mechanism for far-from-equilibrium self-organization."
+      }
+    ]
+  },
+  {
+    "domain": "Physical Sciences",
+    "discipline": "Astrophysics & Planetary Science",
+    "concept": "exoplanet atmosphere biosignature",
+    "concept_id": "A5041366168",
+    "author": "Sara Seager",
+    "author_openalex_id": "A5041366168",
+    "institution": "American Institute of Aeronautics and Astronautics",
+    "papers": [
+      {
+        "openalex_id": "W3037016578",
+        "title": "Exoplanet Atmospheres",
+        "year": 2010,
+        "cited_by_count": 432,
+        "doi": "https://doi.org/10.1146/annurev-astro-081309-130837",
+        "oa_pdf_url": "https://arxiv.org/pdf/1005.4037",
+        "abstract": "At the dawn of the first discovery of exoplanets orbiting Sun-like stars in the mid-1990s, few believed that observations of exoplanet atmospheres would ever be possible. After the 2002 Hubble Space Telescope detection of a transiting exoplanet atmosphere, many skeptics discounted it as a one-object, one-method success. Nevertheless, the field is now firmly established, with over two dozen exoplanet atmospheres observed today. Hot Jupiters are the type of exoplanet currently most amenable to study. Highlights include: detection of molecular spectral features, observation of day-night temperature gradients, and constraints on vertical atmospheric structure. Atmospheres of giant planets far from their host stars are also being studied with direct imaging. The ultimate exoplanet goal is to answer the enigmatic and ancient question, “Are we alone?” via detection of atmospheric biosignatures. Two exciting prospects are the immediate focus on transiting super Earths orbiting in the habitable zone of M-dwarfs, and ultimately the spaceborne direct imaging of true Earth analogs."
+      }
+    ]
+  },
+  {
+    "domain": "Physical Sciences",
+    "discipline": "Origin-of-Life Chemistry",
+    "concept": "origin of life protocell RNA",
+    "concept_id": "A5023274897",
+    "author": "Jack W. Szostak",
+    "author_openalex_id": "A5023274897",
+    "institution": "Howard Hughes Medical Institute",
+    "papers": [
+      {
+        "openalex_id": "W2166637067",
+        "title": "The Emergence of Competition Between Model Protocells",
+        "year": 2004,
+        "cited_by_count": 451,
+        "doi": "https://doi.org/10.1126/science.1100757",
+        "oa_pdf_url": null,
+        "abstract": "The transition from independent molecular entities to cellular structures with integrated behaviors was a crucial aspect of the origin of life. We show that simple physical principles can mediate a coordinated interaction between genome and compartment boundary, independent of any genomic functions beyond self-replication. RNA, encapsulated in fatty acid vesicles, exerts an osmotic pressure on the vesicle membrane that drives the uptake of additional membrane components, leading to membrane growth at the expense of relaxed vesicles, which shrink. Thus, more efficient RNA replication could cause faster cell growth, leading to the emergence of Darwinian evolution at the cellular level."
+      }
+    ]
+  },
+  {
+    "domain": "Physical Sciences",
+    "discipline": "Earth System & Geoscience",
+    "concept": "Gaia earth system feedback",
+    "concept_id": "A5066057430",
+    "author": "Timothy M. Lenton",
+    "author_openalex_id": "A5066057430",
+    "institution": "University of Exeter",
+    "papers": [
+      {
+        "openalex_id": "W2105414963",
+        "title": "Planetary Boundaries: Exploring the Safe Operating Space for Humanity",
+        "year": 2009,
+        "cited_by_count": 7002,
+        "doi": "https://doi.org/10.5751/es-03180-140232",
+        "oa_pdf_url": null,
+        "abstract": "Rockström, J., W. Steffen, K. Noone, Å. Persson, F. S. Chapin, III, E. Lambin, T. M. Lenton, M. Scheffer, C. Folke, H. Schellnhuber, B. Nykvist, C. A. De Wit, T. Hughes, S. van der Leeuw, H. Rodhe, S. Sörlin, P. K. Snyder, R. Costanza, U. Svedin, M. Falkenmark, L. Karlberg, R. W. Corell, V. J. Fabry, J. Hansen, B. Walker, D. Liverman, K. Richardson, P. Crutzen, and J. Foley. 2009. Planetary boundaries:exploring the safe operating space for humanity. Ecology and Society 14(2): 32. https://doi.org/10.5751/ES-03180-140232"
+      }
+    ]
+  },
+  {
+    "domain": "Life Sciences",
+    "discipline": "Evolutionary Biology",
+    "concept": "self-organization origin order",
+    "concept_id": "A5079464744",
+    "author": "Stuart Kauffman",
+    "author_openalex_id": "A5079464744",
+    "institution": null,
+    "papers": [
+      {
+        "openalex_id": "W2105291362",
+        "title": "The Origins of Order",
+        "year": 1993,
+        "cited_by_count": 2741,
+        "doi": "https://doi.org/10.1093/oso/9780195079517.001.0001",
+        "oa_pdf_url": null,
+        "abstract": "Abstract Stuart Kauffman here presents a brilliant new paradigm for evolutionary biology, one that extends the basic concepts of Darwinian evolution to accommodate recent findings and perspectives from the fields of biology, physics, chemistry and mathematics. The book drives to the heart of the exciting debate on the origins of life and maintenance of order in complex biological systems. It focuses on the concept of self-organization: the spontaneous emergence of order that is widely observed throughout nature Kauffman argues that self-organization plays an important role in the Darwinian process of natural selection. Yet until now no systematic effort has been made to incorporate the concept of self-organization into evolutionary theory. The construction requirements which permit complex systems to adapt are poorly understood, as is the extent to which selection itself can yield systems able to adapt more successfully. This book explores these themes. It shows how complex systems, contrary to expectations, can spontaneously exhibit stunning degrees of order, and how this order, in turn, is essential for understanding the emergence and development of life on Earth. Topics include the new biotechnology of applied molecular evolution, with its important implications for developing new drugs and vaccines; the balance between order and chaos observed in many naturally occurring systems; new insights concerning the predictive power of statistical mechanics in biology; and other major issues. Indeed, the approaches investigated here may prove to be the new center around which biological science itself will evolve. The work is written for all those interested in the cutting edge of research in the life sciences."
+      }
+    ]
+  },
+  {
+    "domain": "Life Sciences",
+    "discipline": "Molecular Biology & Genetics",
+    "concept": "ancient DNA human origins",
+    "concept_id": "A5012216367",
+    "author": "Svante Pääbo",
+    "author_openalex_id": "A5012216367",
+    "institution": "Okinawa Institute of Science and Technology Graduate University",
+    "papers": [
+      {
+        "openalex_id": "W1994263888",
+        "title": "Genetic history of an archaic hominin group from Denisova Cave in Siberia",
+        "year": 2010,
+        "cited_by_count": 2023,
+        "doi": "https://doi.org/10.1038/nature09710",
+        "oa_pdf_url": "https://www.nature.com/articles/nature09710.pdf",
+        "abstract": "Using DNA extracted from a finger bone found in Denisova Cave in southern Siberia, we have sequenced the genome of an archaic hominin to about 1.9-fold coverage. This individual is from a group that shares a common origin with Neanderthals. This population was not involved in the putative gene flow from Neanderthals into Eurasians; however, the data suggest that it contributed 4–6% of its genetic material to the genomes of present-day Melanesians. We designate this hominin population ‘Denisovans’ and suggest that it may have been widespread in Asia during the Late Pleistocene epoch. A tooth found in Denisova Cave carries a mitochondrial genome highly similar to that of the finger bone. This tooth shares no derived morphological features with Neanderthals or modern humans, further indicating that Denisovans have an evolutionary history distinct from Neanderthals and modern humans. Anatomically modern humans were in Africa from some point after 200,000 years ago and reached Eurasia rather later. Meanwhile, archaic hominins — including the Neanderthals — had been in Eurasia from at least 230,000 years ago and disappear from the fossil record only about 30,000 years ago. The genome of a female archaic hominin from Denisova Cave in southern Siberia has now been sequenced from DNA extracted from a finger bone. The group to which this 'Denisovan' individual belonged shares a common origin with Neanderthals and, although it was not involved in the putative gene flow from Neanderthals into Eurasians, it contributed 4–6% of the genomes of present-day Melanesians. In addition, the morphology of a tooth with a mitochondrial genome very similar to that of the finger bone suggests that these hominins are evolutionarily distinct from both Neanderthals and modern humans. Using DNA from a finger bone, the genome of an archaic hominin from southern Siberia has been sequenced to about 1.9-fold coverage. The group to which this individual belonged shares a common origin with Neanderthals, and although it was not involved in the putative gene flow from Neanderthals into Eurasians, it contributed 4–6% of its genetic material to the genomes of present-day Melanesians. A tooth whose mitochondrial genome is very similar to that of the finger bone further suggests that these hominins are evolutionarily distinct from Neanderthals and modern humans."
+      }
+    ]
+  },
+  {
+    "domain": "Life Sciences",
+    "discipline": "Neuroscience",
+    "concept": "free energy principle",
+    "concept_id": "A5086852785",
+    "author": "Karl Friston",
+    "author_openalex_id": "A5086852785",
+    "institution": "Wellcome Centre for Human Neuroimaging",
+    "papers": [
+      {
+        "openalex_id": "W2127958135",
+        "title": "A theory of cortical responses",
+        "year": 2005,
+        "cited_by_count": 4759,
+        "doi": "https://doi.org/10.1098/rstb.2005.1622",
+        "oa_pdf_url": null,
+        "abstract": "This article concerns the nature of evoked brain responses and the principles underlying their generation. We start with the premise that the sensory brain has evolved to represent or infer the causes of changes in its sensory inputs. The problem of inference is well formulated in statistical terms. The statistical fundaments of inference may therefore afford important constraints on neuronal implementation. By formulating the original ideas of Helmholtz on perception, in terms of modern-day statistical theories, one arrives at a model of perceptual inference and learning that can explain a remarkable range of neurobiological facts.It turns out that the problems of inferring the causes of sensory input (perceptual inference) and learning the relationship between input and cause (perceptual learning) can be resolved using exactly the same principle. Specifically, both inference and learning rest on minimizing the brain's free energy, as defined in statistical physics. Furthermore, inference and learning can proceed in a biologically plausible fashion. Cortical responses can be seen as the brain's attempt to minimize the free energy induced by a stimulus and thereby encode the most likely cause of that stimulus. Similarly, learning emerges from changes in synaptic efficacy that minimize the free energy, averaged over all stimuli encountered. The underlying scheme rests on empirical Bayes and hierarchical models of how sensory input is caused. The use of hierarchical models enables the brain to construct prior expectations in a dynamic and context-sensitive fashion. This scheme provides a principled way to understand many aspects of cortical organization and responses. The aim of this article is to encompass many apparently unrelated anatomical, physiological and psychophysical attributes of the brain within a single theoretical perspective. In terms of cortical architectures, the theoretical treatment predicts that sensory cortex should be arranged hierarchically, that connections should be reciprocal and that forward and backward connections should show a functional asymmetry (forward connections are driving, whereas backward connections are both driving and modulatory). In terms of synaptic physiology, it predicts associative plasticity and, for dynamic models, spike-timing-dependent plasticity. In terms of electrophysiology, it accounts for classical and extra classical receptive field effects and long-latency or endogenous components of evoked cortical responses. It predicts the attenuation of responses encoding prediction error with perceptual learning and explains many phenomena such as repetition suppression, mismatch negativity (MMN) and the P300 in electroencephalography. In psychophysical terms, it accounts for the behavioural correlates of these physiological phenomena, for example, priming and global precedence. The final focus of this article is on perceptual learning as measured with the MMN and the implications for empirical studies of coupling among cortical areas using evoked sensory responses."
+      }
+    ]
+  },
+  {
+    "domain": "Life Sciences",
+    "discipline": "Ecology & Systems Biology",
+    "concept": "complexity ecosystems self-organization",
+    "concept_id": "A5077712228",
+    "author": "Simon A. Levin",
+    "author_openalex_id": "A5077712228",
+    "institution": "Princeton University",
+    "papers": [
+      {
+        "openalex_id": "W1976128508",
+        "title": "Are We Consuming Too Much?",
+        "year": 2004,
+        "cited_by_count": 831,
+        "doi": "https://doi.org/10.1257/0895330042162377",
+        "oa_pdf_url": "https://www.aeaweb.org/articles/pdf/doi/10.1257/0895330042162377",
+        "abstract": "This paper articulates and applies frameworks for examining whether consumption is excessive. We consider two criteria for the possible excessiveness (or insufficiency) of current consumption. One is an intertemporal utility-maximization criterion: actual current consumption is deemed excessive if it is higher than the level of current consumption on the consumption path that maximizes the present discounted value of utility. The other is a sustainability criterion, which requires that current consumption be consistent with non-declining living standards over time. We extend previous theoretical approaches by offering a formula for the sustainability criterion that accounts for population growth and technological change. In applying this formula, we find that some poor regions of the world are failing to meet the sustainability criterion: in these regions, genuine wealth per capita is falling as investments in human and manufactured capital are not sufficient to offset the depletion of natural capital."
+      }
+    ]
+  },
+  {
+    "domain": "Life Sciences",
+    "discipline": "Astrobiology",
+    "concept": "synthetic biology weird life",
+    "concept_id": "A5005259044",
+    "author": "Steven A. Benner",
+    "author_openalex_id": "A5005259044",
+    "institution": "Firebird Biomolecular Sciences (United States)",
+    "papers": [
+      {
+        "openalex_id": "W2117819197",
+        "title": "Setting the Stage: The History, Chemistry, and Geobiology behind RNA",
+        "year": 2010,
+        "cited_by_count": 66,
+        "doi": "https://doi.org/10.1101/cshperspect.a003541",
+        "oa_pdf_url": "http://cshperspectives.cshlp.org/content/4/1/a003541.full.pdf",
+        "abstract": "No community-accepted scientific methods are available today to guide studies on what role RNA played in the origin and early evolution of life on Earth. Further, a definition-theory for life is needed to develop hypotheses relating to the \"RNA First\" model for the origin of life. Four approaches are currently at various stages of development of such a definition-theory to guide these studies. These are (a) paleogenetics, in which inferences about the structure of past life are drawn from the structure of present life; (b) prebiotic chemistry, in which hypotheses with experimental support are sought that get RNA from organic and inorganic species possibly present on early Earth; (c) exploration, hoping to encounter life independent of terran life, which might contain RNA; and (d) synthetic biology, in which laboratories attempt to reproduce biological behavior with unnatural chemical systems."
+      }
+    ]
+  },
+  {
+    "domain": "Cognitive & Interdisciplinary",
+    "discipline": "Cognitive Science",
+    "concept": "computational cognition learning",
+    "concept_id": "A5071093940",
+    "author": "Joshua B. Tenenbaum",
+    "author_openalex_id": "A5071093940",
+    "institution": "Institute of Cognitive and Brain Sciences",
+    "papers": [
+      {
+        "openalex_id": "W2126517582",
+        "title": "Causal Inference in Multisensory Perception",
+        "year": 2007,
+        "cited_by_count": 1133,
+        "doi": "https://doi.org/10.1371/journal.pone.0000943",
+        "oa_pdf_url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0000943&type=printable",
+        "abstract": "Perceptual events derive their significance to an animal from their meaning about the world, that is from the information they carry about their causes. The brain should thus be able to efficiently infer the causes underlying our sensory events. Here we use multisensory cue combination to study causal inference in perception. We formulate an ideal-observer model that infers whether two sensory cues originate from the same location and that also estimates their location(s). This model accurately predicts the nonlinear integration of cues by human subjects in two auditory-visual localization tasks. The results show that indeed humans can efficiently infer the causal structure as well as the location of causes. By combining insights from the study of causal inference with the ideal-observer approach to sensory cue combination, we show that the capacity to infer causal structure is not limited to conscious, high-level cognition; it is also performed continually and effortlessly in perception."
+      }
+    ]
+  },
+  {
+    "domain": "Cognitive & Interdisciplinary",
+    "discipline": "Artificial Intelligence",
+    "concept": "deep learning representation",
+    "concept_id": "A5108093963",
+    "author": "Geoffrey E. Hinton",
+    "author_openalex_id": "A5108093963",
+    "institution": null,
+    "papers": [
+      {
+        "openalex_id": "W2163605009",
+        "title": "ImageNet classification with deep convolutional neural networks",
+        "year": 2017,
+        "cited_by_count": 75705,
+        "doi": "https://doi.org/10.1145/3065386",
+        "oa_pdf_url": "http://dl.acm.org/ft_gateway.cfm?id=3065386&type=pdf",
+        "abstract": "We trained a large, deep convolutional neural network to classify the 1.2 million high-resolution images in the ImageNet LSVRC-2010 contest into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 37.5% and 17.0%, respectively, which is considerably better than the previous state-of-the-art. The neural network, which has 60 million parameters and 650,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and three fully connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of the convolution operation. To reduce overfitting in the fully connected layers we employed a recently developed regularization method called \"dropout\" that proved to be very effective. We also entered a variant of this model in the ILSVRC-2012 competition and achieved a winning top-5 test error rate of 15.3%, compared to 26.2% achieved by the second-best entry."
+      }
+    ]
+  },
+  {
+    "domain": "Cognitive & Interdisciplinary",
+    "discipline": "Consciousness Studies",
+    "concept": "integrated information consciousness",
+    "concept_id": "A5001381023",
+    "author": "Giulio Tononi",
+    "author_openalex_id": "A5001381023",
+    "institution": "Netherlands Institute for Neuroscience",
+    "papers": [
+      {
+        "openalex_id": "W2114900706",
+        "title": "An information integration theory of consciousness",
+        "year": 2004,
+        "cited_by_count": 1684,
+        "doi": "https://doi.org/10.1186/1471-2202-5-42",
+        "oa_pdf_url": "https://bmcneurosci.biomedcentral.com/counter/pdf/10.1186/1471-2202-5-42",
+        "abstract": "BACKGROUND: Consciousness poses two main problems. The first is understanding the conditions that determine to what extent a system has conscious experience. For instance, why is our consciousness generated by certain parts of our brain, such as the thalamocortical system, and not by other parts, such as the cerebellum? And why are we conscious during wakefulness and much less so during dreamless sleep? The second problem is understanding the conditions that determine what kind of consciousness a system has. For example, why do specific parts of the brain contribute specific qualities to our conscious experience, such as vision and audition? PRESENTATION OF THE HYPOTHESIS: This paper presents a theory about what consciousness is and how it can be measured. According to the theory, consciousness corresponds to the capacity of a system to integrate information. This claim is motivated by two key phenomenological properties of consciousness: differentiation - the availability of a very large number of conscious experiences; and integration - the unity of each such experience. The theory states that the quantity of consciousness available to a system can be measured as the Phi value of a complex of elements. Phi is the amount of causally effective information that can be integrated across the informational weakest link of a subset of elements. A complex is a subset of elements with Phi>0 that is not part of a subset of higher Phi. The theory also claims that the quality of consciousness is determined by the informational relationships among the elements of a complex, which are specified by the values of effective information among them. Finally, each particular conscious experience is specified by the value, at any given time, of the variables mediating informational interactions among the elements of a complex. TESTING THE HYPOTHESIS: The information integration theory accounts, in a principled manner, for several neurobiological observations concerning consciousness. As shown here, these include the association of consciousness with certain neural systems rather than with others; the fact that neural processes underlying consciousness can influence or be influenced by neural processes that remain unconscious; the reduction of consciousness during dreamless sleep and generalized seizures; and the time requirements on neural interactions that support consciousness. IMPLICATIONS OF THE HYPOTHESIS: The theory entails that consciousness is a fundamental quantity, that it is graded, that it is present in infants and animals, and that it should be possible to build conscious artifacts."
+      }
+    ]
+  },
+  {
+    "domain": "Cognitive & Interdisciplinary",
+    "discipline": "Complex Systems & Self-Organization",
+    "concept": "self-organized criticality",
+    "concept_id": "A5077816063",
+    "author": "Per Bak",
+    "author_openalex_id": "A5077816063",
+    "institution": null,
+    "papers": [
+      {
+        "openalex_id": "W2075514521",
+        "title": "Self-organized criticality: An explanation of the 1/<i>f</i>noise",
+        "year": 1987,
+        "cited_by_count": 7636,
+        "doi": "https://doi.org/10.1103/physrevlett.59.381",
+        "oa_pdf_url": null,
+        "abstract": "We show that dynamical systems with spatial degrees of freedom naturally evolve into a self-organized critical point. Flicker noise, or 1/f noise, can be identified with the dynamics of the critical state. This picture also yields insight into the origin of fractal objects."
+      }
+    ]
+  },
+  {
+    "domain": "Cognitive & Interdisciplinary",
+    "discipline": "Network Science",
+    "concept": "scale-free network emergence",
+    "concept_id": "A5038976962",
+    "author": "Albert-Ĺaszló Barabási",
+    "author_openalex_id": "A5038976962",
+    "institution": "Brigham and Women's Hospital",
+    "papers": [
+      {
+        "openalex_id": "W2008620264",
+        "title": "Emergence of Scaling in Random Networks",
+        "year": 1999,
+        "cited_by_count": 36324,
+        "doi": "https://doi.org/10.1126/science.286.5439.509",
+        "oa_pdf_url": "https://arxiv.org/pdf/cond-mat/9910332",
+        "abstract": "Systems as diverse as genetic networks or the World Wide Web are best described as networks with complex topology. A common property of many large networks is that the vertex connectivities follow a scale-free power-law distribution. This feature was found to be a consequence of two generic mechanisms: (i) networks expand continuously by the addition of new vertices, and (ii) new vertices attach preferentially to sites that are already well connected. A model based on these two ingredients reproduces the observed stationary scale-free distributions, which indicates that the development of large networks is governed by robust self-organizing phenomena that go beyond the particulars of the individual systems."
+      }
+    ]
+  },
+  {
+    "domain": "Cognitive & Interdisciplinary",
+    "discipline": "Semiotics",
+    "concept": "semiotics interpretation sign",
+    "concept_id": "A5026078859",
+    "author": "Umberto Eco",
+    "author_openalex_id": "A5026078859",
+    "institution": null,
+    "papers": [
+      {
+        "openalex_id": "W2434533695",
+        "title": "On the ontology of fictional characters: A semiotic approach",
+        "year": 2009,
+        "cited_by_count": 38,
+        "doi": "https://doi.org/10.12697/sss.2009.37.1-2.04",
+        "oa_pdf_url": "http://ojs.utlib.ee/index.php/sss/article/download/SSS.2009.37.1-2.04/10641",
+        "abstract": "Why are we deeply moved by the misfortune of Anna Karenina if we are fully aware that she is simply a fictional character who does not exist in our world? But what does it mean that fictional characters do not exist? The present article is concerned with the ontology of fictional characters. The author concludes that successful fictional characters become paramount examples of the ‘real’ human condition because they live in an incomplete world what we have cognitive access to but cannot influence in any way and where no deeds can be undone. Unlike all the other semiotic objects, which are culturally subject to revisions, and perhaps only similar to mathematical entities, the fictual characters will never change and will remain the actors of what they did once and forever."
+      }
+    ]
+  },
+  {
+    "domain": "Social Sciences",
+    "discipline": "Psychology",
+    "concept": "prospect theory judgment heuristics",
+    "concept_id": "A5111995000",
+    "author": "Daniel Kahneman",
+    "author_openalex_id": "A5111995000",
+    "institution": "Princeton University",
+    "papers": [
+      {
+        "openalex_id": "W2097839080",
+        "title": "MAPS OF BOUNDED RATIONALITY: A PERSPECTIVE ON INTUITIVE JUDGMENT AND CHOICE",
+        "year": 2003,
+        "cited_by_count": 867,
+        "doi": null,
+        "oa_pdf_url": null,
+        "abstract": "The work cited by the Nobel committee was done jointly with the late Amos Tversky (1937‐1996) during a long and unusually close collaboration. Together, we explored the psychology of intuitive beliefs and choices and examined their bounded rationality. This essay presents a current perspective on the three major topics of our joint work: heuristics of judgment, risky choice, and framing effects. In all three domains we studied intuitions ‐ thoughts and preferences that come to mind quickly and without much reflection. I review the older research and some recent developments in light of two ideas that have become central to social-cognitive psychology in the intervening decades: the notion that thoughts differ in a dimension of accessibility ‐ some come to mind much more easily than others ‐ and the distinction between intuitive and deliberate thought processes. Section 1 distinguishes two generic modes of cognitive function: an intuitive mode in which judgments and decisions are made automatically and rapidly, and a controlled mode, which is deliberate and slower. Section 2 describes the factors that determine the relative accessibility of different judgments and responses. Section 3 explains framing effects in terms of differential salience and accessibility. Section 4 relates prospect theory to the general * This essay revisits problems that Amos Tversky and I studied together many years ago, and continued to discuss in a conversation that spanned several decades. The article is based on the Nobel lecture, which my daughter Lenore Shoham helped put together. It builds on an analysis of judgment heuristics that was developed in collaboration with Shane Frederick (Kahneman and Frederick, 2002). Shane Frederick, David Krantz, and Daniel Reisberg went well beyond the call of friendly duty in helping with this effort. Craig Fox, Peter McGraw, Daniel Read, David Schkade and Richard Thaler offered many insightful comments and suggestions. Kurt Schoppe provided valuable assistance, and Geoffrey Goodwin and Amir Goren helped with scholarly factchecking. My research is supported by NSF 285-6086 and by the Woodrow Wilson School for Public and International Affairs at Princeton University. A different version of this article is to ap"
+      }
+    ]
+  },
+  {
+    "domain": "Social Sciences",
+    "discipline": "Depth Psychology & Psychoanalysis",
+    "concept": "consciousness affect unconscious",
+    "concept_id": "A5056005467",
+    "author": "Mark Solms",
+    "author_openalex_id": "A5056005467",
+    "institution": "University of Cape Town",
+    "papers": [
+      {
+        "openalex_id": "W2012176474",
+        "title": "The Conscious Id",
+        "year": 2013,
+        "cited_by_count": 271,
+        "doi": "https://doi.org/10.1080/15294145.2013.10773711",
+        "oa_pdf_url": null,
+        "abstract": "AbstractTwo aspects of the body are represented in the brain, and they are represented differently. The most important difference is that the brain regions for the two aspects of the body are associated with different aspects of consciousness. Very broadly speaking, the brainstem mechanisms derived from the autonomic body are associated with affective consciousness, and the cortical mechanisms derived from the sensorimotor body are associated with cognitive consciousness. Moreover, the upper brainstem is intrinsically conscious whereas the cortex is not; it derives its consciousness from the brainstem. These facts have substantial implications for psychoanalytic metapsychology because the upper brainstem (and associated limbic structures) performs the functions that Freud attributed to the id, while the cortex (and associated forebrain structures) performs the functions he attributed to the ego. This means that the id is the fount of consciousness and the ego is unconscious in itself. The basis for these conclusions, and some of their implications, are discussed here in a preliminary fashion.Keywords: affectcognitionconsciousegoidunconscious"
+      }
+    ]
+  },
+  {
+    "domain": "Social Sciences",
+    "discipline": "Anthropology",
+    "concept": "cultural evolution cooperation",
+    "concept_id": "A5034266052",
+    "author": "Joseph Henrich",
+    "author_openalex_id": "A5034266052",
+    "institution": "Evolutionary Genomics (United States)",
+    "papers": [
+      {
+        "openalex_id": "W2125976408",
+        "title": "“Economic man” in cross-cultural perspective: Behavioral experiments in 15 small-scale societies",
+        "year": 2005,
+        "cited_by_count": 1923,
+        "doi": "https://doi.org/10.1017/s0140525x05000142",
+        "oa_pdf_url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/6EFFD9263D9A5F2FE5DE9DE8FBBA4988/S0140525X05000142a.pdf/div-class-title-economic-man-in-cross-cultural-perspective-behavioral-experiments-in-15-small-scale-societies-div.pdf",
+        "abstract": "Researchers from across the social sciences have found consistent deviations from the predictions of the canonical model of self-interest in hundreds of experiments from around the world. This research, however, cannot determine whether the uniformity results from universal patterns of human behavior or from the limited cultural variation available among the university students used in virtually all prior experimental work. To address this, we undertook a cross-cultural study of behavior in ultimatum, public goods, and dictator games in a range of small-scale societies exhibiting a wide variety of economic and cultural conditions. We found, first, that the canonical model - based on self-interest - fails in all of the societies studied. Second, our data reveal substantially more behavioral variability across social groups than has been found in previous research. Third, group-level differences in economic organization and the structure of social interactions explain a substantial portion of the behavioral variation across societies: the higher the degree of market integration and the higher the payoffs to cooperation in everyday life, the greater the level of prosociality expressed in experimental games. Fourth, the available individual-level economic and demographic variables do not consistently explain game behavior, either within or across groups. Fifth, in many cases experimental play appears to reflect the common interactional patterns of everyday life."
+      }
+    ]
+  },
+  {
+    "domain": "Social Sciences",
+    "discipline": "Archaeology & Paleoanthropology",
+    "concept": "symbolic archaeology origins",
+    "concept_id": "A5015911878",
+    "author": "Ian Hodder",
+    "author_openalex_id": "A5015911878",
+    "institution": "Koç University",
+    "papers": [
+      {
+        "openalex_id": "W3154743602",
+        "title": "Variable kinship patterns in Neolithic Anatolia revealed by ancient genomes",
+        "year": 2021,
+        "cited_by_count": 114,
+        "doi": "https://doi.org/10.1016/j.cub.2021.03.050",
+        "oa_pdf_url": "http://www.cell.com/article/S0960982221004231/pdf",
+        "abstract": "and possibly in some other Neolithic communities, domestic structures may have served as burial location for social units incorporating biologically unrelated individuals. Our results underscore the diversity of kin structures in Neolithic communities during this important phase of sociocultural development."
+      }
+    ]
+  },
+  {
+    "domain": "Social Sciences",
+    "discipline": "Linguistics",
+    "concept": "language faculty syntax universal",
+    "concept_id": "A5072532913",
+    "author": "Noam Chomsky",
+    "author_openalex_id": "A5072532913",
+    "institution": "Massachusetts Institute of Technology",
+    "papers": [
+      {
+        "openalex_id": "W2134533669",
+        "title": "The mystery of language evolution",
+        "year": 2014,
+        "cited_by_count": 331,
+        "doi": "https://doi.org/10.3389/fpsyg.2014.00401",
+        "oa_pdf_url": "https://www.frontiersin.org/articles/10.3389/fpsyg.2014.00401/pdf",
+        "abstract": "Understanding the evolution of language requires evidence regarding origins and processes that led to change. In the last 40 years, there has been an explosion of research on this problem as well as a sense that considerable progress has been made. We argue instead that the richness of ideas is accompanied by a poverty of evidence, with essentially no explanation of how and why our linguistic computations and representations evolved. We show that, to date, (1) studies of nonhuman animals provide virtually no relevant parallels to human linguistic communication, and none to the underlying biological capacity; (2) the fossil and archaeological evidence does not inform our understanding of the computations and representations of our earliest ancestors, leaving details of origins and selective pressure unresolved; (3) our understanding of the genetics of language is so impoverished that there is little hope of connecting genes to linguistic processes any time soon; (4) all modeling attempts have made unfounded assumptions, and have provided no empirical tests, thus leaving any insights into language's origins unverifiable. Based on the current state of evidence, we submit that the most fundamental questions about the origins and evolution of our linguistic capacity remain as mysterious as ever, with considerable uncertainty about the discovery of either relevant or conclusive evidence that can adjudicate among the many open hypotheses. We conclude by presenting some suggestions about possible paths forward."
+      }
+    ]
+  },
+  {
+    "domain": "Social Sciences",
+    "discipline": "Sociology",
+    "concept": "social systems autopoiesis",
+    "concept_id": "A5067611476",
+    "author": "Niklas Luhmann",
+    "author_openalex_id": "A5067611476",
+    "institution": "World Health Organization - Pakistan",
+    "papers": [
+      {
+        "openalex_id": "W3139115493",
+        "title": "Die Gesellschaft der Gesellschaft",
+        "year": 2000,
+        "cited_by_count": 1525,
+        "doi": "https://doi.org/10.2307/407978",
+        "oa_pdf_url": null,
+        "abstract": "Luhmann, Niklas. Die Gesellschaft der Gesellschaft. Frankfurt a.M.: Suhrkamp, 1997. 2 vols. 1164 pp. DM 58.00. According to Niklas Luhmann, who died last November at the age of seventy, older societies had a leg up on modern ones. They had a place for an infallible outside observer-Godthough they conceded that theologians might be fallible in their interpretations of God's infallibility. Sociology, on the other hand, can't observe from the outside and must formulate its statements about from within Yet it tends to obscure this paradox behind theoretical controversies like structural/procedural, dominance/conflict, affirmative/critical. Systems theory, for its part, unfolds the paradox with the notion that the observer observes from within a subsystem (in this case: sociology) of a subsystem (science) of the social system. Its descriptions are thus the society of society. The first of Gesellschaft's five book-length chapters lays out its conceptual apparatus (system and environment, autopoiesis, first and second-order observations, and so forth). Most interesting here is the programmatic methodologische Vorbemerkung (36-43). Unlike an empirical methodology's attempt to establish a continuum between knowledge and reality, for Luhmann, a methodology ought to enable research to surprise itself (37). It can do this by stressing comparability. Though there are undeniable differences among, say, the economy, the family, and the education system, can it be mere coincidence that such heterogeneous societal subsystems display homogeneous structures, structures that can be described using the same conceptual instrumentarium? The remaining four chapters are on communication, evolution, differentiation, and self-description. Communication is the operation by which produces and reproduces itself. Evolution is a process of variation, selection, and restabilization. Society's primary form of differentiation has shifted from segmentary to stratified to functional. These are all corridors that have echoed with Luhmann's footsteps. The virtue of Gesellschaft, in which the system reference is the entire instead of a single societal subsystem, is that the corridors are all in the same building. Instead of treating in passing, as he does in most of his publications, the evolutionary significance of writing, the printing press, or electronic media, here Luhmann devotes a detailed, apercu-filled section to each. …"
+      }
+    ]
+  },
+  {
+    "domain": "Social Sciences",
+    "discipline": "Economics & Game Theory",
+    "concept": "evolution of cooperation",
+    "concept_id": "A5005640779",
+    "author": "Robert Axelrod",
+    "author_openalex_id": "A5005640779",
+    "institution": "University of Michigan",
+    "papers": [
+      {
+        "openalex_id": "W2483014731",
+        "title": "The Complexity of Cooperation: Agent-Based Models of Competition and Collaboration",
+        "year": 1997,
+        "cited_by_count": 1732,
+        "doi": "https://doi.org/10.1515/9781400822300",
+        "oa_pdf_url": null,
+        "abstract": "Robert Axelrod is widely known for his groundbreaking work in game theory and complexity theory. He is a leader in applying computer modeling to social science problems. His book The Evolution of Cooperation has been hailed as a seminal contribution and has been translated into eight languages since its initial publication. The Complexity of Cooperation is a sequel to that landmark book. It collects seven essays, originally published in a broad range of journals, and adds an extensive new introduction to the collection, along with new prefaces to each essay and a useful new appendix of additional resources. Written in Axelrod's acclaimed, accessible style, this collection serves as an introductory text on complexity theory and computer modeling in the social sciences and as an overview of the current state of the art in the field. The articles move beyond the basic paradigm of the Prisoner's Dilemma to study a rich set of issues, including how to cope with errors in perception or implementation, how norms emerge, and how new political actors and regions of shared culture can develop. They use the shared methodology of agent-based modeling, a powerful technique that specifies the rules of interaction between individuals and uses computer simulation to discover emergent properties of the social system. The Complexity of Cooperation is essential reading for all social scientists who are interested in issues of cooperation and complexity."
+      }
+    ]
+  },
+  {
+    "domain": "Social Sciences",
+    "discipline": "Political Science",
+    "concept": "cliodynamics social complexity",
+    "concept_id": "A5043788108",
+    "author": "Peter Turchin",
+    "author_openalex_id": "A5043788108",
+    "institution": "University of Oxford",
+    "papers": [
+      {
+        "openalex_id": "W2776803487",
+        "title": "Quantitative historical analysis uncovers a single dimension of complexity that structures global variation in human social organization",
+        "year": 2017,
+        "cited_by_count": 282,
+        "doi": "https://doi.org/10.1073/pnas.1708800115",
+        "oa_pdf_url": "https://www.pnas.org/content/pnas/115/2/E144.full.pdf",
+        "abstract": "Do human societies from around the world exhibit similarities in the way that they are structured, and show commonalities in the ways that they have evolved? These are long-standing questions that have proven difficult to answer. To test between competing hypotheses, we constructed a massive repository of historical and archaeological information known as \"Seshat: Global History Databank.\" We systematically coded data on 414 societies from 30 regions around the world spanning the last 10,000 years. We were able to capture information on 51 variables reflecting nine characteristics of human societies, such as social scale, economy, features of governance, and information systems. Our analyses revealed that these different characteristics show strong relationships with each other and that a single principal component captures around three-quarters of the observed variation. Furthermore, we found that different characteristics of social complexity are highly predictable across different world regions. These results suggest that key aspects of social organization are functionally related and do indeed coevolve in predictable ways. Our findings highlight the power of the sciences and humanities working together to rigorously test hypotheses about general rules that may have shaped human history."
+      }
+    ]
+  },
+  {
+    "domain": "Humanities",
+    "discipline": "Metaphysics & Ontology",
+    "concept": "metaphysics of physics time",
+    "concept_id": "A5010243610",
+    "author": "Tim Maudlin",
+    "author_openalex_id": "A5010243610",
+    "institution": null,
+    "papers": [
+      {
+        "openalex_id": "W1522516632",
+        "title": "The Metaphysics Within Physics",
+        "year": 2007,
+        "cited_by_count": 1280,
+        "doi": "https://doi.org/10.1093/acprof:oso/9780199218219.001.0001",
+        "oa_pdf_url": null,
+        "abstract": "What does physics tell us about metaphysics? Tim Maudlin's philosophical examination of the fundamental structure of the world as presented by physics challenges the most widely accepted philosophical accounts of laws of nature, universals the direction of time and causation."
+      }
+    ]
+  },
+  {
+    "domain": "Humanities",
+    "discipline": "Epistemology",
+    "concept": "epistemology knowledge justification",
+    "concept_id": "A5101806542",
+    "author": "Alvin I. Goldman",
+    "author_openalex_id": "A5101806542",
+    "institution": null,
+    "papers": [
+      {
+        "openalex_id": "W2152321927",
+        "title": "Epistemology and Cognition.",
+        "year": 1989,
+        "cited_by_count": 1280,
+        "doi": "https://doi.org/10.2307/2185025",
+        "oa_pdf_url": null,
+        "abstract": "Introduction Part I: Theoretical Foundations 1. The Elements of Epistemology 2. Skepticism 3. Knowledge 4. Justification: A Rule Framework 5. Justification and Reliability 6. Problem Solving, Power, and Speed 7. Truth and Realism 8. The Problem of Content Part II: Assessing Our Cognitive Resources 9. Perception 10. Memory 11. Constraints on Representation 12. Internal Codes 13. Deductive Reasoning 14. Probability judgments 15. Acceptance and Uncertainty 16. Belief Updating 17. Production Systems and Second-Order Processes Conclusion: Primary Epistemics and Cognitive Science Notes Illustration Credits Author Index Subject Index"
+      }
+    ]
+  },
+  {
+    "domain": "Humanities",
+    "discipline": "Philosophy of Mind",
+    "concept": "hard problem consciousness",
+    "concept_id": "A5103215889",
+    "author": "David J. Chalmers",
+    "author_openalex_id": "A5103215889",
+    "institution": "New York University",
+    "papers": [
+      {
+        "openalex_id": "W3210699874",
+        "title": "Facing Up to the Problem of Consciousness",
+        "year": 1996,
+        "cited_by_count": 1425,
+        "doi": "https://doi.org/10.7551/mitpress/6860.003.0003",
+        "oa_pdf_url": null,
+        "abstract": "To make progress on the problem of consciousness, we have to confront it directly. In this paper, I first isolate the truly hard part of the problem, separating it from more tractable parts and giving an account of why it is so difficult to explain. I critique some recent work that uses reductive methods to address consciousness, and argue that such methods inevitably fail to come to grips with the hardest part of the problem. Once this failure is recognized, the door to further progress is opened. In the second half of the paper, I argue that if we move to a new kind of nonreductive explanation, a naturalistic account of consciousness can be given. I put forward my own candidate for such an account: a nonreductive theory based on principles of structural coherence and organizational invariance, and a double-aspect theory of information."
+      }
+    ]
+  },
+  {
+    "domain": "Humanities",
+    "discipline": "Philosophy of Science",
+    "concept": "laws of nature scientific explanation",
+    "concept_id": "A5026171189",
+    "author": "Nancy Cartwright",
+    "author_openalex_id": "A5026171189",
+    "institution": "Durham University",
+    "papers": [
+      {
+        "openalex_id": "W4245353148",
+        "title": "How the Laws of Physics Lie",
+        "year": 1983,
+        "cited_by_count": 3011,
+        "doi": "https://doi.org/10.1093/0198247044.001.0001",
+        "oa_pdf_url": null,
+        "abstract": "Nancy Cartwright argues for a novel conception of the role of fundamental scientific laws in modern natural science. If we attend closely to the manner in which theoretical laws figure in the practice of science, we see that despite their great explanatory power these laws do not describe reality. Instead, fundamental laws describe highly idealized objects in models. Thus, the correct account of explanation in science is not the traditional covering law view, but the ‘simulacrum’ account. On this view, explanation is a matter of constructing a model that may employ, but need not be consistent with, a theoretical framework, in which phenomenological laws that are true of the empirical case in question can be derived. Anti‐realism about theoretical laws does not, however, commit one to anti‐realism about theoretical entities. Belief in theoretical entities can be grounded in well‐tested localized causal claims about concrete physical processes, sometimes now called ‘entity realism’. Such causal claims provide the basis for partial realism and they are ineliminable from the practice of explanation and intervention in nature."
+      }
+    ]
+  },
+  {
+    "domain": "Humanities",
+    "discipline": "Ethics & Value Theory",
+    "concept": "ethics moral value",
+    "concept_id": "A5053698604",
+    "author": "Peter Singer",
+    "author_openalex_id": "A5053698604",
+    "institution": "Animal Welfare Institute",
+    "papers": [
+      {
+        "openalex_id": "W2036665869",
+        "title": "Ethics and SARS: lessons from Toronto",
+        "year": 2003,
+        "cited_by_count": 270,
+        "doi": "https://doi.org/10.1136/bmj.327.7427.1342",
+        "oa_pdf_url": "https://utoronto.scholaris.ca/bitstreams/86877384-6ff2-491f-ab21-f948c5a9926e/download",
+        "abstract": "The SARS epidemic showed how easy it is for infectious diseases to spread round the world. Ethical as well as clinical issues need to be resolved to improve the response to the next epidemic"
+      }
+    ]
+  },
+  {
+    "domain": "Humanities",
+    "discipline": "Religious Studies & Theology",
+    "concept": "cognitive science of religion big gods",
+    "concept_id": "A5026147791",
+    "author": "Ara Norenzayan",
+    "author_openalex_id": "A5026147791",
+    "institution": "University of British Columbia Hospital",
+    "papers": [
+      {
+        "openalex_id": "W2270769484",
+        "title": "Moralistic gods, supernatural punishment and the expansion of human sociality",
+        "year": 2016,
+        "cited_by_count": 504,
+        "doi": "https://doi.org/10.1038/nature16980",
+        "oa_pdf_url": null,
+        "abstract": "Using economic games, the authors examine the role of religion in the persistence of human cooperation; individuals who claim that their gods are moralizing, punitive and knowledgeable about human affairs are more likely to play fairly towards geographically distant co-religionists. How has cooperation persisted in human societies that are increasingly large and complex, where simple relatedness is not necessarily sufficient? These authors examine the role of religion and gods that are moralizing, punitive, and take a specific interest in human affairs. Using economic games and ethnographic interviews, the authors tested more than 500 individuals following Christianity, Hinduism, Buddhism, and local traditions including animism and ancestor worship. They find that those who believe in gods they perceive as moralistic, punitive and knowing are most likely to be generous to geographically distant co-religionists. Since the origins of agriculture, the scale of human cooperation and societal complexity has dramatically expanded1,2. This fact challenges standard evolutionary explanations of prosociality because well-studied mechanisms of cooperation based on genetic relatedness, reciprocity and partner choice falter as people increasingly engage in fleeting transactions with genetically unrelated strangers in large anonymous groups. To explain this rapid expansion of prosociality, researchers have proposed several mechanisms3,4. Here we focus on one key hypothesis: cognitive representations of gods as increasingly knowledgeable and punitive, and who sanction violators of interpersonal social norms, foster and sustain the expansion of cooperation, trust and fairness towards co-religionist strangers5,6,7,8. We tested this hypothesis using extensive ethnographic interviews and two behavioural games designed to measure impartial rule-following among people (n = 591, observations = 35,400) from eight diverse communities from around the world: (1) inland Tanna, Vanuatu; (2) coastal Tanna, Vanuatu; (3) Yasawa, Fiji; (4) Lovu, Fiji; (5) Pesqueiro, Brazil; (6) Pointe aux Piments, Mauritius; (7) the Tyva Republic (Siberia), Russia; and (8) Hadzaland, Tanzania. Participants reported adherence to a wide array of world religious traditions including Christianity, Hinduism and Buddhism, as well as notably diverse local traditions, including animism and ancestor worship. Holding a range of relevant variables constant, the higher participants rated their moralistic gods as punitive and knowledgeable about human thoughts and actions, the more coins they allocated to geographically distant co-religionist strangers relative to both themselves and local co-religionists. Our results support the hypothesis that beliefs in moralistic, punitive and knowing gods increase impartial behaviour towards distant co-religionists, and therefore can contribute to the expansion of prosociality."
+      }
+    ]
+  },
+  {
+    "domain": "Humanities",
+    "discipline": "History",
+    "concept": "societies collapse civilization",
+    "concept_id": "A5113911784",
+    "author": "Jared M. Diamond",
+    "author_openalex_id": "A5113911784",
+    "institution": "University of California, Los Angeles",
+    "papers": [
+      {
+        "openalex_id": "W78426310",
+        "title": "Ecological collapses of past civilizations.",
+        "year": 1994,
+        "cited_by_count": 33,
+        "doi": null,
+        "oa_pdf_url": null,
+        "abstract": "A justification frequently offered for studying history is that it gives us the opportunity to learn from human errors in the past. Until recently, though, it appeared that we had nothing to learn from the past about how to avoid the environmental predicament in which all human societies now find themselves. The greatest risk to humanity in coming decades is that we may continue to damage our environment to a degree where our current standard of living or even our existence becomes impossible. That dilemma has seemed a unique one in human history, a consequence of our uniquely high modern numbers coupled with our uniquely destructive modern technology. However, it is now being realized that many past societies did through destroying their environmental underpinnings, and that we thus do have environmental lessons to learn from our past. This is a burgeoning area of paleontology and archaeology, with most of the compelling evidence having been gathered only within the last 12 years. I accept the following definition of a collapse of society: a local drastic decrease in human population numbers and/or in political, economic, or social complexity. Collapse can even reach the point that human population completely disappears over a considerable area. By this definition, it is evident that many societies have collapsed. Among the most recent examples, even though their collapses are mild by historical standards, are the collapses of Zaire, the former Soviet Union, and the former Yugoslavia. Among the many earlier collapses, perhaps the best known are those of the Roman Empire, Classic Lowland Maya civilization, Easter Island civilization, and Angkor Wat. Societies can for many reasons besides ecological ones (Yoffee and Cowgill 1988). Those other potential reasons include economic causes, pestilence, political causes, social tension leading to civil war,"
+      }
+    ]
+  },
+  {
+    "domain": "Humanities",
+    "discipline": "Classics & Mythology",
+    "concept": "comparative mythology origins",
+    "concept_id": "A5049951661",
+    "author": "Michael Witzel",
+    "author_openalex_id": "A5049951661",
+    "institution": null,
+    "papers": [
+      {
+        "openalex_id": "W2185936337",
+        "title": "Autochthonous Aryans? The Evidence from Old Indian and Iranian texts",
+        "year": 2008,
+        "cited_by_count": 70,
+        "doi": "https://doi.org/10.11588/xarep.00000118",
+        "oa_pdf_url": "http://crossasia-repository.ub.uni-heidelberg.de/118/2/EJVS_AutochthonousAryans_2001.pdf",
+        "abstract": "The \"Aryan question\" is concerned with the immigration of a population speaking an archaic Indo-European language, Vedic Sanskrit, who celebrate their gods and chieftains in the poems of the oldest Indian literature, the Rigveda, and who subsequently spread their language, religion, ritual and social organization throughout the subcontinent. Who were the \"Aryans\"? What was their spiritual and material culture and their outlook on life? Did they ever enter the Indian subcontinent from the outside? Or did this people develop indigenously in the Greater Panjab? This, the \"Aryan\" question, has kept minds - and politicians - busy for the past 200 years; it has been used and misused in many ways. And, its discussion has become a cottage industry in India during recent years. In this paper, it will be attempted to present the pros and contras for the (non-)occurrence of a movement of an \"Aryan\" population and its consequences."
+      }
+    ]
+  },
+  {
+    "domain": "Arts",
+    "discipline": "Aesthetics",
+    "concept": "neuroaesthetics beauty brain",
+    "concept_id": "A5007924109",
+    "author": "Semir Zeki",
+    "author_openalex_id": "A5007924109",
+    "institution": "University College London",
+    "papers": [
+      {
+        "openalex_id": "W2971733413",
+        "title": "Beauty in Architecture: Not a Luxury ‐ Only a Necessity",
+        "year": 2019,
+        "cited_by_count": 36,
+        "doi": "https://doi.org/10.1002/ad.2473",
+        "oa_pdf_url": null,
+        "abstract": "Abstract Can beauty in architecture nourish the human emotional brain? Semir Zeki , Professor of Neuroaesthetics at University College London argues that it does. He goes further in suggesting it should be a quality in all buildings and that humanity has the ability to recognise this beauty across all cultural divides. The appreciation of beauty, no matter where found, is hardwired into our brains."
+      }
+    ]
+  },
+  {
+    "domain": "Arts",
+    "discipline": "Visual Art",
+    "concept": "neuroaesthetics art perception",
+    "concept_id": "A5103857277",
+    "author": "Vilayanur S. Ramachandran",
+    "author_openalex_id": "A5103857277",
+    "institution": "University of California San Diego",
+    "papers": [
+      {
+        "openalex_id": "W4941964",
+        "title": "Synaesthesia? A window into perception, thought and language",
+        "year": 2001,
+        "cited_by_count": 1593,
+        "doi": null,
+        "oa_pdf_url": null,
+        "abstract": "We investigated grapheme--colour synaesthesia and found that: (1) The induced colours led to perceptual grouping and pop-out, (2) a grapheme rendered invisible through `crowding&amp;apos; or lateral masking induced synaesthetic colours --- a form of blindsight --- and (3) peripherally presented graphemes did not induce colours even when they were clearly visible. Taken collectively, these and other experiments prove conclusively that synaesthesia is a genuine perceptual phenomenon, not an effect based on memory associations from childhood or on vague metaphorical speech. We identify different subtypes of number--colour synaesthesia and propose that they are caused by hyperconnectivity between colour and number areas at different stages in processing; lower synaesthetes may have cross-wiring (or cross-activation) within the fusiform gyrus, whereas higher synaesthetes may have cross-activation in the angular gyrus. This hyperconnectivity might be caused by a genetic mutation that causes defective pruning of connections between brain maps. The mutation may further be expressed selectively (due to transcription factors) in the fusiform or angular gyri, and this may explain the existence of different forms of synaesthesia. If expressed very diffusely, there may be extensive cross-wiring between brain regions that represent abstract concepts, which would explain the link between creativity, metaphor and synaesthesia (and the higher incidence of synaesthesia among artists and poets). Also, hyperconnectivity between the sensory cortex and amygdala would explain the heightened aversion synaesthetes experience when seeing numbers printed in the `wrong&amp;apos; colour. Lastly, kindling (induced hyperconnectivity in the temporal lobes of temporal lobe epilepsy [TLE] patients) may explain the purp..."
+      }
+    ]
+  },
+  {
+    "domain": "Arts",
+    "discipline": "Music",
+    "concept": "music language brain evolution",
+    "concept_id": "A5001080729",
+    "author": "Aniruddh D. Patel",
+    "author_openalex_id": "A5001080729",
+    "institution": "Tufts University",
+    "papers": [
+      {
+        "openalex_id": "W2068910989",
+        "title": "The evolutionary neuroscience of musical beat perception: the Action Simulation for Auditory Prediction (ASAP) hypothesis",
+        "year": 2014,
+        "cited_by_count": 532,
+        "doi": "https://doi.org/10.3389/fnsys.2014.00057",
+        "oa_pdf_url": "https://www.frontiersin.org/articles/10.3389/fnsys.2014.00057/pdf",
+        "abstract": "EVERY HUMAN CULTURE HAS SOME FORM OF MUSIC WITH A BEAT: a perceived periodic pulse that structures the perception of musical rhythm and which serves as a framework for synchronized movement to music. What are the neural mechanisms of musical beat perception, and how did they evolve? One view, which dates back to Darwin and implicitly informs some current models of beat perception, is that the relevant neural mechanisms are relatively general and are widespread among animal species. On the basis of recent neural and cross-species data on musical beat processing, this paper argues for a different view. Here we argue that beat perception is a complex brain function involving temporally-precise communication between auditory regions and motor planning regions of the cortex (even in the absence of overt movement). More specifically, we propose that simulation of periodic movement in motor planning regions provides a neural signal that helps the auditory system predict the timing of upcoming beats. This \"action simulation for auditory prediction\" (ASAP) hypothesis leads to testable predictions. We further suggest that ASAP relies on dorsal auditory pathway connections between auditory regions and motor planning regions via the parietal cortex, and suggest that these connections may be stronger in humans than in non-human primates due to the evolution of vocal learning in our lineage. This suggestion motivates cross-species research to determine which species are capable of human-like beat perception, i.e., beat perception that involves accurate temporal prediction of beat times across a fairly broad range of tempi."
+      }
+    ]
+  },
+  {
+    "domain": "Arts",
+    "discipline": "Architecture & Design",
+    "concept": "pattern language wholeness order",
+    "concept_id": "A5102825603",
+    "author": "Christopher Alexander",
+    "author_openalex_id": "A5102825603",
+    "institution": "Tampere University",
+    "papers": [
+      {
+        "openalex_id": "W1968983388",
+        "title": "A Pattern Language: Towns, Buildings, Construction",
+        "year": 1977,
+        "cited_by_count": 4599,
+        "doi": null,
+        "oa_pdf_url": null,
+        "abstract": "\"At the core of the book is the point that in designing their environments people always rely on certain 'languages', which, like the languages we speak, allow them to articulate and communicate an infinite variety of designs within a formal system which gives them coherence. This book provides a language of this kind. It will enable a person to make a design for almost any kind of building, or any part of the built environment. 'Patterns', the units of this language, are answers to design problems (How high should a window sill be? How many stories should a building have? How much space in a neighborhood should be devoted to grass and trees?). More than 250 of the patterns in this pattern language are given: each consists of a problem statement, a discussion of a the problem with an illustration, sand a solution. As the authors say in their introduction, many of the patters are archetypal, so deeply rooted in the nature of things that it seems likely that they will be a part of human nature, and human action, as much in five hundred years as they are today\" -- BOOK JACKET."
+      }
+    ]
+  },
+  {
+    "domain": "Arts",
+    "discipline": "Literature",
+    "concept": "distant reading quantitative literature",
+    "concept_id": "A5025268241",
+    "author": "Franco Moretti",
+    "author_openalex_id": "A5025268241",
+    "institution": "Institute for Advanced Study",
+    "papers": [
+      {
+        "openalex_id": "W4393315409",
+        "title": "Teorie sítí a analýza syžetu",
+        "year": 2019,
+        "cited_by_count": 1,
+        "doi": "https://doi.org/10.62804/aa.2019.003",
+        "oa_pdf_url": "http://arteacta.cz/doi/10.62804/aa.2019.003.pdf",
+        "abstract": "V nkolika mlo poslednch letech zaila literrn vda nco, co bychom mohli nazvat nrstem kvantitativnch dkaz. K tomu u kdysi dolo, ani by to vyvolalo dlouhodobj efekt, ale tentokrt tomu pravdpodobn bude jinak, protoe te u mme k dispozici digitln databze a automatick vyhledvae dat. Jak jasn ukzal nedvn lnek o kulturomice (culturomics) v asopise Science, pedila ka korpusu a rychlost vyhledvn vechna oekvn. Dnes meme v nkolika mlo minutch zopakovat vzkum, kter veliknovi, jakm byl Leo Spitzer, zabral msce a roky prce. V oblasti jazyka a stylu meme dlat vci, o kterch se pedelm generacm mohlo jen zdt."
+      }
+    ]
+  }
+]

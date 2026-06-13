@@ -1,0 +1,22 @@
+{
+  "domain": "Humanities",
+  "discipline": "Philosophy of Mind",
+  "concept": "hard problem consciousness",
+  "concept_id": "A5103215889",
+  "author": "David J. Chalmers",
+  "author_openalex_id": "A5103215889",
+  "institution": "New York University",
+  "papers": [
+    {
+      "openalex_id": "W3210699874",
+      "title": "Facing Up to the Problem of Consciousness",
+      "year": 1996,
+      "cited_by_count": 1425,
+      "doi": "https://doi.org/10.7551/mitpress/6860.003.0003",
+      "oa_pdf_url": null,
+      "abstract": "To make progress on the problem of consciousness, we have to confront it directly. In this paper, I first isolate the truly hard part of the problem, separating it from more tractable parts and giving an account of why it is so difficult to explain. I critique some recent work that uses reductive methods to address consciousness, and argue that such methods inevitably fail to come to grips with the hardest part of the problem. Once this failure is recognized, the door to further progress is opened. In the second half of the paper, I argue that if we move to a new kind of nonreductive explanation, a naturalistic account of consciousness can be given. I put forward my own candidate for such an account: a nonreductive theory based on principles of structural coherence and organizational invariance, and a double-aspect theory of information."
+    }
+  ],
+  "origin_lens": "why there is subjective experience at all",
+  "author_total_citations": 27867
+}

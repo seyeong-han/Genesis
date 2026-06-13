@@ -1,0 +1,22 @@
+{
+  "domain": "Cognitive & Interdisciplinary",
+  "discipline": "Cognitive Science",
+  "concept": "computational cognition learning",
+  "concept_id": "A5071093940",
+  "author": "Joshua B. Tenenbaum",
+  "author_openalex_id": "A5071093940",
+  "institution": "Institute of Cognitive and Brain Sciences",
+  "papers": [
+    {
+      "openalex_id": "W2126517582",
+      "title": "Causal Inference in Multisensory Perception",
+      "year": 2007,
+      "cited_by_count": 1133,
+      "doi": "https://doi.org/10.1371/journal.pone.0000943",
+      "oa_pdf_url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0000943&type=printable",
+      "abstract": "Perceptual events derive their significance to an animal from their meaning about the world, that is from the information they carry about their causes. The brain should thus be able to efficiently infer the causes underlying our sensory events. Here we use multisensory cue combination to study causal inference in perception. We formulate an ideal-observer model that infers whether two sensory cues originate from the same location and that also estimates their location(s). This model accurately predicts the nonlinear integration of cues by human subjects in two auditory-visual localization tasks. The results show that indeed humans can efficiently infer the causal structure as well as the location of causes. By combining insights from the study of causal inference with the ideal-observer approach to sensory cue combination, we show that the capacity to infer causal structure is not limited to conscious, high-level cognition; it is also performed continually and effortlessly in perception."
+    }
+  ],
+  "origin_lens": "how minds build models of the world",
+  "author_total_citations": 74932
+}

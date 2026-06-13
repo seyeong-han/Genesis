@@ -1,0 +1,22 @@
+{
+  "domain": "Formal Sciences",
+  "discipline": "Statistics & Probability",
+  "concept": "causality causal inference",
+  "concept_id": "A5108208924",
+  "author": "Judea Pearl",
+  "author_openalex_id": "A5108208924",
+  "institution": "University of California, Los Angeles",
+  "papers": [
+    {
+      "openalex_id": "W2143117649",
+      "title": "Causal inference in statistics: An overview",
+      "year": 2009,
+      "cited_by_count": 2321,
+      "doi": "https://doi.org/10.1214/09-ss057",
+      "oa_pdf_url": "https://projecteuclid.org/journals/statistics-surveys/volume-3/issue-none/Causal-inference-in-statistics-An-overview/10.1214/09-SS057.pdf",
+      "abstract": "This review presents empirical researchers with recent advances in causal inference, and stresses the paradigmatic shifts that must be undertaken in moving from traditional statistical analysis to causal analysis of multivariate data. Special emphasis is placed on the assumptions that underly all causal inferences, the languages used in formulating those assumptions, the conditional nature of all causal and counterfactual claims, and the methods that have been developed for the assessment of such claims. These advances are illustrated using a general theory of causation based on the Structural Causal Model (SCM) described in Pearl (2000a), which subsumes and unifies other approaches to causation, and provides a coherent mathematical foundation for the analysis of causes and counterfactuals. In particular, the paper surveys the development of mathematical tools for inferring (from a combination of data and assumptions) answers to three types of causal queries: (1) queries about the effects of potential interventions, (also called “causal effects” or “policy evaluation”) (2) queries about probabilities of counterfactuals, (including assessment of “regret,” “attribution” or “causes of effects”) and (3) queries about direct and indirect effects (also known as “mediation”). Finally, the paper defines the formal and conceptual relationships between the structural and potential-outcome frameworks and presents tools for a symbiotic analysis that uses the strong features of both."
+    }
+  ],
+  "origin_lens": "causation beneath correlation",
+  "author_total_citations": 80108
+}

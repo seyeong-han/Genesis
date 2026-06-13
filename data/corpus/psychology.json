@@ -1,0 +1,22 @@
+{
+  "domain": "Social Sciences",
+  "discipline": "Psychology",
+  "concept": "prospect theory judgment heuristics",
+  "concept_id": "A5111995000",
+  "author": "Daniel Kahneman",
+  "author_openalex_id": "A5111995000",
+  "institution": "Princeton University",
+  "papers": [
+    {
+      "openalex_id": "W2097839080",
+      "title": "MAPS OF BOUNDED RATIONALITY: A PERSPECTIVE ON INTUITIVE JUDGMENT AND CHOICE",
+      "year": 2003,
+      "cited_by_count": 867,
+      "doi": null,
+      "oa_pdf_url": null,
+      "abstract": "The work cited by the Nobel committee was done jointly with the late Amos Tversky (1937‐1996) during a long and unusually close collaboration. Together, we explored the psychology of intuitive beliefs and choices and examined their bounded rationality. This essay presents a current perspective on the three major topics of our joint work: heuristics of judgment, risky choice, and framing effects. In all three domains we studied intuitions ‐ thoughts and preferences that come to mind quickly and without much reflection. I review the older research and some recent developments in light of two ideas that have become central to social-cognitive psychology in the intervening decades: the notion that thoughts differ in a dimension of accessibility ‐ some come to mind much more easily than others ‐ and the distinction between intuitive and deliberate thought processes. Section 1 distinguishes two generic modes of cognitive function: an intuitive mode in which judgments and decisions are made automatically and rapidly, and a controlled mode, which is deliberate and slower. Section 2 describes the factors that determine the relative accessibility of different judgments and responses. Section 3 explains framing effects in terms of differential salience and accessibility. Section 4 relates prospect theory to the general * This essay revisits problems that Amos Tversky and I studied together many years ago, and continued to discuss in a conversation that spanned several decades. The article is based on the Nobel lecture, which my daughter Lenore Shoham helped put together. It builds on an analysis of judgment heuristics that was developed in collaboration with Shane Frederick (Kahneman and Frederick, 2002). Shane Frederick, David Krantz, and Daniel Reisberg went well beyond the call of friendly duty in helping with this effort. Craig Fox, Peter McGraw, Daniel Read, David Schkade and Richard Thaler offered many insightful comments and suggestions. Kurt Schoppe provided valuable assistance, and Geoffrey Goodwin and Amir Goren helped with scholarly factchecking. My research is supported by NSF 285-6086 and by the Woodrow Wilson School for Public and International Affairs at Princeton University. A different version of this article is to ap"
+    }
+  ],
+  "origin_lens": "the architecture of human judgment",
+  "author_total_citations": 395155
+}

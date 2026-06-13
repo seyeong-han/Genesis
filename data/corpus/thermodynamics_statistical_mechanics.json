@@ -1,0 +1,22 @@
+{
+  "domain": "Physical Sciences",
+  "discipline": "Thermodynamics & Statistical Mechanics",
+  "concept": "dissipation driven adaptation",
+  "concept_id": "A5022792589",
+  "author": "Jeremy L. England",
+  "author_openalex_id": "A5022792589",
+  "institution": "Bar-Ilan University",
+  "papers": [
+    {
+      "openalex_id": "W2736552195",
+      "title": "Self-Organized Resonance during Search of a Diverse Chemical Space",
+      "year": 2017,
+      "cited_by_count": 52,
+      "doi": "https://doi.org/10.1103/physrevlett.119.038001",
+      "oa_pdf_url": "http://link.aps.org/pdf/10.1103/PhysRevLett.119.038001",
+      "abstract": "Recent studies of active matter have stimulated interest in the driven self-assembly of complex structures. Phenomenological modeling of particular examples has yielded insight, but general thermodynamic principles unifying the rich diversity of behaviors observed have been elusive. Here, we study the stochastic search of a toy chemical space by a collection of reacting Brownian particles subject to periodic forcing. We observe the emergence of an adaptive resonance in the system matched to the drive frequency, and show that the increased work absorption by these resonant structures is key to their stabilization. Our findings are consistent with a recently proposed thermodynamic mechanism for far-from-equilibrium self-organization."
+    }
+  ],
+  "origin_lens": "life as a thermodynamically favored structure",
+  "author_total_citations": 4217
+}

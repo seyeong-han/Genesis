@@ -1,0 +1,22 @@
+{
+  "domain": "Cognitive & Interdisciplinary",
+  "discipline": "Complex Systems & Self-Organization",
+  "concept": "self-organized criticality",
+  "concept_id": "A5077816063",
+  "author": "Per Bak",
+  "author_openalex_id": "A5077816063",
+  "institution": null,
+  "papers": [
+    {
+      "openalex_id": "W2075514521",
+      "title": "Self-organized criticality: An explanation of the 1/<i>f</i>noise",
+      "year": 1987,
+      "cited_by_count": 7636,
+      "doi": "https://doi.org/10.1103/physrevlett.59.381",
+      "oa_pdf_url": null,
+      "abstract": "We show that dynamical systems with spatial degrees of freedom naturally evolve into a self-organized critical point. Flicker noise, or 1/f noise, can be identified with the dynamics of the critical state. This picture also yields insight into the origin of fractal objects."
+    }
+  ],
+  "origin_lens": "complexity poised at the critical edge",
+  "author_total_citations": 37432
+}

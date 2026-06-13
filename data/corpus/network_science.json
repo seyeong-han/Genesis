@@ -1,0 +1,22 @@
+{
+  "domain": "Cognitive & Interdisciplinary",
+  "discipline": "Network Science",
+  "concept": "scale-free network emergence",
+  "concept_id": "A5038976962",
+  "author": "Albert-Ĺaszló Barabási",
+  "author_openalex_id": "A5038976962",
+  "institution": "Brigham and Women's Hospital",
+  "papers": [
+    {
+      "openalex_id": "W2008620264",
+      "title": "Emergence of Scaling in Random Networks",
+      "year": 1999,
+      "cited_by_count": 36324,
+      "doi": "https://doi.org/10.1126/science.286.5439.509",
+      "oa_pdf_url": "https://arxiv.org/pdf/cond-mat/9910332",
+      "abstract": "Systems as diverse as genetic networks or the World Wide Web are best described as networks with complex topology. A common property of many large networks is that the vertex connectivities follow a scale-free power-law distribution. This feature was found to be a consequence of two generic mechanisms: (i) networks expand continuously by the addition of new vertices, and (ii) new vertices attach preferentially to sites that are already well connected. A model based on these two ingredients reproduces the observed stationary scale-free distributions, which indicates that the development of large networks is governed by robust self-organizing phenomena that go beyond the particulars of the individual systems."
+    }
+  ],
+  "origin_lens": "why hub structure emerges everywhere",
+  "author_total_citations": 213245
+}

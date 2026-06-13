@@ -1,0 +1,22 @@
+{
+  "domain": "Arts",
+  "discipline": "Visual Art",
+  "concept": "neuroaesthetics art perception",
+  "concept_id": "A5103857277",
+  "author": "Vilayanur S. Ramachandran",
+  "author_openalex_id": "A5103857277",
+  "institution": "University of California San Diego",
+  "papers": [
+    {
+      "openalex_id": "W4941964",
+      "title": "Synaesthesia? A window into perception, thought and language",
+      "year": 2001,
+      "cited_by_count": 1593,
+      "doi": null,
+      "oa_pdf_url": null,
+      "abstract": "We investigated grapheme--colour synaesthesia and found that: (1) The induced colours led to perceptual grouping and pop-out, (2) a grapheme rendered invisible through `crowding&amp;apos; or lateral masking induced synaesthetic colours --- a form of blindsight --- and (3) peripherally presented graphemes did not induce colours even when they were clearly visible. Taken collectively, these and other experiments prove conclusively that synaesthesia is a genuine perceptual phenomenon, not an effect based on memory associations from childhood or on vague metaphorical speech. We identify different subtypes of number--colour synaesthesia and propose that they are caused by hyperconnectivity between colour and number areas at different stages in processing; lower synaesthetes may have cross-wiring (or cross-activation) within the fusiform gyrus, whereas higher synaesthetes may have cross-activation in the angular gyrus. This hyperconnectivity might be caused by a genetic mutation that causes defective pruning of connections between brain maps. The mutation may further be expressed selectively (due to transcription factors) in the fusiform or angular gyri, and this may explain the existence of different forms of synaesthesia. If expressed very diffusely, there may be extensive cross-wiring between brain regions that represent abstract concepts, which would explain the link between creativity, metaphor and synaesthesia (and the higher incidence of synaesthesia among artists and poets). Also, hyperconnectivity between the sensory cortex and amygdala would explain the heightened aversion synaesthetes experience when seeing numbers printed in the `wrong&amp;apos; colour. Lastly, kindling (induced hyperconnectivity in the temporal lobes of temporal lobe epilepsy [TLE] patients) may explain the purp..."
+    }
+  ],
+  "origin_lens": "why art moves the brain",
+  "author_total_citations": 11364
+}

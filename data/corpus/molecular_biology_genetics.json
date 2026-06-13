@@ -1,0 +1,22 @@
+{
+  "domain": "Life Sciences",
+  "discipline": "Molecular Biology & Genetics",
+  "concept": "ancient DNA human origins",
+  "concept_id": "A5012216367",
+  "author": "Svante Pääbo",
+  "author_openalex_id": "A5012216367",
+  "institution": "Okinawa Institute of Science and Technology Graduate University",
+  "papers": [
+    {
+      "openalex_id": "W1994263888",
+      "title": "Genetic history of an archaic hominin group from Denisova Cave in Siberia",
+      "year": 2010,
+      "cited_by_count": 2023,
+      "doi": "https://doi.org/10.1038/nature09710",
+      "oa_pdf_url": "https://www.nature.com/articles/nature09710.pdf",
+      "abstract": "Using DNA extracted from a finger bone found in Denisova Cave in southern Siberia, we have sequenced the genome of an archaic hominin to about 1.9-fold coverage. This individual is from a group that shares a common origin with Neanderthals. This population was not involved in the putative gene flow from Neanderthals into Eurasians; however, the data suggest that it contributed 4–6% of its genetic material to the genomes of present-day Melanesians. We designate this hominin population ‘Denisovans’ and suggest that it may have been widespread in Asia during the Late Pleistocene epoch. A tooth found in Denisova Cave carries a mitochondrial genome highly similar to that of the finger bone. This tooth shares no derived morphological features with Neanderthals or modern humans, further indicating that Denisovans have an evolutionary history distinct from Neanderthals and modern humans. Anatomically modern humans were in Africa from some point after 200,000 years ago and reached Eurasia rather later. Meanwhile, archaic hominins — including the Neanderthals — had been in Eurasia from at least 230,000 years ago and disappear from the fossil record only about 30,000 years ago. The genome of a female archaic hominin from Denisova Cave in southern Siberia has now been sequenced from DNA extracted from a finger bone. The group to which this 'Denisovan' individual belonged shares a common origin with Neanderthals and, although it was not involved in the putative gene flow from Neanderthals into Eurasians, it contributed 4–6% of the genomes of present-day Melanesians. In addition, the morphology of a tooth with a mitochondrial genome very similar to that of the finger bone suggests that these hominins are evolutionarily distinct from both Neanderthals and modern humans. Using DNA from a finger bone, the genome of an archaic hominin from southern Siberia has been sequenced to about 1.9-fold coverage. The group to which this individual belonged shares a common origin with Neanderthals, and although it was not involved in the putative gene flow from Neanderthals into Eurasians, it contributed 4–6% of its genetic material to the genomes of present-day Melanesians. A tooth whose mitochondrial genome is very similar to that of the finger bone further suggests that these hominins are evolutionarily distinct from Neanderthals and modern humans."
+    }
+  ],
+  "origin_lens": "the genetic record of where we came from",
+  "author_total_citations": 103030
+}

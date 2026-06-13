@@ -1,0 +1,22 @@
+{
+  "domain": "Arts",
+  "discipline": "Aesthetics",
+  "concept": "neuroaesthetics beauty brain",
+  "concept_id": "A5007924109",
+  "author": "Semir Zeki",
+  "author_openalex_id": "A5007924109",
+  "institution": "University College London",
+  "papers": [
+    {
+      "openalex_id": "W2971733413",
+      "title": "Beauty in Architecture: Not a Luxury ‐ Only a Necessity",
+      "year": 2019,
+      "cited_by_count": 36,
+      "doi": "https://doi.org/10.1002/ad.2473",
+      "oa_pdf_url": null,
+      "abstract": "Abstract Can beauty in architecture nourish the human emotional brain? Semir Zeki , Professor of Neuroaesthetics at University College London argues that it does. He goes further in suggesting it should be a quality in all buildings and that humanity has the ability to recognise this beauty across all cultural divides. The appreciation of beauty, no matter where found, is hardwired into our brains."
+    }
+  ],
+  "origin_lens": "the neural basis of beauty",
+  "author_total_citations": 30897
+}

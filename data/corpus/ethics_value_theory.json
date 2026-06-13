@@ -1,0 +1,22 @@
+{
+  "domain": "Humanities",
+  "discipline": "Ethics & Value Theory",
+  "concept": "ethics moral value",
+  "concept_id": "A5053698604",
+  "author": "Peter Singer",
+  "author_openalex_id": "A5053698604",
+  "institution": "Animal Welfare Institute",
+  "papers": [
+    {
+      "openalex_id": "W2036665869",
+      "title": "Ethics and SARS: lessons from Toronto",
+      "year": 2003,
+      "cited_by_count": 270,
+      "doi": "https://doi.org/10.1136/bmj.327.7427.1342",
+      "oa_pdf_url": "https://utoronto.scholaris.ca/bitstreams/86877384-6ff2-491f-ab21-f948c5a9926e/download",
+      "abstract": "The SARS epidemic showed how easy it is for infectious diseases to spread round the world. Ethical as well as clinical issues need to be resolved to improve the response to the next epidemic"
+    }
+  ],
+  "origin_lens": "the ground and scope of value",
+  "author_total_citations": 32768
+}

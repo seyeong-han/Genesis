@@ -1,0 +1,22 @@
+{
+  "domain": "Social Sciences",
+  "discipline": "Sociology",
+  "concept": "social systems autopoiesis",
+  "concept_id": "A5067611476",
+  "author": "Niklas Luhmann",
+  "author_openalex_id": "A5067611476",
+  "institution": "World Health Organization - Pakistan",
+  "papers": [
+    {
+      "openalex_id": "W3139115493",
+      "title": "Die Gesellschaft der Gesellschaft",
+      "year": 2000,
+      "cited_by_count": 1525,
+      "doi": "https://doi.org/10.2307/407978",
+      "oa_pdf_url": null,
+      "abstract": "Luhmann, Niklas. Die Gesellschaft der Gesellschaft. Frankfurt a.M.: Suhrkamp, 1997. 2 vols. 1164 pp. DM 58.00. According to Niklas Luhmann, who died last November at the age of seventy, older societies had a leg up on modern ones. They had a place for an infallible outside observer-Godthough they conceded that theologians might be fallible in their interpretations of God's infallibility. Sociology, on the other hand, can't observe from the outside and must formulate its statements about from within Yet it tends to obscure this paradox behind theoretical controversies like structural/procedural, dominance/conflict, affirmative/critical. Systems theory, for its part, unfolds the paradox with the notion that the observer observes from within a subsystem (in this case: sociology) of a subsystem (science) of the social system. Its descriptions are thus the society of society. The first of Gesellschaft's five book-length chapters lays out its conceptual apparatus (system and environment, autopoiesis, first and second-order observations, and so forth). Most interesting here is the programmatic methodologische Vorbemerkung (36-43). Unlike an empirical methodology's attempt to establish a continuum between knowledge and reality, for Luhmann, a methodology ought to enable research to surprise itself (37). It can do this by stressing comparability. Though there are undeniable differences among, say, the economy, the family, and the education system, can it be mere coincidence that such heterogeneous societal subsystems display homogeneous structures, structures that can be described using the same conceptual instrumentarium? The remaining four chapters are on communication, evolution, differentiation, and self-description. Communication is the operation by which produces and reproduces itself. Evolution is a process of variation, selection, and restabilization. Society's primary form of differentiation has shifted from segmentary to stratified to functional. These are all corridors that have echoed with Luhmann's footsteps. The virtue of Gesellschaft, in which the system reference is the entire instead of a single societal subsystem, is that the corridors are all in the same building. Instead of treating in passing, as he does in most of his publications, the evolutionary significance of writing, the printing press, or electronic media, here Luhmann devotes a detailed, apercu-filled section to each. …"
+    }
+  ],
+  "origin_lens": "society as self-producing communication",
+  "author_total_citations": 60762
+}

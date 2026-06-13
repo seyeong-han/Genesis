@@ -1,0 +1,22 @@
+{
+  "domain": "Physical Sciences",
+  "discipline": "Quantum Foundations",
+  "concept": "quantum entanglement measurement",
+  "concept_id": "A5001105113",
+  "author": "Anton Zeilinger",
+  "author_openalex_id": "A5001105113",
+  "institution": "Institute for Quantum Optics and Quantum Information Innsbruck",
+  "papers": [
+    {
+      "openalex_id": "W2045140905",
+      "title": "New High-Intensity Source of Polarization-Entangled Photon Pairs",
+      "year": 1995,
+      "cited_by_count": 3118,
+      "doi": "https://doi.org/10.1103/physrevlett.75.4337",
+      "oa_pdf_url": "http://link.aps.org/pdf/10.1103/PhysRevLett.75.4337",
+      "abstract": "We report on a high-intensity source of polarization-entangled photon pairs with high momentum definition. Type-II noncollinear phase matching in parametric down conversion produces true entanglement: No part of the wave function must be discarded, in contrast to previous schemes. With two-photon fringe visibilities in excess of 97%, we demonstrated a violation of Bell's inequality by over 100 standard deviations in less than 5 min. The new source allowed ready preparation of all four of the EPR-Bell states."
+    }
+  ],
+  "origin_lens": "the role of observation and information in reality",
+  "author_total_citations": 74908
+}

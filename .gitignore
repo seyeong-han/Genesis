@@ -56,5 +56,10 @@ backend/logs/
 # 上传文件
 backend/uploads/
 
-# Docker 数据
-data/
+# Docker volumes and OASIS runtime DBs
+data/*.db
+data/*.log
+# Allow researcher corpus (read-only reference data)
+!data/corpus/
+!data/corpus/*.json
+!data/roster.json

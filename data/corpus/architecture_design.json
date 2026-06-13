@@ -1,0 +1,22 @@
+{
+  "domain": "Arts",
+  "discipline": "Architecture & Design",
+  "concept": "pattern language wholeness order",
+  "concept_id": "A5102825603",
+  "author": "Christopher Alexander",
+  "author_openalex_id": "A5102825603",
+  "institution": "Tampere University",
+  "papers": [
+    {
+      "openalex_id": "W1968983388",
+      "title": "A Pattern Language: Towns, Buildings, Construction",
+      "year": 1977,
+      "cited_by_count": 4599,
+      "doi": null,
+      "oa_pdf_url": null,
+      "abstract": "\"At the core of the book is the point that in designing their environments people always rely on certain 'languages', which, like the languages we speak, allow them to articulate and communicate an infinite variety of designs within a formal system which gives them coherence. This book provides a language of this kind. It will enable a person to make a design for almost any kind of building, or any part of the built environment. 'Patterns', the units of this language, are answers to design problems (How high should a window sill be? How many stories should a building have? How much space in a neighborhood should be devoted to grass and trees?). More than 250 of the patterns in this pattern language are given: each consists of a problem statement, a discussion of a the problem with an illustration, sand a solution. As the authors say in their introduction, many of the patters are archetypal, so deeply rooted in the nature of things that it seems likely that they will be a part of human nature, and human action, as much in five hundred years as they are today\" -- BOOK JACKET."
+    }
+  ],
+  "origin_lens": "the nature of order and living structure",
+  "author_total_citations": 10849
+}

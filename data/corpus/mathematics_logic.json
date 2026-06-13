@@ -1,0 +1,22 @@
+{
+  "domain": "Formal Sciences",
+  "discipline": "Mathematics & Logic",
+  "concept": "algorithmic information randomness",
+  "concept_id": "A5063257061",
+  "author": "Gregory J. Chaitin",
+  "author_openalex_id": "A5063257061",
+  "institution": "Universidade Federal do Rio de Janeiro",
+  "papers": [
+    {
+      "openalex_id": "W2020311636",
+      "title": "A Theory of Program Size Formally Identical to Information Theory",
+      "year": 1975,
+      "cited_by_count": 884,
+      "doi": "https://doi.org/10.1145/321892.321894",
+      "oa_pdf_url": "https://dl.acm.org/doi/pdf/10.1145/321892.321894",
+      "abstract": "A new definition of program-size complexity is made. H(A,B/C,D) is defined to be the size in bits of the shortest self-delimiting program for calculating strings A and B if one is given a minimal-size self-delimiting program for calculating strings C and D. This differs from previous definitions: (1) programs are required to be self-delimiting, i.e. no program is a prefix of another, and (2) instead of being given C and D directly, one is given a program for calculating them that is minimal in size. Unlike previous definitions, this one has precisely the formal properties of the entropy concept of information theory. For example, H(A,B) = H(A) + H(B/A) -~ 0(1). Also, if a program of length k is assigned measure 2 -k, then H(A) = -log2 (the probability that the standard universal computer will calculate A) -{-0(1)."
+    }
+  ],
+  "origin_lens": "irreducible randomness and the limits of formal systems",
+  "author_total_citations": 10578
+}
