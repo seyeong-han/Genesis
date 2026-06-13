@@ -326,6 +326,13 @@ class SimulationConfigGenerator:
         event_config = self._assign_initial_post_agents(event_config, all_agent_configs)
         assigned_count = len([p for p in event_config.initial_posts if p.get("poster_agent_id") is not None])
         reasoning_parts.append(t('progress.postAssignResult', count=assigned_count))
+
+        # Genesis is a research-debate engine, not a social-media circadian simulation.
+        # The original MiroFish schedule often makes all agents inactive in early
+        # rounds (00:00, 01:00, 02:00), which silently skips the debate loop. For
+        # a demo/research panel, every selected researcher should be available in
+        # every round.
+        self._force_research_debate_activity(time_config, all_agent_configs)
         
         # ========== 最后一步: 生成平台配置 ==========
         report_progress(total_steps, t('progress.generatingPlatformConfig'))
@@ -371,6 +378,34 @@ class SimulationConfigGenerator:
         logger.info(f"模拟配置生成完成: {len(params.agent_configs)} 个Agent配置")
         
         return params
+
+    def _force_research_debate_activity(
+        self,
+        time_config: TimeSimulationConfig,
+        agent_configs: List[AgentActivityConfig],
+    ) -> None:
+        """Disable social-media circadian scheduling for Genesis debate runs.
+
+        MiroFish's original active-hour schedule is realistic for social media but
+        wrong for a staged researcher panel: if the first rounds simulate midnight,
+        every researcher can be inactive and the OASIS loop appears stuck. We force
+        the full selected panel to participate in every round.
+        """
+        n_agents = max(1, len(agent_configs))
+        time_config.agents_per_hour_min = n_agents
+        time_config.agents_per_hour_max = n_agents
+        time_config.peak_activity_multiplier = 1.0
+        time_config.off_peak_activity_multiplier = 1.0
+        time_config.morning_activity_multiplier = 1.0
+        time_config.work_activity_multiplier = 1.0
+        time_config.peak_hours = list(range(24))
+        time_config.off_peak_hours = []
+
+        for cfg in agent_configs:
+            cfg.active_hours = list(range(24))
+            cfg.activity_level = 1.0
+            cfg.posts_per_hour = max(cfg.posts_per_hour, 0.5)
+            cfg.comments_per_hour = max(cfg.comments_per_hour, 0.8)
     
     def _build_context(
         self,
