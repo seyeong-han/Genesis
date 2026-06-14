@@ -1910,6 +1910,138 @@ def get_simulation_actions(simulation_id: str):
         }), 500
 
 
+# Map OASIS social actions -> researcher-debate interaction edges.
+# Each entry: action_type -> (edge label, action_args field holding the target's name)
+_DEBATE_INTERACTIONS = {
+    "LIKE_POST": ("endorses", "post_author_name"),
+    "DISLIKE_POST": ("challenges", "post_author_name"),
+    "QUOTE_POST": ("amplifies", "post_author_name"),
+    "REPOST": ("amplifies", "post_author_name"),
+    "LIKE_COMMENT": ("endorses", "comment_author_name"),
+    "DISLIKE_COMMENT": ("challenges", "comment_author_name"),
+    "FOLLOW": ("follows", "target_user_name"),
+}
+
+
+@simulation_bp.route('/<simulation_id>/debate-network', methods=['GET'])
+def get_debate_network(simulation_id: str):
+    """Researcher-debate interaction graph built from the OASIS action stream.
+
+    Unlike the Zep knowledge graph (concepts/claims the agents read & write), this
+    view shows WHO interacted with WHOM: endorse / challenge / amplify / follow
+    edges between the persona agents. Returned in the same {nodes, edges} shape as
+    the knowledge graph so the frontend can reuse the D3 renderer.
+
+    Query params:
+        researchers_only = true|false (default false) -> keep only Researcher-type nodes
+    """
+    import json as _json
+    from collections import defaultdict
+
+    try:
+        researchers_only = (request.args.get('researchers_only') or '').strip().lower() in ('1', 'true', 'yes')
+
+        sim_dir = os.path.join(SimulationRunner.RUN_STATE_DIR, simulation_id)
+
+        # 1) entity_name -> {type, stance, influence_weight} from the sim config
+        type_by_name, stance_by_name, infl_by_name = {}, {}, {}
+        config_path = os.path.join(sim_dir, "simulation_config.json")
+        if os.path.exists(config_path):
+            with open(config_path, 'r', encoding='utf-8') as f:
+                cfg = _json.load(f)
+            for a in (cfg.get("agent_configs") or []):
+                nm = a.get("entity_name")
+                if nm:
+                    type_by_name[nm] = a.get("entity_type") or "Agent"
+                    stance_by_name[nm] = a.get("stance")
+                    infl_by_name[nm] = a.get("influence_weight")
+
+        # 2) Aggregate interactions from the action stream
+        actions = SimulationRunner.get_all_actions(simulation_id)
+        edge_weight = defaultdict(int)   # (src, tgt, label) -> count
+        activity = defaultdict(int)      # name -> actions taken
+        received = defaultdict(int)      # name -> interactions received
+        participants = set()
+
+        for act in actions:
+            src = getattr(act, 'agent_name', None)
+            if not src:
+                continue
+            participants.add(src)
+            activity[src] += 1
+            mapping = _DEBATE_INTERACTIONS.get(getattr(act, 'action_type', ''))
+            if not mapping:
+                continue
+            label, tgt_field = mapping
+            tgt = (getattr(act, 'action_args', None) or {}).get(tgt_field)
+            if not tgt or tgt == src:
+                continue
+            participants.add(tgt)
+            received[tgt] += 1
+            edge_weight[(src, tgt, label)] += 1
+
+        if researchers_only:
+            keep = {n for n in participants if type_by_name.get(n) == 'Researcher'}
+            participants = keep
+            edge_weight = {k: v for k, v in edge_weight.items() if k[0] in keep and k[1] in keep}
+
+        # 3) Nodes (glow = normalized interactions received)
+        max_rec = max(received.values()) if received else 0
+        nodes = []
+        for name in participants:
+            etype = type_by_name.get(name, "Agent")
+            acted, got = activity.get(name, 0), received.get(name, 0)
+            nodes.append({
+                "uuid": name,
+                "name": name,
+                "labels": [etype],
+                "summary": (
+                    f"Stance: {stance_by_name.get(name) or 'n/a'} · "
+                    f"Actions taken: {acted} · Endorsed/cited by peers: {got}"
+                ),
+                "attributes": {
+                    "stance": stance_by_name.get(name),
+                    "actions_taken": acted,
+                    "interactions_received": got,
+                    "influence_weight": infl_by_name.get(name),
+                },
+                "influence": round(got / max_rec, 3) if max_rec else 0.0,
+            })
+
+        # 4) Edges
+        edges = []
+        for i, ((src, tgt, label), w) in enumerate(edge_weight.items(), start=1):
+            edges.append({
+                "uuid": f"debate_edge_{i}",
+                "name": label,
+                "fact": f"{src} {label} {tgt}" + (f" (×{w})" if w > 1 else ""),
+                "source_node_uuid": src,
+                "target_node_uuid": tgt,
+                "source_node_name": src,
+                "target_node_name": tgt,
+                "weight": w,
+                "attributes": {"interaction": label, "count": w},
+            })
+
+        return jsonify({
+            "success": True,
+            "data": {
+                "nodes": nodes,
+                "edges": edges,
+                "node_count": len(nodes),
+                "edge_count": len(edges),
+            },
+        })
+
+    except Exception as e:
+        logger.error(f"构建辩论网络失败: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }), 500
+
+
 @simulation_bp.route('/<simulation_id>/timeline', methods=['GET'])
 def get_simulation_timeline(simulation_id: str):
     """

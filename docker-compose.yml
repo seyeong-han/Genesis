@@ -4,6 +4,8 @@ services:
     container_name: genesis
     env_file:
       - .env
+    environment:
+      - TZ=America/Los_Angeles
     ports:
       - "3000:3000"
       - "5001:5001"

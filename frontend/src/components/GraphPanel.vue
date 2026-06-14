@@ -4,6 +4,21 @@
       <span class="panel-title">{{ $t('graph.panelTitle') }}</span>
       <!-- 顶部工具栏 (Internal Top Right) -->
       <div class="header-tools">
+        <!-- Knowledge graph <-> Researcher debate network -->
+        <div class="view-toggle">
+          <button
+            class="view-toggle-btn"
+            :class="{ active: viewMode === 'knowledge' }"
+            @click="setViewMode('knowledge')"
+          >Knowledge</button>
+          <button
+            class="view-toggle-btn"
+            :class="{ active: viewMode === 'debate' }"
+            @click="setViewMode('debate')"
+            :disabled="!simulationId"
+            :title="simulationId ? 'Who endorsed / challenged / amplified whom' : 'Available after a simulation runs'"
+          >Debate</button>
+        </div>
         <button class="tool-btn" @click="$emit('refresh')" :disabled="loading" :title="$t('graph.refreshGraph')">
           <span class="icon-refresh" :class="{ 'spinning': loading }">↻</span>
           <span class="btn-text">Refresh</span>
@@ -16,8 +31,15 @@
     
     <div class="graph-container" ref="graphContainer">
       <!-- 图谱可视化 -->
-      <div v-if="graphData" class="graph-view">
+      <div v-if="activeData" class="graph-view">
         <svg ref="graphSvg" class="graph-svg"></svg>
+
+        <!-- Debate-mode status hint -->
+        <div v-if="viewMode === 'debate' && (debateLoading || debateError || (activeData.nodes && activeData.nodes.length === 0))" class="graph-building-hint">
+          <span v-if="debateLoading">Building debate network…</span>
+          <span v-else-if="debateError">{{ debateError }}</span>
+          <span v-else>No interactions recorded yet — run the simulation to populate the debate.</span>
+        </div>
         
         <!-- 构建中/模拟中提示 -->
         <div v-if="currentPhase === 1 || isSimulating" class="graph-building-hint">
@@ -214,7 +236,7 @@
     </div>
 
     <!-- 底部图例 (Bottom Left) -->
-    <div v-if="graphData && entityTypes.length" class="graph-legend">
+    <div v-if="activeData && entityTypes.length" class="graph-legend">
       <span class="legend-title">Entity Types</span>
       <div class="legend-items">
         <div class="legend-item" v-for="type in entityTypes" :key="type.name">
@@ -225,12 +247,20 @@
     </div>
     
     <!-- 显示边标签开关 -->
-    <div v-if="graphData" class="edge-labels-toggle">
+    <div v-if="activeData" class="edge-labels-toggle">
       <label class="toggle-switch">
         <input type="checkbox" v-model="showEdgeLabels" />
         <span class="slider"></span>
       </label>
       <span class="toggle-label">Show Edge Labels</span>
+
+      <template v-if="viewMode === 'debate'">
+        <label class="toggle-switch" style="margin-left: 14px;">
+          <input type="checkbox" v-model="debateResearchersOnly" />
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Researchers only</span>
+      </template>
     </div>
   </div>
 </template>
@@ -238,15 +268,68 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch, nextTick, computed } from 'vue'
 import * as d3 from 'd3'
+import { getDebateNetwork } from '../api/simulation'
 
 const props = defineProps({
   graphData: Object,
   loading: Boolean,
   currentPhase: Number,
-  isSimulating: Boolean
+  isSimulating: Boolean,
+  simulationId: String
 })
 
 const emit = defineEmits(['refresh', 'toggle-maximize'])
+
+// --- View mode: knowledge graph (Zep) vs researcher-debate network (actions) ---
+const viewMode = ref('knowledge') // 'knowledge' | 'debate'
+const debateData = ref(null)
+const debateLoading = ref(false)
+const debateError = ref('')
+// Default to researchers only so the debate reads as "researchers discussing",
+// not the full entity-agent population. Toggle off to see every agent.
+const debateResearchersOnly = ref(true)
+
+// The dataset currently being rendered (knowledge graph or debate network)
+const activeData = computed(() =>
+  viewMode.value === 'debate' ? debateData.value : props.graphData
+)
+
+const fetchDebateNetwork = async () => {
+  if (!props.simulationId) {
+    debateError.value = 'No simulation linked to this graph yet.'
+    return
+  }
+  debateLoading.value = true
+  debateError.value = ''
+  try {
+    const res = await getDebateNetwork(props.simulationId, debateResearchersOnly.value)
+    const data = res?.data || res
+    debateData.value = data && data.nodes ? data : { nodes: [], edges: [] }
+  } catch (e) {
+    debateError.value = (e && e.message) ? e.message : 'Failed to load debate network'
+    debateData.value = { nodes: [], edges: [] }
+  } finally {
+    debateLoading.value = false
+  }
+}
+
+// Re-fetch when the researchers-only filter changes while in debate mode.
+watch(debateResearchersOnly, async () => {
+  if (viewMode.value === 'debate') {
+    await fetchDebateNetwork()
+    nextTick(renderGraph)
+  }
+})
+
+const setViewMode = async (mode) => {
+  if (viewMode.value === mode) return
+  viewMode.value = mode
+  selectedItem.value = null
+  if (mode === 'debate' && !debateData.value) {
+    await fetchDebateNetwork()
+  }
+  nextTick(renderGraph)
+}
 
 const graphContainer = ref(null)
 const graphSvg = ref(null)
@@ -283,12 +366,12 @@ const toggleSelfLoop = (id) => {
 
 // 计算实体类型用于图例
 const entityTypes = computed(() => {
-  if (!props.graphData?.nodes) return []
+  if (!activeData.value?.nodes) return []
   const typeMap = {}
   // 美观的颜色调色板
   const colors = ['#FF6B35', '#004E89', '#7B2D8E', '#1A936F', '#C5283D', '#E9724C', '#3498db', '#9b59b6', '#27ae60', '#f39c12']
   
-  props.graphData.nodes.forEach(node => {
+  activeData.value.nodes.forEach(node => {
     const type = node.labels?.find(l => l !== 'Entity') || 'Entity'
     if (!typeMap[type]) {
       typeMap[type] = { name: type, count: 0, color: colors[Object.keys(typeMap).length % colors.length] }
@@ -326,7 +409,7 @@ let linkLabelsRef = null
 let linkLabelBgRef = null
 
 const renderGraph = () => {
-  if (!graphSvg.value || !props.graphData) return
+  if (!graphSvg.value || !activeData.value) return
   
   // 停止之前的仿真
   if (currentSimulation) {
@@ -344,8 +427,8 @@ const renderGraph = () => {
     
   svg.selectAll('*').remove()
   
-  const nodesData = props.graphData.nodes || []
-  const edgesData = props.graphData.edges || []
+  const nodesData = activeData.value.nodes || []
+  const edgesData = activeData.value.edges || []
   
   if (nodesData.length === 0) return
 
@@ -800,8 +883,15 @@ const renderGraph = () => {
   })
 }
 
-watch(() => props.graphData, () => {
+watch(() => activeData.value, () => {
   nextTick(renderGraph)
+}, { deep: true })
+
+// If the live knowledge graph updates while viewing the debate network, refresh it too.
+watch(() => props.graphData, () => {
+  if (viewMode.value === 'debate' && props.simulationId) {
+    fetchDebateNetwork()
+  }
 }, { deep: true })
 
 // 监听边标签显示开关
@@ -867,6 +957,38 @@ onUnmounted(() => {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+/* Knowledge / Debate view toggle */
+.view-toggle {
+  display: flex;
+  background: #F0F0F0;
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.view-toggle-btn {
+  height: 26px;
+  padding: 0 12px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #777;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.view-toggle-btn.active {
+  background: #FFF;
+  color: #FF4500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.view-toggle-btn:disabled {
+  color: #BBB;
+  cursor: not-allowed;
 }
 
 .tool-btn {

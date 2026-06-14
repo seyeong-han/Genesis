@@ -622,6 +622,135 @@ def get_graph_data(graph_id: str):
         }), 500
 
 
+# ============== OpenAlex 检索代理接口 ==============
+
+import json as _json
+import urllib.parse as _urlparse
+import urllib.request as _urlrequest
+
+_OPENALEX = "https://api.openalex.org"
+_OPENALEX_MAILTO = "genesis@example.com"
+_OPENALEX_UA = {"User-Agent": f"GenesisEngine/0.1 (mailto:{_OPENALEX_MAILTO})"}
+
+
+def _openalex_get(path: str, params: dict) -> dict:
+    """Server-side proxy to OpenAlex (keyless, polite pool via mailto)."""
+    params = {**params, "mailto": _OPENALEX_MAILTO}
+    url = f"{_OPENALEX}/{path}?{_urlparse.urlencode(params)}"
+    req = _urlrequest.Request(url, headers=_OPENALEX_UA)
+    with _urlrequest.urlopen(req, timeout=20) as r:
+        return _json.load(r)
+
+
+def _reconstruct_abstract(inverted_index):
+    if not inverted_index:
+        return ""
+    positions = []
+    for word, idxs in inverted_index.items():
+        for i in idxs:
+            positions.append((i, word))
+    positions.sort(key=lambda p: p[0])
+    return " ".join(w for _, w in positions)
+
+
+def _short_id(value: str) -> str:
+    return (value or "").rsplit("/", 1)[-1]
+
+
+@graph_bp.route('/openalex/search', methods=['GET'])
+def openalex_search():
+    """Proxy OpenAlex search for seeding a Genesis run.
+
+    Query params:
+      type = works | authors   (default works)
+      q    = search string
+    Returns a normalized, lightweight result list.
+    """
+    search_type = (request.args.get('type') or 'works').strip().lower()
+    query = (request.args.get('q') or '').strip()
+
+    if not query:
+        return jsonify({"success": False, "error": "Please provide a query (q)."}), 400
+    if search_type not in ('works', 'authors'):
+        return jsonify({"success": False, "error": "type must be 'works' or 'authors'."}), 400
+
+    try:
+        if search_type == 'authors':
+            data = _openalex_get("authors", {"search": query, "per-page": 10})
+            results = []
+            for a in (data.get("results") or []):
+                insts = a.get("last_known_institutions") or []
+                results.append({
+                    "id": _short_id(a.get("id")),
+                    "name": a.get("display_name"),
+                    "cited_by_count": a.get("cited_by_count", 0),
+                    "works_count": a.get("works_count", 0),
+                    "institution": insts[0].get("display_name") if insts else None,
+                })
+            return jsonify({"success": True, "type": "authors", "results": results})
+
+        # works
+        data = _openalex_get("works", {
+            "search": query,
+            "sort": "relevance_score:desc",
+            "per-page": 10,
+        })
+        results = []
+        for w in (data.get("results") or []):
+            auths = w.get("authorships") or []
+            lead = auths[0]["author"]["display_name"] if auths else "Unknown"
+            results.append({
+                "id": _short_id(w.get("id")),
+                "title": w.get("title") or "(untitled)",
+                "year": w.get("publication_year"),
+                "cited_by_count": w.get("cited_by_count", 0),
+                "doi": w.get("doi"),
+                "lead_author": lead,
+                "abstract": _reconstruct_abstract(w.get("abstract_inverted_index")),
+            })
+        return jsonify({"success": True, "type": "works", "results": results})
+
+    except Exception as e:  # noqa: BLE001
+        return jsonify({"success": False, "error": str(e)}), 502
+
+
+@graph_bp.route('/openalex/author_works', methods=['GET'])
+def openalex_author_works():
+    """Top-cited works for a given OpenAlex author id (for researcher seeds)."""
+    author_id = (request.args.get('author_id') or '').strip()
+    if not author_id:
+        return jsonify({"success": False, "error": "Please provide author_id."}), 400
+    try:
+        per_page = int(request.args.get('per_page') or 3)
+    except ValueError:
+        per_page = 3
+    per_page = max(1, min(per_page, 10))
+
+    try:
+        results = []
+        for filt in (f"author.id:{author_id},has_abstract:true", f"author.id:{author_id}"):
+            data = _openalex_get("works", {
+                "filter": filt,
+                "sort": "cited_by_count:desc",
+                "per-page": per_page,
+            })
+            works = data.get("results") or []
+            if works:
+                for w in works:
+                    results.append({
+                        "id": _short_id(w.get("id")),
+                        "title": w.get("title") or "(untitled)",
+                        "year": w.get("publication_year"),
+                        "cited_by_count": w.get("cited_by_count", 0),
+                        "doi": w.get("doi"),
+                        "abstract": _reconstruct_abstract(w.get("abstract_inverted_index")),
+                    })
+                break
+        return jsonify({"success": True, "results": results})
+    except Exception as e:  # noqa: BLE001
+        return jsonify({"success": False, "error": str(e)}), 502
+
+
 @graph_bp.route('/delete/<graph_id>', methods=['DELETE'])
 def delete_graph(graph_id: str):
     """

@@ -389,7 +389,10 @@ class SimulationRunner:
             script_name = "run_twitter_simulation.py"
             state.twitter_running = True
         elif platform == "reddit":
-            script_name = "run_reddit_simulation.py"
+            # 使用并行运行器的 --reddit-only 模式：standalone reddit 脚本不写
+            # reddit/actions.jsonl，导致前端轮次计数器始终停在 0/N。并行运行器
+            # 带有 PlatformActionLogger，会写动作日志，让实时轮次/动作计数与 UI 同步。
+            script_name = "run_parallel_simulation.py"
             state.reddit_running = True
         else:
             script_name = "run_parallel_simulation.py"
@@ -422,6 +425,10 @@ class SimulationRunner:
             # 如果指定了最大轮数，添加到命令行参数
             if max_rounds is not None and max_rounds > 0:
                 cmd.extend(["--max-rounds", str(max_rounds)])
+
+            # reddit/twitter 单平台时，告诉并行运行器只跑对应平台
+            if platform == "reddit" and script_name == "run_parallel_simulation.py":
+                cmd.append("--reddit-only")
             
             # 创建主日志文件，避免 stdout/stderr 管道缓冲区满导致进程阻塞
             main_log_path = os.path.join(sim_dir, "simulation.log")

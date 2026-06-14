@@ -42,6 +42,18 @@ export const getSimulationProfiles = (simulationId, platform = 'reddit') => {
 }
 
 /**
+ * Researcher-debate interaction graph (who endorsed/challenged/amplified/followed whom).
+ * Same {nodes, edges} shape as the knowledge graph so the D3 renderer can be reused.
+ * @param {string} simulationId
+ * @param {boolean} researchersOnly - keep only Researcher-type nodes
+ */
+export const getDebateNetwork = (simulationId, researchersOnly = false) => {
+  return service.get(`/api/simulation/${simulationId}/debate-network`, {
+    params: { researchers_only: researchersOnly }
+  })
+}
+
+/**
  * 实时获取生成中的 Agent Profiles
  * @param {string} simulationId
  * @param {string} platform - 'reddit' | 'twitter'

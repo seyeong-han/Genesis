@@ -14,12 +14,14 @@ for (const path in localeFiles) {
   }
 }
 
-const savedLocale = localStorage.getItem('locale') || 'zh'
+// Genesis is English-only. Force English regardless of any persisted locale.
+const FORCED_LOCALE = 'en'
+try { localStorage.setItem('locale', FORCED_LOCALE) } catch (e) { /* noop */ }
 
 const i18n = createI18n({
   legacy: false,
-  locale: savedLocale,
-  fallbackLocale: 'zh',
+  locale: FORCED_LOCALE,
+  fallbackLocale: 'en',
   messages
 })
 

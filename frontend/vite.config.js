@@ -13,7 +13,10 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    host: true,
     open: true,
+    // Allow any Host header so public tunnels (cloudflared/ngrok/localtunnel) work.
+    allowedHosts: true,
     proxy: {
       '/api': {
         target: 'http://localhost:5001',

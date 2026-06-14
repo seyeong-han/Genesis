@@ -312,7 +312,12 @@ const formatDate = (dateStr) => {
   if (!dateStr) return ''
   try {
     const date = new Date(dateStr)
-    return date.toISOString().slice(0, 10)
+    // 用本地时间分量，避免 toISOString() 转成 UTC 导致日期偏移一天
+    // （与 formatTime 的本地时间保持一致）
+    const y = date.getFullYear()
+    const m = (date.getMonth() + 1).toString().padStart(2, '0')
+    const d = date.getDate().toString().padStart(2, '0')
+    return `${y}-${m}-${d}`
   } catch {
     return dateStr?.slice(0, 10) || ''
   }

@@ -785,6 +785,10 @@ const startPrepareSimulation = async () => {
   try {
     const res = await prepareSimulation({
       simulation_id: props.simulationId,
+      // Genesis is a researcher-debate engine: one agent per researcher, not per
+      // extracted entity. Restrict persona generation to Researcher-type nodes so
+      // the debate is the selected researchers (not every concept/method/paper).
+      entity_types: ['Researcher'],
       use_llm_for_profiles: true,
       parallel_profile_count: 5
     })

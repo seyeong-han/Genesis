@@ -68,3 +68,31 @@ export function getProject(projectId) {
     method: 'get'
   })
 }
+
+/**
+ * Search OpenAlex for papers (works) or researchers (authors) via backend proxy.
+ * @param {String} type - 'works' | 'authors'
+ * @param {String} q - search query
+ * @returns {Promise}
+ */
+export function searchOpenAlex(type, q) {
+  return service({
+    url: '/api/graph/openalex/search',
+    method: 'get',
+    params: { type, q }
+  })
+}
+
+/**
+ * Fetch top-cited works for a given OpenAlex author id.
+ * @param {String} authorId
+ * @param {Number} perPage
+ * @returns {Promise}
+ */
+export function getAuthorWorks(authorId, perPage = 3) {
+  return service({
+    url: '/api/graph/openalex/author_works',
+    method: 'get',
+    params: { author_id: authorId, per_page: perPage }
+  })
+}

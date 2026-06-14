@@ -3,7 +3,7 @@
     <!-- Header -->
     <header class="app-header">
       <div class="header-left">
-        <div class="brand" @click="router.push('/')">MIROFISH</div>
+        <div class="brand" @click="router.push('/')">GENESIS</div>
       </div>
       
       <div class="header-center">
@@ -21,7 +21,9 @@
       </div>
 
       <div class="header-right">
-        <LanguageSwitcher />
+        <div class="workflow-step">
+          <span class="step-name brand-tag">Researcher-Debate Engine</span>
+        </div>
         <div class="step-divider"></div>
         <div class="workflow-step">
           <span class="step-num">Step {{ currentStep }}/5</span>
@@ -85,7 +87,6 @@ import Step1GraphBuild from '../components/Step1GraphBuild.vue'
 import Step2EnvSetup from '../components/Step2EnvSetup.vue'
 import { generateOntology, getProject, buildGraph, getTaskStatus, getGraphData } from '../api/graph'
 import { getPendingUpload, clearPendingUpload } from '../store/pendingUpload'
-import LanguageSwitcher from '../components/LanguageSwitcher.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -503,6 +504,13 @@ onUnmounted(() => {
 .step-name {
   font-weight: 700;
   color: #000;
+}
+
+.brand-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 12px;
+  color: #666;
 }
 
 .step-divider {

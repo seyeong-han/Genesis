@@ -2,10 +2,10 @@
   <div class="home-container">
     <!-- 顶部导航栏 -->
     <nav class="navbar">
-      <div class="nav-brand">MIROFISH</div>
+      <div class="nav-brand">GENESIS</div>
       <div class="nav-links">
-        <LanguageSwitcher />
-        <a href="https://github.com/666ghj/MiroFish" target="_blank" class="github-link">
+        <span class="nav-tagline">{{ $t('home.tagline') }}</span>
+        <a href="https://github.com/seyeong-han/Genesis" target="_blank" class="github-link">
           {{ $t('nav.visitGithub') }} <span class="arrow">↗</span>
         </a>
       </div>
@@ -44,7 +44,7 @@
         <div class="hero-right">
           <!-- Logo 区域 -->
           <div class="logo-container">
-            <img src="../assets/logo/MiroFish_logo_left.jpeg" alt="MiroFish Logo" class="hero-logo" />
+            <img src="../assets/logo/genesis_logo.png" alt="Genesis" class="hero-logo" />
           </div>
           
           <button class="scroll-down-btn" @click="scrollToBottom">
@@ -126,14 +126,44 @@
         <!-- 右栏：交互控制台 -->
         <div class="right-panel">
           <div class="console-box">
-            <!-- 上传区域 -->
+            <!-- One-click example -->
+            <div class="example-banner">
+              <div class="example-text">
+                <span class="example-tag">EXAMPLE</span>
+                <span class="example-desc">Engineering CRISPR-Cas — biology × transformers × cosmology × philosophy</span>
+              </div>
+              <button
+                class="example-btn"
+                @click="loadExample"
+                :disabled="loadingExample || loading"
+              >
+                {{ loadingExample ? 'Loading…' : 'Try this →' }}
+              </button>
+            </div>
+
+            <!-- Seed source -->
             <div class="console-section">
               <div class="console-header">
                 <span class="console-label">{{ $t('home.realitySeed') }}</span>
                 <span class="console-meta">{{ $t('home.supportedFormats') }}</span>
               </div>
-              
-              <div 
+
+              <!-- Seed mode tabs -->
+              <div class="seed-tabs">
+                <button
+                  v-for="m in ['upload', 'paper', 'author']"
+                  :key="m"
+                  class="seed-tab"
+                  :class="{ active: seedMode === m }"
+                  @click="seedMode = m"
+                >
+                  {{ { upload: $t('home.seedModeUpload'), paper: $t('home.seedModePaper'), author: $t('home.seedModeAuthor') }[m] }}
+                </button>
+              </div>
+
+              <!-- Upload mode -->
+              <div
+                v-if="seedMode === 'upload'"
                 class="upload-zone"
                 :class="{ 'drag-over': isDragOver, 'has-files': files.length > 0 }"
                 @dragover.prevent="handleDragOver"
@@ -150,18 +180,81 @@
                   style="display: none"
                   :disabled="loading"
                 />
-                
+
                 <div v-if="files.length === 0" class="upload-placeholder">
                   <div class="upload-icon">↑</div>
                   <div class="upload-title">{{ $t('home.dragToUpload') }}</div>
                   <div class="upload-hint">{{ $t('home.orBrowse') }}</div>
                 </div>
-                
+
                 <div v-else class="file-list">
                   <div v-for="(file, index) in files" :key="index" class="file-item">
                     <span class="file-icon">📄</span>
                     <span class="file-name">{{ file.name }}</span>
                     <button @click.stop="removeFile(index)" class="remove-btn">×</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- OpenAlex search mode (paper / author) -->
+              <div v-else class="search-zone">
+                <div class="search-bar">
+                  <input
+                    v-model="searchQuery"
+                    class="search-input"
+                    :placeholder="seedMode === 'paper' ? $t('home.searchPapersPlaceholder') : $t('home.searchAuthorsPlaceholder')"
+                    @keyup.enter="runSearch"
+                    :disabled="searching"
+                  />
+                  <button class="search-btn" @click="runSearch" :disabled="searching || !searchQuery.trim()">
+                    {{ searching ? $t('home.searching') : $t('home.searchBtn') }}
+                  </button>
+                </div>
+
+                <div class="search-results">
+                  <div v-if="searchError" class="search-empty">{{ searchError }}</div>
+                  <div v-else-if="!searching && searchResults.length === 0 && hasSearched" class="search-empty">
+                    {{ $t('home.noResults') }}
+                  </div>
+
+                  <!-- Paper results -->
+                  <template v-if="seedMode === 'paper'">
+                    <div v-for="r in searchResults" :key="r.id" class="result-item">
+                      <div class="result-main">
+                        <div class="result-title">{{ r.title }}</div>
+                        <div class="result-meta">
+                          {{ r.lead_author }} · {{ r.year || '—' }} · {{ $t('home.citedBy', { count: r.cited_by_count }) }}
+                        </div>
+                      </div>
+                      <button class="add-btn" :disabled="isSeedAdded(r.id)" @click="addPaperSeed(r)">
+                        {{ isSeedAdded(r.id) ? $t('home.added') : $t('home.addSeed') }}
+                      </button>
+                    </div>
+                  </template>
+
+                  <!-- Author results -->
+                  <template v-else>
+                    <div v-for="r in searchResults" :key="r.id" class="result-item">
+                      <div class="result-main">
+                        <div class="result-title">{{ r.name }}</div>
+                        <div class="result-meta">
+                          {{ r.institution || '—' }} · {{ $t('home.worksCount', { count: r.works_count }) }} · {{ $t('home.citedBy', { count: r.cited_by_count }) }}
+                        </div>
+                      </div>
+                      <button class="add-btn" :disabled="isSeedAdded(r.id) || addingAuthor === r.id" @click="addAuthorSeed(r)">
+                        {{ isSeedAdded(r.id) ? $t('home.added') : (addingAuthor === r.id ? $t('home.searching') : $t('home.viewWorks')) }}
+                      </button>
+                    </div>
+                  </template>
+                </div>
+
+                <!-- Selected seeds -->
+                <div v-if="seeds.length > 0" class="selected-seeds">
+                  <div class="selected-label">{{ $t('home.selectedSeeds') }} ({{ seeds.length }})</div>
+                  <div v-for="(s, i) in seeds" :key="s.id" class="file-item seed-item">
+                    <span class="file-icon">{{ s.kind === 'author' ? '🧠' : '📄' }}</span>
+                    <span class="file-name">{{ s.label }}</span>
+                    <button @click.stop="removeSeed(i)" class="remove-btn">×</button>
                   </div>
                 </div>
               </div>
@@ -215,7 +308,7 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import HistoryDatabase from '../components/HistoryDatabase.vue'
-import LanguageSwitcher from '../components/LanguageSwitcher.vue'
+import { searchOpenAlex, getAuthorWorks } from '../api/graph'
 
 const router = useRouter()
 
@@ -235,10 +328,134 @@ const isDragOver = ref(false)
 // 文件输入引用
 const fileInput = ref(null)
 
+// --- Seed source mode: upload | paper | author ---
+const seedMode = ref('upload')
+
+// OpenAlex search state
+const searchQuery = ref('')
+const searching = ref(false)
+const searchResults = ref([])
+const searchError = ref('')
+const hasSearched = ref(false)
+const addingAuthor = ref(null)
+
+// Selected OpenAlex seeds: { id, kind, label, text }
+const seeds = ref([])
+
+// --- One-click demo example: CRISPR-Cas engineering across 4 disciplines ---
+const loadingExample = ref(false)
+const EXAMPLE = {
+  question:
+    'What is the most promising strategy for engineering CRISPR-Cas systems with ' +
+    'higher precision and programmability? Have a CRISPR biologist, a transformer / ' +
+    'sequence-modeling researcher, a cosmologist focused on entropy and the origin of ' +
+    'order, and a philosopher of science debate whether better Cas engineering will come ' +
+    'primarily from AI-driven sequence design, from thermodynamic and physical ' +
+    'constraints, from biological mechanism, or from rethinking what "precision" even ' +
+    'means — and converge on one novel, testable hypothesis.',
+  // Hardcoded OpenAlex author ids to avoid name-collision at demo time.
+  authors: [
+    { id: 'A5067184382', name: 'Jennifer A. Doudna', institution: 'UC Berkeley (QB3)', cited_by_count: 118812, works_count: 667 },
+    { id: 'A5103024730', name: 'Ashish Vaswani', institution: 'Google', cited_by_count: 12446, works_count: 63 },
+    { id: 'A5014894861', name: 'Roger Penrose', institution: 'University of Oxford', cited_by_count: 53918, works_count: 430 },
+    { id: 'A5026171189', name: 'Nancy Cartwright', institution: 'Durham University', cited_by_count: 19679, works_count: 296 },
+  ],
+}
+
+const loadExample = async () => {
+  if (loadingExample.value || loading.value) return
+  loadingExample.value = true
+  searchError.value = ''
+  try {
+    formData.value.simulationRequirement = EXAMPLE.question
+    seedMode.value = 'author'
+    for (const a of EXAMPLE.authors) {
+      if (isSeedAdded(a.id)) continue
+      try {
+        const res = await getAuthorWorks(a.id, 3)
+        const works = res.results || []
+        let text =
+          `RESEARCHER SEED\nName: ${a.name}\nInstitution: ${a.institution || 'n/a'}\n` +
+          `Total citations: ${a.cited_by_count}\nWorks: ${a.works_count}\nOpenAlex: ${a.id}\n\nTop works:\n`
+        works.forEach((w, i) => {
+          text += `\n[${i + 1}] ${w.title} (${w.year || 'n/a'}, cited ${w.cited_by_count})\n${w.abstract || '(no abstract)'}\n`
+        })
+        seeds.value.push({ id: a.id, kind: 'author', label: a.name, text })
+      } catch (e) {
+        // Skip a failed author but keep the rest of the example usable.
+      }
+    }
+  } finally {
+    loadingExample.value = false
+  }
+}
+
 // 计算属性:是否可以提交
 const canSubmit = computed(() => {
-  return formData.value.simulationRequirement.trim() !== '' && files.value.length > 0
+  return formData.value.simulationRequirement.trim() !== '' &&
+    (files.value.length > 0 || seeds.value.length > 0)
 })
+
+const isSeedAdded = (id) => seeds.value.some(s => s.id === id)
+
+const removeSeed = (index) => {
+  seeds.value.splice(index, 1)
+}
+
+const runSearch = async () => {
+  const q = searchQuery.value.trim()
+  if (!q || searching.value) return
+  searching.value = true
+  searchError.value = ''
+  hasSearched.value = true
+  searchResults.value = []
+  try {
+    const type = seedMode.value === 'author' ? 'authors' : 'works'
+    const res = await searchOpenAlex(type, q)
+    searchResults.value = res.results || []
+  } catch (e) {
+    searchError.value = (e && e.message) ? e.message : 'Search failed'
+  } finally {
+    searching.value = false
+  }
+}
+
+const addPaperSeed = (r) => {
+  if (isSeedAdded(r.id)) return
+  const text =
+    `PAPER SEED\nTitle: ${r.title}\nAuthor: ${r.lead_author}\n` +
+    `Year: ${r.year || 'n/a'}\nCitations: ${r.cited_by_count}\n` +
+    `DOI: ${r.doi || 'n/a'}\nOpenAlex: ${r.id}\n\nAbstract:\n${r.abstract || '(no abstract available)'}\n`
+  seeds.value.push({ id: r.id, kind: 'paper', label: r.title, text })
+}
+
+const addAuthorSeed = async (r) => {
+  if (isSeedAdded(r.id) || addingAuthor.value) return
+  addingAuthor.value = r.id
+  try {
+    const res = await getAuthorWorks(r.id, 3)
+    const works = res.results || []
+    let text =
+      `RESEARCHER SEED\nName: ${r.name}\nInstitution: ${r.institution || 'n/a'}\n` +
+      `Total citations: ${r.cited_by_count}\nWorks: ${r.works_count}\nOpenAlex: ${r.id}\n\nTop works:\n`
+    works.forEach((w, i) => {
+      text += `\n[${i + 1}] ${w.title} (${w.year || 'n/a'}, cited ${w.cited_by_count})\n${w.abstract || '(no abstract)'}\n`
+    })
+    seeds.value.push({ id: r.id, kind: 'author', label: r.name, text })
+  } catch (e) {
+    searchError.value = (e && e.message) ? e.message : 'Failed to load works'
+  } finally {
+    addingAuthor.value = null
+  }
+}
+
+// Convert selected OpenAlex seeds into in-memory .txt File objects
+const seedsToFiles = () => {
+  return seeds.value.map((s) => {
+    const safe = (s.label || 'seed').replace(/[^\w\- ]+/g, '').slice(0, 50).trim() || 'seed'
+    return new File([s.text], `${s.kind}_${safe}.txt`, { type: 'text/plain' })
+  })
+}
 
 // 触发文件选择
 const triggerFileInput = () => {
@@ -298,9 +515,12 @@ const scrollToBottom = () => {
 const startSimulation = () => {
   if (!canSubmit.value || loading.value) return
   
+  // Combine uploaded files with OpenAlex seed documents
+  const combinedFiles = [...files.value, ...seedsToFiles()]
+
   // 存储待上传的数据
   import('../store/pendingUpload.js').then(({ setPendingUpload }) => {
-    setPendingUpload(files.value, formData.value.simulationRequirement)
+    setPendingUpload(combinedFiles, formData.value.simulationRequirement)
     
     // 立即跳转到Process页面（使用特殊标识表示新建项目）
     router.push({
@@ -503,7 +723,7 @@ const startSimulation = () => {
 }
 
 .hero-right {
-  flex: 0.8;
+  flex: 1.1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -514,11 +734,11 @@ const startSimulation = () => {
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  padding-right: 40px;
+  padding-right: 16px;
 }
 
 .hero-logo {
-  max-width: 500px; /* 调整logo大小 */
+  max-width: 720px; /* 调整logo大小 */
   width: 100%;
 }
 
@@ -677,6 +897,70 @@ const startSimulation = () => {
   padding: 8px; /* 内边距形成双重边框感 */
 }
 
+/* One-click example banner */
+.example-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 12px 12px 0;
+  padding: 14px 16px;
+  background: #FFF1EA;
+  border: 1px solid #FF4500;
+}
+
+.example-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.example-tag {
+  flex-shrink: 0;
+  background: #FF4500;
+  color: #FFFFFF;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 4px 9px;
+}
+
+.example-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  line-height: 1.4;
+}
+
+.example-btn {
+  flex-shrink: 0;
+  border: 1px solid #FF4500;
+  background: #FF4500;
+  color: #FFFFFF;
+  padding: 10px 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.example-btn:hover:not(:disabled) {
+  background: #1A1A1A;
+  border-color: #1A1A1A;
+}
+
+.example-btn:disabled {
+  background: #E5E5E5;
+  border-color: #E5E5E5;
+  color: #999;
+  cursor: not-allowed;
+}
+
 .console-section {
   padding: 20px;
 }
@@ -692,6 +976,181 @@ const startSimulation = () => {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: #666;
+}
+
+/* Seed mode tabs */
+.seed-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  background: #F5F5F5;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.seed-tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #777;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.seed-tab.active {
+  background: #FFF;
+  color: #000;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* OpenAlex search */
+.search-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 8px;
+}
+
+.search-input {
+  flex: 1;
+  border: 1px solid #DDD;
+  background: #FAFAFA;
+  padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--orange);
+}
+
+.search-btn {
+  border: 1px solid var(--black);
+  background: var(--black);
+  color: #FFF;
+  padding: 0 18px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.search-btn:hover:not(:disabled) {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+.search-btn:disabled {
+  background: #E5E5E5;
+  border-color: #E5E5E5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.search-results {
+  max-height: 240px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-empty {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #999;
+  padding: 16px 0;
+  text-align: center;
+}
+
+.result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid #EEE;
+  padding: 10px 12px;
+  background: #FFF;
+}
+
+.result-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.result-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--black);
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.result-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #999;
+}
+
+.add-btn {
+  flex-shrink: 0;
+  border: 1px solid var(--black);
+  background: transparent;
+  color: var(--black);
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-btn:hover:not(:disabled) {
+  background: var(--black);
+  color: #FFF;
+}
+
+.add-btn:disabled {
+  border-color: #DDD;
+  color: #BBB;
+  cursor: default;
+}
+
+.selected-seeds {
+  border-top: 1px solid #EEE;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.selected-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--orange);
+  letter-spacing: 0.5px;
+}
+
+.seed-item {
+  border-color: #EEE;
+}
+
+.nav-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #BBB;
+  letter-spacing: 0.5px;
 }
 
 .upload-zone {
